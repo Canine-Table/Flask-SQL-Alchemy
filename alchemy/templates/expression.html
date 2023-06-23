@@ -1,0 +1,15 @@
+{% extends '_base.html' %}
+{% block title %}Expressions{% endblock %}
+{% block content %}
+    <div class="container-xl">
+        <h1></b>Expressions Page</b></h1><br>
+        <h5><b>Compile String:</b> {{ user_expr_compile_string }}</h5><br>
+        <h5><b>Compile Params:</b> {{ user_expr_compile_params }}</h5><br>
+        <h5><b>Compile Right:</b> {{ right_p }}</h5><br>
+        <h5><b>Left Params:</b> {{ left_p }}</h5><br>
+        <h5><b>SELECT:</b> {{ select_stmt }}</h5><br>
+        <h5><b>Fetch:</b> {{ fetch_all_users_list }}</h5><br>
+        <h5><b>SELECT:</b> {{ fetch_users }}</h5><br>
+
+    </div>
+{% endblock %}
