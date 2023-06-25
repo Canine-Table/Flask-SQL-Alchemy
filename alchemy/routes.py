@@ -1,104 +1,62 @@
-from flask import render_template, request
-from alchemy.models import metadata, account_table
-from sqlalchemy import text, inspect, select, func
-from alchemy import app,db
-import pymysql
-import os
+from flask import render_template, request, url_for, flash, get_flashed_messages
+from alchemy.forms import RegistrationForm,LoginForm
+from alchemy import app,db,engine,inspector,bcrypt
+from alchemy.models import Account,Phone,Email,Name,MyBase
+from sqlalchemy import text, select
+from sqlalchemy.orm import Session, sessionmaker,scoped_session
+import sqlalchemy
+import transaction
+import re
 
-engine = db.db_uri
-inspector = inspect(engine)
-
+Session = scoped_session(sessionmaker(bind=engine))
+global_engine = engine
 
 @app.route('/', methods=['GET',"POST"])
 @app.route('/home', methods=['GET',"POST"])
 def home_page():
-    return render_template('home.html')
-
-
-@app.route('/about')
-def info_page():
-    with engine.connect() as conn:
-        metadata.reflect(conn)
-    return render_template('info.html',
-    dialect=engine.dialect,
-    pool=engine.pool,
-    wkdir=os.path.dirname(__file__),
-    conn=engine.connect(),
-    fairy=engine.connect().connection,
-    proxy=engine.connect().connection.connection,
-    table_names=inspector.get_table_names(),
-    staff_columns=inspector.get_columns('staff'),
-    reflex=metadata.tables['users'].c,
-)
-
-
-@app.route('/sandbox')
-def sandbox_page():
-    with engine.connect() as conn:
-        result = conn.execute(text("SELECT * FROM users;"))
-
-    return render_template('sandbox.html',
-        result_one=result.fetchall(),
+    return render_template('home.html',
+        version=sqlalchemy.__version__
     )
 
+@app.route('/register', methods=[ 'GET','POST'])
+def register_page():
+    form = RegistrationForm()
+    if request.method == "POST":
+        with Session() as session:
+            with transaction.manager:
+                try:
+                    account_to_create = Account(username=form.username.data,password=form.password.data)
+                    phone_to_create = Phone(phone_number=form.phone_number.data,user_account=account_to_create)
+                    email_to_create = Email(email_address=form.email_address.data,user_account=account_to_create)
+                    name_to_create = Name(first_name=form.first_name.data,last_name=form.last_name.data,user_account=account_to_create)
+                    session.add_all([account_to_create,phone_to_create,email_to_create,name_to_create])
+                except Exception as e:
 
-@app.route('/metadata')
-def metadata_page():
-    with engine.begin() as conn:
-        pymysql.install_as_MySQLdb()
-        metadata.create_all(conn)
+                    e = str(e)
+                    duplicate_username_iter = len([i for i in re.compile(r"code = AlreadyExists desc = Duplicate entry \\'.*\\' for key \\'account_list.username\\'").finditer(e)])
+                    duplicate_phone_iter = len([i for i in re.compile(r"code = AlreadyExists desc = Duplicate entry \\'.*\\' for key \\'phone_list.phone_number\\'").finditer(e)])
+                    duplicate_email_iter = len([i for i in re.compile(r"code = AlreadyExists desc = Duplicate entry \\'.*\\' for key \\'email_list.email_address\\'").finditer(e)])
+                    if duplicate_username_iter+duplicate_email_iter+duplicate_phone_iter > 0:
+                        if duplicate_username_iter > 0:
+                            flash(f"The username {form.username.data} already taken.", category='warning')
+                        if duplicate_phone_iter > 0:
+                            flash(f"The phone number {form.phone_number.data} is already taken.", category='warning')
+                        if duplicate_email_iter > 0:
+                            flash(f"The email address {form.email_address.data} is already taken.", category='warning')
+                    else:
+                        flash(f"exception caught! {e}", category='danger')
 
-    return render_template('metadata.html',
-        users_columns=metadata.tables['users_list'].c,
-        get_users=metadata.tables['users_list'].params,
-        emails_columns=metadata.tables['emails_list'].c,
-        get_emails=metadata.tables['emails_list'].params,
+                    with global_engine.connect() as engine:
+                        for subclass in MyBase.__subclasses__():
+                            subclass._update_state(session,engine)
+
+    return render_template('register.html',
+        form=form
     )
 
-
-@app.route('/expression')
-def expression_page():
-    with engine.connect() as conn:
-        metadata.reflect(conn)
-    with engine.begin() as conn:
-        try:
-            conn.execute(metadata.tables['users_list'].insert().values(name='kareyweiss'))
-        except Exception  as e:
-            pass
-    with engine.begin() as conn:
-        try:
-            conn.execute(metadata.tables['users_list'].insert(),[
-                {"name":"sudiehayes"},
-                {"name":"hoseamckenzie"},
-                {"name":"eugenekrabs"}
-            ])
-        except Exception  as e:
-            pass
-        with engine.begin() as conn:
-            select_stmt = select(metadata.tables['users_list']).where(metadata.tables['users_list'].c.name == 'sheldonplankton')
-            fetch_all_users_list = conn.execute(select_stmt).fetchall()
-
-    expr=metadata.tables['users'].c.username == 'sheldonplankton'
-    return render_template('expression.html',
-    user_expr_compile_params=(metadata.tables['users'].c.username == 'sheldonplankton').compile().params,
-    user_expr_compile_string=(metadata.tables['users'].c.username == 'sheldonplankton').compile().string,
-    left_p=expr.left.params,
-    right_p=expr.compile().__dict__,
-    fetch_all_users_list=fetch_all_users_list,
-    select_stmt=select_stmt,
+@app.route('/login', methods=[ 'GET','POST'])
+def login_page():
+    form=LoginForm()
+    return render_template('login.html',
+        form=form
     )
-
-
-@app.route('/accounts')
-def account_page():
-    with engine.connect() as conn:
-        accounts = conn.execute(select(metadata.tables['account_list'])).fetchall()
-        row_count = conn.execute(select(func.count()).select_from(metadata.tables['account_list'])).scalar()
-
-    return render_template('accounts.html',
-        accounts=accounts,
-        row_count=row_count)
-
-@app.route('/joins')
-def join_page():
-    return render_template('joins.html')

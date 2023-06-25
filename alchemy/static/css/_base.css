@@ -1,11 +1,46 @@
+:root {
+    --bk1:  #212121;
+    --bk2: #161617;
+    --bk3: #343A40;
+    --wt1: #FAFAFA;
+    --wt2:  #E9ECEF;
+    --nb: #1F51FF;
+}
+
 body {
-    background-color: #212121;
+    background-color: var(--bk1);
 }
 
 #content {
-    color: #EEEEEE;
+    color: var(--wt1);
 }
 
-.bgc {
-    background-color: #212121;
+.fgc {
+    background-color: var(--bk2);
+}
+
+bgc {
+    background-color: var(--bk1);
+}
+
+.jbtron {
+    background-color: var(--bk3);
+    color: var(--wt2);
+}
+
+.inptbx {
+    background-color: var(--wt1);
+    color: var(--bk2);
+}
+
+.dropdown-item:not(:active) {
+    background-color: var(--bk3);
+}
+
+.dropdown-item:hover {
+    background-color: var(--bk2);
+}
+
+.dropdown-item:active {
+    background-color: var(--nb);
 }

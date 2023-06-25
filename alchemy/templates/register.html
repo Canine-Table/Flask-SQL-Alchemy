@@ -1,0 +1,49 @@
+{% extends '_base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+    <div class="container jumbotron p-2 text-center jbtron">
+        <h1>Create your Account</h1>
+        {% include "_errors.html" %}
+    </div>
+    <div class="container jumbotron p-2 jbtron">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span>{{ form.username.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                </div>
+                {{ form.username( class="inptbx form-control", placeholder="ex. johndoe0123", id="inputGroupPrepend2") }}<br><br>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span>{{ form.first_name.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                </div>
+                {{ form.first_name( class="inptbx form-control", placeholder="first name", id="inputGroupPrepend2") }}<br><br>
+                {{ form.last_name( class="inptbx form-control", placeholder="last name", id="inputGroupPrepend2") }}<br><br>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span>{{ form.email_address.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                </div>
+                {{ form.email_address( class="inptbx form-control", placeholder="ex. example@example.com", id="inputGroupPrepend2") }}<br><br>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span>{{ form.phone_number.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                </div>
+                {{ form.phone_number( class="inptbx form-control", placeholder="ex. 123-456-7890", id="inputGroupPrepend2") }}<br><br>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span>{{ form.password.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                </div>
+                {{ form.password( class="inptbx form-control", placeholder="password", id="inputGroupPrepend2") }}<br><br>
+                {{ form.verify_password( class="inptbx form-control", placeholder="confirm password", id="inputGroupPrepend2") }}<br><br>
+            </div>
+            {{ form.submit(class="btn btn-primary btn-block") }}
+        </form>
+        <br><div class="container jumbotron fgc p-3 checkbox mb-3">
+            <h6>Already have an account? <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Login</a></h6>
+        </div>
+    </div>
+{% endblock %}

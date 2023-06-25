@@ -1,9 +1,13 @@
-from sqlalchemy import create_engine
-import mysql.connector
+from sqlalchemy import create_engine, inspect
+from flask_bcrypt import Bcrypt
 from flask import Flask
 import os
 
+
 app = Flask(__name__)
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['SECRET_KEY'] = os.urandom(12).hex()
+bcrypt = Bcrypt(app)
 
 class Database:
     db_host = os.environ['DB_HOST']
@@ -11,9 +15,18 @@ class Database:
     db_name = os.environ['DB_NAME']
     db_user = os.environ['DB_USER']
     db_password = os.environ['DB_PASSWORD']
-    db_uri = create_engine('mysql+mysqlconnector://{}:{}@{}:{}/{}'.format(db_user,db_password,db_host,db_port,db_name),connect_args={"ssl": {"ssl_ca": "/etc/ssl/cert.pem"}})
 
+    @classmethod
+    def create(cls):
+        return create_engine(
+            'mysql+pymysql://{}:{}@{}:{}/{}'.format(cls.db_user,cls.db_password,cls.db_host,cls.db_port,cls.db_name),
+            echo=True,
+            connect_args={"ssl": {
+                "ssl_ca": "/etc/ssl/cert.pem",
+                "init_command": "SET foreign_key_checks=0"}})
 
 db = Database()
+engine = Database.create()
+inspector = inspect(engine)
 
 from alchemy import routes

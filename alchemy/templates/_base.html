@@ -10,32 +10,20 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{ url_for('home_page') }}">Flask Home</a>
+            <a class="navbar-brand" href="{{ url_for('home_page') }}">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Free<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('info_page') }}">Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('sandbox_page') }}">Sandbox</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('metadata_page') }}">Metadata</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('expression_page') }}">Expressions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('account_page') }}">Accounts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('join_page') }}">Joins</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-white" href="{{ url_for('login_page') }}">Login<span class="sr-only">(current)</span></a>
+                            <a class="dropdown-item text-white" href="{{ url_for('register_page') }}">Register<span class="sr-only">(current)</span></a>
+                        <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-white" href="#">Something else here</a>
+                        </div>
                     </li>
                 </ul>
             </div>
