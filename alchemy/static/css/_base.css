@@ -1,10 +1,17 @@
 :root {
+    --bk: #000000;
     --bk1:  #212121;
     --bk2: #161617;
     --bk3: #343A40;
+    --bk4: #212529;
     --wt1: #FAFAFA;
     --wt2:  #E9ECEF;
+    --wt3: #E9EBEC;
     --nb: #1F51FF;
+    --bu1: #0b498b;
+    --db: #1E90FF;
+    --y1: #FFC107;
+    --y2: #FFE083;
 }
 
 body {
@@ -43,4 +50,35 @@ bgc {
 
 .dropdown-item:active {
     background-color: var(--nb);
+}
+
+span .dropdown-toggle:hover {
+    background-color: var(--y1);
+    border-color: var(--y2);
+    color: var(--bk);
+
+}
+
+.dropdown-toggle:focus {
+    background-color: var(--bk3);
+    color: var(--wt3);
+}
+
+.btn-outline-dark:not(:focus) {
+    background-color: var(--bk3);
+    color: var(--wt1);
+    border-color: var(--wt1);
+}
+
+.btn-outline-dark:focus {
+    background-color: var(--bk3);
+    border-color: var(--y1);
+    color: var(--y1);
+}
+
+span .dropdown-menu {
+    background-color: var(--bk1);
+    color: var(--wt1);
+    border: 3px solid var(--wt1);
+    border-radius: 25px;
 }

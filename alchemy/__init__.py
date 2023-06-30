@@ -3,7 +3,6 @@ from flask_bcrypt import Bcrypt
 from flask import Flask
 import os
 
-
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['SECRET_KEY'] = os.urandom(12).hex()

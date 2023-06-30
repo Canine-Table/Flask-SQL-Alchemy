@@ -1,7 +1,7 @@
-from sqlalchemy.orm import relationship,Mapped,declarative_base
 from sqlalchemy import Column,Integer,String,DateTime,func,Index,UniqueConstraint,text
+from sqlalchemy.orm import relationship,Mapped,declarative_base
 from alchemy import engine,bcrypt
-from typing import Optional
+from sqlalchemy import select
 
 Base = declarative_base()
 class MyBase(Base):
@@ -38,6 +38,13 @@ class Account(MyBase):
     def check_password_correction(self,attempted_password):
         return bcrypt.check_password_hash(self.password_hash,attempted_password)
 
+    @classmethod
+    def unique_username(cls,session,form):
+        return bool(session.execute(select(cls.username).where(cls.username == form.username.data)).scalar() != None)
+
+    def password_match(form):
+        return bool(form.password.data != form.verify_password.data)
+
     def __repr__(self) -> str:
         return f"User(id={self.id}, username={self.username}, password={self.password}, creation_date={self.creation_date})"
 
@@ -63,6 +70,10 @@ class Email(MyBase):
 
     __table_args__ = (UniqueConstraint(email_address),)
 
+    @classmethod
+    def unique_email(cls,session,form):
+        return bool(session.execute(select(Email.email_address).where(Email.email_address == form.email_address.data)).scalar() != None)
+
     def __repr__(self) -> str:
         return f"Email(id={self.id}, email_address={self.email_address})"
 
@@ -75,6 +86,9 @@ class Phone(MyBase):
 
     __table_args__ = (UniqueConstraint(phone_number),)
 
+    @classmethod
+    def unique_phone(cls,session,form):
+        return bool(session.execute(select(Phone.phone_number).where(Phone.phone_number == form.phone_number.data)).scalar() != None)
 
     def __repr__(self) -> str:
         return f"Phone(id={self.id}, phone_number={self.phone_number})"

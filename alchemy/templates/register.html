@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container jumbotron p-2 text-center jbtron">
         <h1>Create your Account</h1>
-        {% include "_errors.html" %}
+        {{ errors() }}
     </div>
     <div class="container jumbotron p-2 jbtron">
         <form method="POST">
