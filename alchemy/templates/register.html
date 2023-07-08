@@ -5,7 +5,7 @@
         <h1>Create your Account</h1>
         {{ errors() }}
     </div>
-    <div class="container jumbotron p-2 jbtron">
+    <div class="container jumbotron p-2 jbtron pt-3">
         <form method="POST">
             {{ form.hidden_tag() }}
             <div class="input-group">
@@ -42,8 +42,8 @@
             </div>
             {{ form.submit(class="btn btn-primary btn-block") }}
         </form>
-        <br><div class="container jumbotron fgc p-3 checkbox mb-3">
-            <h6>Already have an account? <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Login</a></h6>
+        <br><div class="container jumbotron fgc p-3 checkbox pt-4">
+            <h6>Already have an account? <a class="btn btn-sm btn-secondary p-0 px-2 mx-2" href="{{ url_for('login_page') }}">Login</a></h6>
         </div>
     </div>
 {% endblock %}

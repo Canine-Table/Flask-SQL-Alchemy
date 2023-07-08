@@ -12,3 +12,110 @@
     {% endif %}
 {% endwith %}
 {% endmacro %}
+
+{% macro modal(button_text,button_classes,modal_id,modal_header,modal_title,header,header_classes,modal_body,body_classes,body,modal_footer,footer_classes,footer,content_classes) %}
+
+    {% if button_text is not defined %}
+        {% set button_text = 'Button' %}
+    {% endif %}
+
+    {% if button_classes is not defined %}
+        {% set button_classes = '' %}
+    {% endif %}
+
+
+    {% if modal_id is not defined %}
+        {% set modal_id = 'modal_id' %}
+    {% endif %}
+
+
+    {% if content_classes is not defined %}
+        {% set content_classes = '' %}
+    {% endif %}
+
+
+    {% if modal_header is defined %}
+
+        {% if modal_title is not defined %}
+            {% set modal_title = 'Modal Title' %}
+        {% endif %}
+
+        {% if header is defined %}
+            {% set header = header|safe %}
+        {% else %}
+            {% set header = '' %}
+        {% endif %}
+
+        {% if header_classes is not defined %}
+            {% set header_classes = '' %}
+        {% endif %}
+
+    {% else %}
+        {% set modal_header = False %}
+    {% endif %}
+
+
+    {% if modal_body is defined %}
+
+        {% if body_classes is not defined %}
+            {% set body_classes = '' %}
+        {% endif %}
+
+        {% if body is defined %}
+            {% set body = body|safe %}
+        {% else %}
+            {% set body = '' %}
+        {% endif %}
+
+    {% else %}
+        {% set modal_body = False %}
+    {% endif %}
+
+
+    {% if modal_footer is defined %}
+
+        {% if footer_classes is not defined %}
+            {% set footer_classes = '' %}
+        {% endif %}
+
+        {% if footer is defined %}
+            {% set footer = footer|safe %}
+        {% else %}
+            {% set footer = '' %}
+        {% endif %}
+
+    {% else %}
+        {% set modal_footer = False %}
+    {% endif %}
+
+<button type="button" class="btn btn-primary {{ button_classes }}" data-toggle="modal" data-target="#Modal-{{ modal_id }}">{{ button_text }}</button>
+
+<div class="modal fade" id="Modal-{{ modal_id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel-{{ modal_id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content {{ content_classes }}">
+            {% if modal_header %}
+                <div class="modal-header {{ header_classes }}">
+                    <h5 class="modal-title" id="ModalLabel-{{ modal_id }}">{{ modal_title }}</h5>
+                    {{ header }}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+            {% if modal_body %}
+                <div class="modal-body {{ body_classes }}">
+                    {{ body }}
+                </div>
+            {% endif %}
+            {% if modal_footer %}
+                <div class="modal-footer {{ footer_classes }}">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{ footer }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endmacro %}
+

@@ -1,8 +1,109 @@
 {% extends '_base.html' %}
 {% block title %}Market{% endblock %}
 {% block content %}
-    <div class="container-xl">
-        <div class="jumbotron p-2 jbtron">
+<div class="container-lg jumbotron p-2 text-center jbtron">
+    <h1>Market</h1>
+    {{ errors() }}
+</div>
+<div class="container-lg jumbotron p-0 bgc">
+    <div class="row bgc">
+        <div class="col-8 bgc">
+            {###############################################}
+
+
+
+
+            <div class="jumbotron p-2 jbtron">
+                <h2>Available Items on the Market</h2>
+                <p>Click on one of the items to start buying</p>
+                <table class="table table-hover table-bordered table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <td>{{ item.name }}</td>
+                                <td>${{ item.price }}</td>
+                                <td>
+                                    <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#InfoModal-{{ item.id }}">More Info</button>
+                                    <div class="modal fade" id="InfoModal-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content bg-dark border">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="InfoLabel-{{ item.id }}">{{ item.name }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p><b>Item ID:</b> {{ item.id }}</p>
+                                                    <p><b>Price:</b> ${{ item.price }}</p>
+                                                    <p><b>Barcode:</b> {{ item.barcode }}</p>
+                                                    <p><b>Description:</b> {{ item.description }}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#ConfirmModal-{{ item.id }}">Purchase</button>
+                                    <div class="modal fade" id="ConfirmModal-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content bg-dark border">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="ConfirmLabel-{{ item.id }}">{{ item.name }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+            {###############################################}
+        </div>
+        <div class="col-4 bgc">
+            {###############################################}
+
+
+
+
+
+
+            <div class="jumbotron p-2 jbtron">
+                <h1>Market</h1>
+            </div>
+
+
+
+
+
+
+            {###############################################}
         </div>
     </div>
+</div>
+
 {% endblock %}

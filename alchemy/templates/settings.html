@@ -1,0 +1,160 @@
+{% from "_macros.html" import testing  %}
+{% extends '_base.html' %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+    <div class="container-xl">
+        <div class="jumbotron p-2 text-center jbtron">
+            <h1>Account Settings</h1>
+            {{ errors() }}
+        </div>
+        <div class="jumbotron p-2 jbtron">
+            <p><b>Name:</b> {{ user.name.first_name }} {{ user.name.last_name }}</p>
+            <p><b>Username:</b> {{ user.username }}</p>
+            <p><b>Phone Number:</b> {{ user.phone_number.phone_number }}</p>
+            <p><b>Email Address:</b> {{ user.email_address.email_address }}</p>
+            <p><b>Member Since:</b> {{ user.creation_date }}</p>
+            <p><b>Account Balance:</b> {{ user.balance.balance }}</p>
+            <br><div class="jumbotron fgc p-3 mb-2 pt-4">
+                <form method="POST">
+                    {{ delete_form.hidden_tag() }}
+                    <button type="button" class="btn btn-block btn-outline-danger" data-toggle="modal" data-target="#DeleteAccount">Delete {{ user.username }}</button>
+                    <div class="modal fade" id="DeleteAccount" tabindex="-1" role="dialog" aria-labelledby="DeleteAccountLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content bg-dark border">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="DeleteAccountLabel">Confirm Deletion</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete {{ user.username }}? This action can not be undone. Insert <b>{{ user.username }}</b> below to confirm the deletion of this account.
+                                </div>
+                                <div class="modal-footer">
+                                    {{ delete_form.username(placeholder='username' ) }}
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    {{ delete_form.submit(class='btn btn-danger') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form><br>
+                <form method="POST">
+                    {{ edit_form.hidden_tag() }}
+                    <button type="button" class="btn btn-block btn-outline-info" data-toggle="modal" data-target="#EditProfile">Edit Profile</button>
+                    <div class="modal fade" id="EditProfile" tabindex="-1" role="dialog" aria-labelledby="EditProfileLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content bg-dark border">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="EditProfileLabel">Edit Profile</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span>{{ edit_form.first_name.label( class="inptbx input-group-text", id="inputGroupPrepend4") }}</span>
+                                        </div>
+                                        {{ edit_form.first_name( class="inptbx form-control", placeholder="first name", id="inputGroupPrepend40") }}<br><br>
+                                        {{ edit_form.last_name( class="inptbx form-control", placeholder="last name", id="inputGroupPrepend41") }}<br><br>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span>{{ edit_form.email_address.label( class="inptbx input-group-text", id="inputGroupPrepend5") }}</span>
+                                        </div>
+                                        {{ edit_form.email_address( class="inptbx form-control", placeholder="ex. example@example.com", id="inputGroupPrepend50") }}<br><br>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span>{{ edit_form.phone_number.label( class="inptbx input-group-text", id="inputGroupPrepend6") }}</span>
+                                        </div>
+                                        {{ edit_form.phone_number( class="inptbx form-control", placeholder="ex. 123-456-7890", id="inputGroupPrepend60") }}<br><br>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" id="SaveChanges_id" data-target="#SaveChanges">Preview</button>
+                                    <div class="modal fade" id="SaveChanges" tabindex="-2" role="dialog" aria-labelledby="SaveChangesLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content bg-dark border">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="SaveChangesLabel">Save Changes</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" style="overflow-y: auto;">
+                                                    <div class="container jumbotron fgc p-3 ">
+                                                        <h5><b><i>{{ edit_form.first_name.label }}</i></b></h5>
+                                                        <p><b>Old: </b>{{ user.name.first_name }}<br><b>New: </b><span id='first_name'></span></p>
+                                                    </div>
+                                                    <div class="container jumbotron fgc p-3 ">
+                                                        <h5><b><i>{{ edit_form.last_name.label }} </i></b></h5>
+                                                        <p><b>Old: </b>{{ user.name.last_name }}<br><b>New: </b><span id='last_name'></span></p>
+                                                    </div>
+                                                    <div class="container jumbotron fgc p-3 ">
+                                                        <h5><b><i>{{ edit_form.email_address.label }} </i></b></h5>
+                                                        <p><b>Old: </b>{{ user.email_address.email_address }}<br><b>New: </b>  <span id='email_address'></span></p>
+                                                    </div>
+                                                    <div class="container jumbotron fgc p-3 ">
+                                                        <h5><b><i>{{ edit_form.phone_number.label }}</i></b></h5>
+                                                        <p><b>Old: </b>{{ user.phone_number.phone_number }}<br><b>New: </b>  <span id='phone_number'></span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    {{ edit_form.submit(class='btn btn-info') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form><br>
+                <form method="POST">
+                    {{ password_form.hidden_tag() }}
+                    <button type="button" class="btn btn-block btn-outline-warning" data-toggle="modal" data-target="#ResetPassword">Reset Password</button>
+                    <div class="modal fade" id="ResetPassword" tabindex="-1" role="dialog" aria-labelledby="ResetPasswordLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content bg-dark border">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="ResetPasswordLabel">Reset Password</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span>{{ password_form.old_password.label( class="inptbx input-group-text", id="inputGroupPrepend1") }}</span>
+                                        </div>
+                                        {{ password_form.old_password( class="inptbx form-control", placeholder="old password", id="inputGroupPrepend1") }}<br><br>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span>{{ password_form.new_password.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                                        </div>
+                                        {{ password_form.new_password( class="inptbx form-control", placeholder="new password", id="inputGroupPrepend2") }}<br><br>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span>{{ password_form.confirm_new_password.label( class="inptbx input-group-text", id="inputGroupPrepend3") }}</span>
+                                        </div>
+                                        {{ password_form.confirm_new_password( class="inptbx form-control", placeholder="confirm password", id="inputGroupPrepend3") }}<br><br>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    {{ password_form.submit(class='btn btn-warning') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
