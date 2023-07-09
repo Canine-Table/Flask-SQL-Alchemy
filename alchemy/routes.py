@@ -118,8 +118,6 @@ def market_page(username):
                     flash("insufficient funds", category="danger")
 
             elif request.form['form_name'] == 'sold_form':
-                session.refresh(Item)
-                session.refresh(Wallet)
                 sold_item = request.form.get('sold_item')
                 current_item  = session.query(Item).get(sold_item)
                 funds = session.query(Wallet.balance).filter_by(id=current_user.id).scalar() + current_item.price
