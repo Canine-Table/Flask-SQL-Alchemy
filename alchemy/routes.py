@@ -1,23 +1,20 @@
 from flask import render_template,request,url_for,flash,get_flashed_messages,redirect
 from sqlalchemy.orm import Session,sessionmaker,scoped_session
-from sqlalchemy.exc import IntegrityError,PendingRollbackError
-from alchemy.models import Account,Phone,Email,Name,MyBase,Signin,Item,Wallet
+from alchemy.models import Account,Phone,Email,Name,Signin,Item,Wallet
 from alchemy.forms import RegistrationForm,LoginForm,DeleteAccountForm,ResetPasswordForm,EditAccountForm,PurchaseItemForm,SellItemForm,AddItemForm,RemoveItemForm
 from alchemy.exceptions import QueryException
 from alchemy import app,engine
 from flask_login import login_user,current_user,logout_user,login_required
-from sqlalchemy import select
-from re import match
 import transaction
-import sys
+
 
 Session = scoped_session(sessionmaker(bind=engine))
+
 
 @app.route('/', methods=['GET',"POST"])
 @app.route('/home', methods=['GET',"POST"])
 def home_page():
     return render_template('home.html')
-
 
 
 @app.route('/register', methods=[ 'GET','POST'])
@@ -92,6 +89,7 @@ def login_page():
         form=form,
         current_user=current_user)
 
+
 @app.route('/logout')
 def logout_page():
     flash("you logged out of your account", category='primary')
@@ -135,6 +133,7 @@ def market_page(username):
     return render_template('market.html',
         messages=get_flashed_messages(),
         items=items,owned_items=owned_items,purchase_form=purchase_form,sell_form=sell_form)
+
 
 @app.route('/<username>/settings', methods=[ 'GET','POST'])
 @login_required

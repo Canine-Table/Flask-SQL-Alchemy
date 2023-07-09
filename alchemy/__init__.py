@@ -6,6 +6,7 @@ from jinja2.ext import do,i18n
 from flask import Flask
 import os
 
+
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['SECRET_KEY'] = os.urandom(12).hex()
@@ -13,6 +14,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = "login_page"
 login_manager.login_message_category = "info"
 bcrypt = Bcrypt(app)
+
 
 class Jinja2Env(Environment):
     def __init__(self, *args, **kwargs):
@@ -31,6 +33,7 @@ class Jinja2Env(Environment):
         self.add_extension(do)
         self.add_extension(i18n)
 
+
 class Database:
     db_host = os.environ['DB_HOST']
     db_port = os.environ['DB_PORT']
@@ -47,9 +50,11 @@ class Database:
                 "ssl_ca": "/etc/ssl/cert.pem",
                 "init_command": "SET foreign_key_checks=0"}})
 
+
 db = Database()
 engine = Database.create()
 inspector = inspect(engine)
 env = Jinja2Env(loader=PackageLoader(__name__, 'templates'))
+
 
 from alchemy import routes

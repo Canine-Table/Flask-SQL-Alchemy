@@ -7,6 +7,7 @@ from sqlalchemy import select
 
 Base = declarative_base()
 
+
 class Signin(UserMixin):
 
     @classmethod
@@ -17,6 +18,7 @@ class Signin(UserMixin):
     @login_manager.user_loader
     def load_user(user_id):
         return Signin.session.query(Account).get(int(user_id)) or None
+
 
 class MyBase(Base):
     __abstract__ = True
@@ -125,6 +127,7 @@ class Item(MyBase):
     def __repr__(self) -> str:
         return f"Item(id={self.id}, name={self.name} price={self.price}, barcode={self.barcode}, owner={self.owner})"
 
+
 class Wallet(MyBase):
     __tablename__ = 'wallet_list'
     id: Mapped[int] = Column(Integer, primary_key=True, nullable=True)
@@ -134,24 +137,4 @@ class Wallet(MyBase):
         return f"Wallet(id={self.id}, balance={self.balance}"
 
 
-
 Base.metadata.create_all(bind=engine)
-#Base.metadata.drop_all(bind=engine)
-# INSERT INTO item_list (name, price, barcode, description)
-# VALUES
-# ('Laptop', 999.99, '123456789012', 'A portable computer with a 15-inch screen and 8 GB of RAM.'),
-# ('Book', 19.99, '987654321098', 'A hardcover novel by a famous author.'),
-# ('Shoes', 49.99, '456789123456', 'A pair of sneakers with a comfortable fit and a stylish design.'),
-# ('Watch', 199.99, '789123456789', 'A smartwatch that can track your fitness and notifications.'),
-# ('Headphones', 59.99, '321654987321', 'A wireless headphones with noise cancellation and high-quality sound.'),
-# ('Camera', 299.99, '654321987654', 'A digital camera with a 20-megapixel sensor and a zoom lens.'),
-# ('Bag', 39.99, '147258369147', 'A backpack with multiple pockets and a durable material.'),
-# ('Guitar', 149.99, '258369147258', 'An acoustic guitar with a wooden body and steel strings.'),
-# ('Game', 59.99, '369147258369', 'A video game for a popular console with an immersive storyline and graphics.'),
-# ('Phone', 699.99, '741852963741', 'A smartphone with a large screen and a fast processor.'),
-# ('Jacket', 79.99, '852963741852', 'A leather jacket with a zipper and a collar.'),
-# ('Sunglasses', 29.99, '963741852963', 'A pair of sunglasses with UV protection and a trendy shape.'),
-# ('Bike', 199.99, '159357159357', 'A mountain bike with a sturdy frame and a suspension system.'),
-# ('Coffee Maker', 49.99, '357159357159', 'A coffee maker that can brew up to 12 cups of coffee at a time.'),
-# ('Speaker', 69.99, '951753951753', 'A Bluetooth speaker that can play music from your devices and has a long battery life.'),
-# ('Keyboard', 29.99, '753951753951', 'A wireless keyboard that can connect to your computer or tablet and has a slim design.');
