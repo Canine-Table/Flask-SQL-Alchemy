@@ -1,14 +1,13 @@
 from flask import render_template,request,url_for,flash,get_flashed_messages,redirect
-from sqlalchemy.orm import Session,sessionmaker,scoped_session
+from sqlalchemy.orm import Session,sessionmaker
 from alchemy.models import Account,Phone,Email,Name,Signin,Item,Wallet
 from alchemy.forms import RegistrationForm,LoginForm,DeleteAccountForm,ResetPasswordForm,EditAccountForm,PurchaseItemForm,SellItemForm,AddItemForm,RemoveItemForm
 from alchemy.exceptions import QueryException
 from alchemy import app,engine
 from flask_login import login_user,current_user,logout_user,login_required
-import transaction
 
 
-Session = scoped_session(sessionmaker(bind=engine))
+Session = sessionmaker(bind=engine)
 
 
 @app.route('/', methods=['GET',"POST"])
@@ -22,43 +21,41 @@ def register_page():
     form = RegistrationForm()
     if request.method == "POST":
         with Session() as session:
-            with transaction.manager:
-                try:
-                    QueryException.clear_errors()
-                    if Account.unique_username(session,form):
-                        QueryException.add_error_message(f"The username {form.username.data} is already in use.")
+            try:
+                QueryException.clear_errors()
+                if Account.unique_username(session,form):
+                    QueryException.add_error_message(f"The username {form.username.data} is already in use.")
 
-                    if Email.unique_email(session,form):
-                        QueryException.add_error_message(f"The email {form.email_address.data} is already in use.")
+                if Email.unique_email(session,form):
+                    QueryException.add_error_message(f"The email {form.email_address.data} is already in use.")
 
-                    if Phone.unique_phone(session,form):
-                        QueryException.add_error_message(f"The phone number {form.phone_number.data} is already in use.")
+                if Phone.unique_phone(session,form):
+                    QueryException.add_error_message(f"The phone number {form.phone_number.data} is already in use.")
 
-                    if Account.password_match(form):
-                        QueryException.add_error_message(f"The passwords do not match.")
+                if Account.password_match(form):
+                    QueryException.add_error_message(f"The passwords do not match.")
 
-                    if QueryException.error_count():
-                        QueryException.show_error_messages()
+                if QueryException.error_count():
+                    QueryException.show_error_messages()
 
-                except QueryException:
-                    pass
-                except Exception as e:
-                    flash(f"{e}", category='danger')
-                else:
-                    account_to_create = Account(username=form.username.data,password=form.password.data)
-                    phone_to_create = Phone(phone_number=form.phone_number.data,user_account=account_to_create)
-                    email_to_create = Email(email_address=form.email_address.data,user_account=account_to_create)
-                    name_to_create = Name(first_name=(form.first_name.data).title(),last_name=(form.last_name.data).title(),user_account=account_to_create)
-                    balance_to_create = Wallet(user_account=account_to_create)
-                    session.add_all([account_to_create,phone_to_create,email_to_create,name_to_create,balance_to_create])
-                    session.commit()
-                    flash(f"{form.username.data} was successfully created.",category='success')
-                    get_user = Signin.get_session(session).load_user(account_to_create.id)
-                    login_user(get_user,remember=False)
-                    return redirect(url_for('market_page', username=current_user.username))
+            except QueryException:
+                pass
+            except Exception as e:
+                flash(f"{e}", category='danger')
+            else:
+                account_to_create = Account(username=form.username.data,password=form.password.data)
+                phone_to_create = Phone(phone_number=form.phone_number.data,user_account=account_to_create)
+                email_to_create = Email(email_address=form.email_address.data,user_account=account_to_create)
+                name_to_create = Name(first_name=(form.first_name.data).title(),last_name=(form.last_name.data).title(),user_account=account_to_create)
+                balance_to_create = Wallet(user_account=account_to_create)
+                session.add_all([account_to_create,phone_to_create,email_to_create,name_to_create,balance_to_create])
+                session.commit()
+                flash(f"{form.username.data} was successfully created.",category='success')
+                get_user = Signin.get_session(session).load_user(account_to_create.id)
+                login_user(get_user,remember=False)
+                return redirect(url_for('market_page', username=current_user.username))
 
-    return render_template('register.html',
-        form=form)
+    return render_template('register.html',form=form)
 
 
 @app.route('/login', methods=[ 'GET','POST'])
@@ -121,6 +118,8 @@ def market_page(username):
                     flash("insufficient funds", category="danger")
 
             elif request.form['form_name'] == 'sold_form':
+                session.refresh(Item)
+                session.refresh(Wallet)
                 sold_item = request.form.get('sold_item')
                 current_item  = session.query(Item).get(sold_item)
                 funds = session.query(Wallet.balance).filter_by(id=current_user.id).scalar() + current_item.price
@@ -128,7 +127,7 @@ def market_page(username):
                 session.query(Wallet).filter_by(id=current_user.id).update({Wallet.balance: funds})
                 flash(f"You successfully sold your { current_item.name }.", category="success")
                 session.commit()
-
+        session.close()
 
     return render_template('market.html',
         messages=get_flashed_messages(),
