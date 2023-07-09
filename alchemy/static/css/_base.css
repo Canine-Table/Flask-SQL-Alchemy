@@ -16,6 +16,8 @@
 
 body {
     background-color: var(--bk1);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #content {
@@ -81,4 +83,12 @@ span .dropdown-menu {
     color: var(--wt1);
     border: 3px solid var(--wt1);
     border-radius: 25px;
+}
+
+.bkg {
+    background-color: var(--bk4);
+    color: var(--wt1);
+    border: 3px solid var(--wt1);
+    border-radius: 25px;
+
 }

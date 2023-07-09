@@ -1,8 +1,81 @@
 {% extends '_base.html' %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/_home.css')}}">
+{% endblock %}
 {% block title %}Home{% endblock %}
 {% block content %}
-    <div class="container-xl">
-        <div class="jumbotron p-2 jbtron">
+    <header class="masthead" id='heading' style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url({{ url_for('static', filename='img/2023-07-08_16-56.png')}}); position: relative; width: 100%; height: auto; min-height: 35rem; padding: 15rem 0; background-position: center; background-repeat: no-repeat; background-attachment: scroll; background-size: cover; margin-top: -24px;">
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="text-center jbtron jumbotron" style="background: rgba(0, 0, 0, 0.7);">
+                    <h1 class="mx-auto my-0">Python with Flask and SQLAlchemy</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Your SQL journey begins here.</h2>
+                    <a class="btn btn-primary" href="#about">Get Started</a>
+                </div>
+            </div>
         </div>
-    </div>
+    </header>
+    <section class="about-section text-center" id="about" style="padding-top: 10rem; background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%), url({{ url_for('static', filename='img/2023-07-08_17-07.png')}}); position: relative; width: 100%; height: auto; min-height: 35rem; padding: 15rem 0; background-position: center; background-repeat: no-repeat; background-attachment: scroll; background-size: cover;">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="text-white mb-4">Object-Relational Mapping</h2>
+                    <p class="text-white-50">An ORM is a framework that can help and simplify the translation between the two paradigms: objects and relational database tables. It can use class definitions (models) to create, maintain and provide full access to objects’ data and their database persistence. In simpler terms, an ORM is like a translator that helps developers work with databases using Pythonic domain language.</p>
+                    {{ spacer(2) }}<a class="btn btn-outline-primary btn-block" href="{{ url_for('login_page') }}">Sign in</a>{{ spacer(1) }}
+                    <a class="btn btn-outline-info btn-block" href="#projects">Continue Reading</a>
+                    {{ spacer(3) }}
+                </div>
+            </div>
+            <img class="img-fluid" src="{{ url_for('static', filename='img/free-python-5562371-4642716.png')}}" alt="..." />
+        </div>
+    </section>
+    <section class="projects-section" id="projects" style="background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.9) 75%, #212121 100%);">
+        {{ spacer(5) }}
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+                <div class="col-xl-8 col-lg-7">
+                    <img class="img-fluid mb-3 mb-lg-0" src="{{ url_for('static', filename='img/64a9d1dd6ab468.40588108Processed.png')}}" alt="..." /></div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="featured-text text-center text-lg-left">
+                        <h4>SQLAlchemy</h4>
+                        <p class="text-white-50 mb-0">SQLAlchemy is a Python SQL toolkit and ORM supporting database manipulation and management. It is famous for its object-relational mapper (ORM), using which, classes can be mapped to the database, thereby allowing the object model and database schema to develop in a cleanly decoupled way from the beginning.In simpler terms, SQLAlchemy is like a magic wand that helps developers work with databases using Pythonic domain language.</p>
+                    </div>
+                </div>
+            </div><a class="btn btn-outline-info btn-block" href="#footing">Next</a>{{ spacer(10) }}
+            <div id="footing" class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+                <div class="col-lg-6"><img class="img-fluid" src="{{ url_for('static', filename='img/flask-vial_top.webp')}}" alt="..." /></div>
+                <div class="col-lg-6">
+                    <div class="bg-black text-center h-100 project">
+                        <div class="d-flex h-100">
+                            <div class="project-text w-100 my-auto text-center text-lg-left">
+                                <h4 class="text-white">Why SQL?</h4>
+                                <p class="mb-0 text-white-50">SQL is relevant because it helps people store and retrieve important information like usernames and passwords. It’s like a big box where people can put things they want to remember. SQL helps people ask questions about the things in the box and get answers back. It’s like asking a librarian to find you a book on a specific topic. Many websites and apps use SQL to store and retrieve data. Without SQL, it would be hard for people to remember important information. I hope that helps! Let me know if you have any other questions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>{{ spacer(1) }}
+            <div class="row gx-0 justify-content-center">
+                <div class="col-lg-6">
+                    <img class="img-fluid" src="{{ url_for('static', filename='img/flask-vial_bottom.webp')}}" alt="..." /></div>
+                <div class="col-lg-6 order-lg-first">
+                    <div class="bg-black text-center h-100 project">
+                        <div class="d-flex h-100">
+                            <div class="project-text w-100 my-auto text-center text-lg-right">
+                                <h4 class="text-white">Structured Query Language</h4>
+                                <p class="mb-0 text-white-50">SQL stands for Structured Query Language. It is a programming language that helps people talk to databases. Databases are like big boxes where people can store information. SQL helps people ask questions about the information in the boxes and get answers back. It’s like asking a librarian to find you a book on a specific topic. SQL is used by many websites and apps to store and retrieve data like usernames, passwords, and other important information. I hope that helps! Let me know if you have any other questions.</p>
+                                {{ spacer(1) }}<a class="btn btn-outline-info btn-block" href="#heading">Back to Top</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><br><br><br>
+    <div class="social d-flex justify-content-center">
+                <a class="mx-2" href="https://github.com/Canine-Table/Flask-SQL-Alchemy"><i class="fab fa-github"></i></a>
+            </div>{{ spacer(1) }}
+        </div>
+    </section>
+    <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; This Website 2023</div></footer><br><br><br>
 {% endblock %}

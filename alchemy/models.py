@@ -120,10 +120,10 @@ class Item(MyBase):
     description: Mapped[str] = Column(String(2048), nullable=True)
     owner: Mapped['int'] = Column(Integer, nullable=True, default=None)
 
-    __table_args__ = (UniqueConstraint(barcode),CheckConstraint('char_length(barcode) = 12', name='barcode_min_length'))
+    __table_args__ = (CheckConstraint('char_length(barcode) = 12', name='barcode_min_length'),)
 
     def __repr__(self) -> str:
-        return f"Item(id={self.id}, price={self.price}, barcode={self.barcode}, owner={self.owner})"
+        return f"Item(id={self.id}, name={self.name} price={self.price}, barcode={self.barcode}, owner={self.owner})"
 
 class Wallet(MyBase):
     __tablename__ = 'wallet_list'

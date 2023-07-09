@@ -1,21 +1,25 @@
 {% extends '_base.html' %}
 {% block title %}Market{% endblock %}
 {% block content %}
-<div class="container-lg jumbotron p-2 text-center jbtron">
-    <h1>Market</h1>
+<div class="container-xxl jumbotron p-2 ml-4 mr-4 text-center jbtron">
+    <div class="jumbotron fgc p-3 mt-3">
+        <h1>Hello {{ current_user.username }}, welcome to the Flask Marketplace.</h1>
+    </div>
     {{ errors() }}
 </div>
-<div class="container-lg jumbotron p-0 bgc">
+<div class="jumbotron p-0 container-xxl bgc">
     <div class="row bgc">
-        <div class="col-8 bgc">
+        <div class="col-7 bgc">
             {###############################################}
 
 
 
 
-            <div class="jumbotron p-2 jbtron">
-                <h2>Available Items on the Market</h2>
-                <p>Click on one of the items to start buying</p>
+            <div class="jumbotron p-2 ml-4 jbtron">
+                <div class="jumbotron fgc p-3 mt-3">
+                    <h2>Available Items on the Market</h2>
+                    <p>Click on one of the items to start buying</p>
+                </div>
                 <table class="table table-hover table-bordered table-dark">
                     <thead>
                         <tr>
@@ -52,7 +56,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#ConfirmModal-{{ item.id }}">Purchase</button>
                                     <div class="modal fade" id="ConfirmModal-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -64,10 +67,16 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <p>Are you sure you want to buy a <b>{{ item.name }}</b> for <b>${{ item.price }}</b>?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                    <form method="POST">
+                                                        {{ purchase_form.hidden_tag() }}
+                                                        <input id="purchase_form_name-{{ item.id }}" name="form_name" type="hidden" value="purchase_form">
+                                                        <input id="purchased_item-{{ item.id }}" name="purchased_item" type="hidden" value="{{ item.id }}">
+                                                        {{ purchase_form.submit(class="btn btn-primary") }}
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -84,7 +93,7 @@
 
             {###############################################}
         </div>
-        <div class="col-4 bgc">
+        <div class="col-5 bgc">
             {###############################################}
 
 
@@ -92,16 +101,55 @@
 
 
 
-            <div class="jumbotron p-2 jbtron">
-                <h1>Market</h1>
-            </div>
+            <div class="jumbotron container-xxl p-2 mr-4 jbtron">
+                <div class="col">
+                    <div class="jumbotron fgc p-3 mt-3">
+                        <h2>Owned Items</h2>
+                        <p>Click on sell item to put the item back on the Market</p><br>
+                    </div>
+                    <div class="row">
+                        {% for owned_item in owned_items %}
+                            <div class="col-md-6" >
+                                <div class="card text-center mb-4 bkg">
+                                    <div class="card-body my_content">
+                                        <h5 class="card-title">{{ owned_item.name }}</h5>
+                                        <button type="button" class="btn btn-outline btn-danger" style="margin-bottom: 5px" data-toggle="modal" data-target="#SellModal-{{ owned_item.id }}">Sell {{ owned_item.name }}</button>
+                                        <p class="card-text"><strong>This item costs ${{ owned_item.price }}</strong></p>
+                                        <div class="modal fade" id="SellModal-{{ owned_item.id }}" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content bg-dark border">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">{{ owned_item.name }}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-left">Are you sure you want to sell your <b>{{ owned_item.name }}</b> for <b>${{ owned_item.price }}</b>?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <form method="POST">
+                                                            {{ sell_form.hidden_tag() }}
+                                                            <input id="form_name-{{ owned_item.id }}" name="form_name" type="hidden" value="sold_form">
+                                                            <input id="sold_item-{{ owned_item.id }}" name="sold_item" type="hidden" value="{{ owned_item.id }}">
+                                                            {{ sell_form.submit(class="btn btn-danger") }}
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
 
 
 
 
 
-            {###############################################}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
         </div>
     </div>
 </div>

@@ -8,13 +8,15 @@
             {{ errors() }}
         </div>
         <div class="jumbotron p-2 jbtron">
-            <p><b>Name:</b> {{ user.name.first_name }} {{ user.name.last_name }}</p>
-            <p><b>Username:</b> {{ user.username }}</p>
-            <p><b>Phone Number:</b> {{ user.phone_number.phone_number }}</p>
-            <p><b>Email Address:</b> {{ user.email_address.email_address }}</p>
-            <p><b>Member Since:</b> {{ user.creation_date }}</p>
-            <p><b>Account Balance:</b> {{ user.balance.balance }}</p>
-            <br><div class="jumbotron fgc p-3 mb-2 pt-4">
+            <div class="jumbotron fgc p-3 ">
+                <p><b>Name:</b> {{ user.name.first_name }} {{ user.name.last_name }}</p>
+                <p><b>Username:</b> {{ user.username }}</p>
+                <p><b>Phone Number:</b> {{ user.phone_number.phone_number }}</p>
+                <p><b>Email Address:</b> {{ user.email_address.email_address }}</p>
+                <p><b>Member Since:</b> {{ user.creation_date }}</p>
+                <p><b>Account Balance:</b> {{ user.balance.balance }}</p>
+            </div>
+            <div class="jumbotron fgc p-3 mb-2 pt-4">
                 <form method="POST">
                     {{ delete_form.hidden_tag() }}
                     <button type="button" class="btn btn-block btn-outline-danger" data-toggle="modal" data-target="#DeleteAccount">Delete {{ user.username }}</button>

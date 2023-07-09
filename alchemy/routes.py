@@ -2,7 +2,7 @@ from flask import render_template,request,url_for,flash,get_flashed_messages,red
 from sqlalchemy.orm import Session,sessionmaker,scoped_session
 from sqlalchemy.exc import IntegrityError,PendingRollbackError
 from alchemy.models import Account,Phone,Email,Name,MyBase,Signin,Item,Wallet
-from alchemy.forms import RegistrationForm,LoginForm,DeleteAccountForm,ResetPasswordForm,EditAccountForm
+from alchemy.forms import RegistrationForm,LoginForm,DeleteAccountForm,ResetPasswordForm,EditAccountForm,PurchaseItemForm,SellItemForm,AddItemForm,RemoveItemForm
 from alchemy.exceptions import QueryException
 from alchemy import app,engine
 from flask_login import login_user,current_user,logout_user,login_required
@@ -99,14 +99,42 @@ def logout_page():
     return redirect( url_for('home_page'))
 
 
-@app.route('/market/<username>', methods=[ 'GET','POST'])
+@app.route('/<username>/market', methods=[ 'GET','POST'])
 @login_required
 def market_page(username):
+    purchase_form= PurchaseItemForm()
+    sell_form = SellItemForm()
     with Session() as session:
         items = session.query(Item).filter_by(owner=None)
+        owned_items = session.query(Item).filter_by(owner=current_user.id)
+
+        if request.method == 'POST':
+
+            if request.form['form_name'] == 'purchase_form':
+                purchased_item = request.form.get('purchased_item')
+                current_item  = session.query(Item).get(purchased_item)
+                funds = session.query(Wallet.balance).filter_by(id=current_user.id).scalar() - current_item.price
+                if funds >= 0:
+                    session.query(Item).filter_by(id=purchased_item).update({Item.owner: current_user.id})
+                    session.query(Wallet).filter_by(id=current_user.id).update({Wallet.balance: funds})
+                    flash(f"You successfully purchased the { current_item.name }.", category="success")
+                    session.commit()
+                else:
+                    flash("insufficient funds", category="danger")
+
+            elif request.form['form_name'] == 'sold_form':
+                sold_item = request.form.get('sold_item')
+                current_item  = session.query(Item).get(sold_item)
+                funds = session.query(Wallet.balance).filter_by(id=current_user.id).scalar() + current_item.price
+                session.query(Item).filter_by(id=sold_item).update({Item.owner: None})
+                session.query(Wallet).filter_by(id=current_user.id).update({Wallet.balance: funds})
+                flash(f"You successfully sold your { current_item.name }.", category="success")
+                session.commit()
+
+
     return render_template('market.html',
         messages=get_flashed_messages(),
-        items=items)
+        items=items,owned_items=owned_items,purchase_form=purchase_form,sell_form=sell_form)
 
 @app.route('/<username>/settings', methods=[ 'GET','POST'])
 @login_required
@@ -137,8 +165,6 @@ def settings_page(username):
                 try:
                     QueryException.clear_errors()
 
-
-
                     if Email.unique_email(session,edit_form) and edit_form.email_address.data != current_user.email_address.email_address:
                         QueryException.add_error_message(f"The email {edit_form.email_address.data} is already in use.")
 
@@ -153,19 +179,12 @@ def settings_page(username):
                 except Exception as e:
                     flash(f"{e}", category='danger')
                 else:
-                    print()
-                    print(edit_form.last_name.data, current_user.name.last_name)
-                    print(edit_form.email_address.data, current_user.email_address.email_address)
-                    print(edit_form.phone_number.data, current_user.phone_number.phone_number)
-                    print(edit_form.first_name.data, current_user.name.first_name)
-                    print(edit_form.last_name.data, current_user.name.last_name)
-                    print(edit_form.email_address.data, current_user.email_address.email_address)
-                    print()
                     if edit_form.first_name.data != current_user.name.first_name:
-                        session.query(Name).filter_by(id=current_user.id).update({Name.first_name: edit_form.first_name.data})
+                        session.query(Name).filter_by(id=current_user.id).update({Name.first_name: (edit_form.first_name.data).title()})
 
                     if edit_form.last_name.data != current_user.name.last_name:
-                        session.query(Name).filter_by(id=current_user.id).update({Name.last_name: edit_form.last_name.data})
+                        session.query(Name).filter_by(id=current_user.id).update({Name.last_name: (edit_form.last_name.data).title()})
+
                     if edit_form.email_address.data != current_user.email_address.email_address:
                         session.query(Email).filter_by(id=current_user.id).update({Email.email_address: edit_form.email_address.data})
 
