@@ -5,9 +5,10 @@ from alchemy.forms import RegistrationForm,LoginForm,DeleteAccountForm,ResetPass
 from alchemy.exceptions import QueryException
 from alchemy import app,engine
 from flask_login import login_user,current_user,logout_user,login_required
+from alchemy.jinja2env import Jinja2Env
 
 Session = sessionmaker(bind=engine)
-
+jinja2_env = Jinja2Env()
 
 @app.route('/', methods=['GET',"POST"])
 @app.route('/home', methods=['GET',"POST"])
@@ -128,7 +129,7 @@ def market_page(username):
 
     return render_template('market.html',
         messages=get_flashed_messages(),
-        items=items,owned_items=owned_items,purchase_form=purchase_form,sell_form=sell_form)
+        items=items,owned_items=owned_items,purchase_form=purchase_form,sell_form=sell_form,env=jinja2_env)
 
 
 @app.route('/<username>/settings', methods=[ 'GET','POST'])
@@ -223,4 +224,11 @@ def settings_page(username):
     return render_template('settings.html',user=current_user,
         delete_form=delete_form,
         edit_form=edit_form,
-        password_form=password_form)
+        password_form=password_form,
+        env=jinja2_env)
+
+
+
+@app.route('/sandbox', methods=[ 'GET','POST'])
+def sandbox_page():
+    return render_template('sandbox.html',env=jinja2_env)

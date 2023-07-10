@@ -1,36 +1,17 @@
 from sqlalchemy import create_engine, inspect
-from jinja2 import Environment, PackageLoader, select_autoescape
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
-from jinja2.ext import do,i18n
 from flask import Flask
+import secrets
 import os
-
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['SECRET_KEY'] = os.urandom(12).hex()
+app.config['SECRET_KEY'] = secrets.token_hex(12)
 login_manager = LoginManager(app)
 login_manager.login_view = "login_page"
 login_manager.login_message_category = "info"
 bcrypt = Bcrypt(app)
-
-class Jinja2Env(Environment):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.comment_start_string = '<#'
-        self.comment_end_string = '#>'
-        self.autoescape = select_autoescape(disabled_extensions=('txt','log','md',),default_for_string=True,default=True)
-        self.trim_blocks = False
-        self.lstrip_blocks = False
-        self.keep_trailing_newline = False
-        self.optimized = True
-        self.auto_reload = True
-        self.enable_async = True
-        self.newline_sequence = '\n'
-        self.cache_size = 400
-        self.add_extension(do)
-        self.add_extension(i18n)
 
 
 class Database:
@@ -53,7 +34,6 @@ class Database:
 db = Database()
 engine = Database.create()
 inspector = inspect(engine)
-env = Jinja2Env(loader=PackageLoader(__name__, 'templates'))
 
 
 from alchemy import routes

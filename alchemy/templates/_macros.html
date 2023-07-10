@@ -13,7 +13,7 @@
 {% endwith %}
 {% endmacro %}
 
-{% macro modal(button_text,button_classes,modal_id,modal_header,modal_title,header,header_classes,modal_body,body_classes,body,modal_footer,footer_classes,footer,content_classes) %}
+{% macro modal(button_text,button_classes,modal_id,modal_header,modal_title,header,header_classes,modal_body,body_classes,body,modal_footer,footer_classes,footer,content_classes,keep_close) %}
 
     {% if button_text is not defined %}
         {% set button_text = 'Button' %}
@@ -84,15 +84,20 @@
             {% set footer = '' %}
         {% endif %}
 
+        {% if keep_close is not defined %}
+            {% set keep_close = True %}
+        {% endif %}
+
     {% else %}
         {% set modal_footer = False %}
     {% endif %}
 
-<button type="button" class="btn btn-primary {{ button_classes }}" data-toggle="modal" data-target="#Modal-{{ modal_id }}">{{ button_text }}</button>
+
+<button type="button" class="btn {{ button_classes }}" data-toggle="modal" data-target="#Modal-{{ modal_id }}">{{ button_text }}</button>
 
 <div class="modal fade" id="Modal-{{ modal_id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel-{{ modal_id }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content {{ content_classes }}">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content bg-dark border {{ content_classes }}">
             {% if modal_header %}
                 <div class="modal-header {{ header_classes }}">
                     <h5 class="modal-title" id="ModalLabel-{{ modal_id }}">{{ modal_title }}</h5>
@@ -109,7 +114,9 @@
             {% endif %}
             {% if modal_footer %}
                 <div class="modal-footer {{ footer_classes }}">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {% if keep_close %}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {% endif %}
                     {{ footer }}
                 </div>
             {% endif %}
