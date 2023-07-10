@@ -15,7 +15,6 @@ login_manager.login_view = "login_page"
 login_manager.login_message_category = "info"
 bcrypt = Bcrypt(app)
 
-
 class Jinja2Env(Environment):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

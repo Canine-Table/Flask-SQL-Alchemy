@@ -6,7 +6,6 @@ from alchemy.exceptions import QueryException
 from alchemy import app,engine
 from flask_login import login_user,current_user,logout_user,login_required
 
-
 Session = sessionmaker(bind=engine)
 
 
@@ -71,6 +70,7 @@ def login_page():
                     flash(f'Welcome back {(" ".join([attempted_user.name.first_name,attempted_user.name.last_name])).title()} (\'{form.username.data}\')', category='success')
                     get_user = Signin.get_session(session).load_user(attempted_user.id)
                     login_user(get_user,remember=form.remember_me.data)
+
                     return redirect(url_for('market_page', username=attempted_user.username))
                 else:
                     QueryException.add_error_message(f"The username or password does not match.")
@@ -125,7 +125,6 @@ def market_page(username):
                 session.query(Wallet).filter_by(id=current_user.id).update({Wallet.balance: funds})
                 flash(f"You successfully sold your { current_item.name }.", category="success")
                 session.commit()
-        session.close()
 
     return render_template('market.html',
         messages=get_flashed_messages(),
@@ -175,20 +174,29 @@ def settings_page(username):
                 except Exception as e:
                     flash(f"{e}", category='danger')
                 else:
+                    message_template = "You have successfully updated your {} from {} to {}!"
                     if edit_form.first_name.data != current_user.name.first_name:
                         session.query(Name).filter_by(id=current_user.id).update({Name.first_name: (edit_form.first_name.data).title()})
+                        flash(message_template.format('first name',current_user.name.first_name,edit_form.first_name.data), category='success')
+                        current_user.name.first_name = edit_form.first_name.data
 
                     if edit_form.last_name.data != current_user.name.last_name:
                         session.query(Name).filter_by(id=current_user.id).update({Name.last_name: (edit_form.last_name.data).title()})
+                        flash(message_template.format('last name',current_user.name.last_name,edit_form.last_name.data), category='success')
+                        current_user.name.last_name = edit_form.last_name.data
 
                     if edit_form.email_address.data != current_user.email_address.email_address:
                         session.query(Email).filter_by(id=current_user.id).update({Email.email_address: edit_form.email_address.data})
+                        flash(message_template.format('email address',current_user.email_address.email_address,edit_form.email_address.data), category='success')
+                        current_user.email_address.email_address = edit_form.email_address.data
 
                     if edit_form.phone_number.data != current_user.phone_number.phone_number:
                         session.query(Phone).filter_by(id=current_user.id).update({Phone.phone_number: edit_form.phone_number.data})
+                        flash(message_template.format('phone number',current_user.phone_number.phone_number,edit_form.phone_number.data), category='success')
+                        current_user.phone_number.phone_number = edit_form.phone_number.data
 
                     session.commit()
-                    flash(f"You have successfully updated your account", category='success')
+
 
             if password_form.submit and password_form.validate():
                 try:
