@@ -16,6 +16,9 @@ document.getElementById("SaveChanges_id").addEventListener("click", () => {
         document.getElementById('email_address').innerHTML = email_address
         document.getElementById('phone_number').innerHTML = phone_number
 
+        document.getElementById("BackSavedChangesConfirmed_id").addEventListener("click", () => {
+            document.getElementById("SaveChanges_id").click()
+        })
 
         document.getElementById("SavedChangesConfirmed_id").addEventListener("click", () => {
 

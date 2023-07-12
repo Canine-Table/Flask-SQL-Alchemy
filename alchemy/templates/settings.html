@@ -100,12 +100,14 @@
                     </div>
                 {% endmacro %}
                 {% macro confirm_footer() %}
+                    <button type="button" class="btn btn-primary" id="BackSavedChangesConfirmed_id" data-dismiss="modal" aria-label="Close">Back</button>
                     {{ edit_form.submit(class='btn btn-info', id='SavedChangesConfirmed_id') }}
                 {% endmacro %}
                 {% set mid = env.globals['secrets'].token_hex(12)|upper %}
                 <button type="button" style='display: none' id='SavedChanges_id' data-toggle="modal" data-target="#Modal-{{ mid }}"></button>
                 {{ modal(
                     modal_id=mid,
+                    button_id=SavedChanges_id,
                     modal_title='Save Changes',
                     modal_header=True,
                     modal_body=True,

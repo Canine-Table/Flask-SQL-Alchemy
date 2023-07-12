@@ -15,6 +15,9 @@
 
 {% macro modal(in_button,button_text,button_id,button_classes,modal_id,modal_header,modal_title,header,header_classes,modal_body,body_classes,body,modal_footer,footer_classes,footer,content_classes,keep_close) %}
 
+    {% if button_id is not defined %}
+        {% set button_id = 'button_id' %}
+    {% endif %}
 
     {% if in_button is not defined %}
         {% set in_button = True %}
@@ -25,10 +28,6 @@
 
         {% if button_classes is not defined %}
             {% set button_classes = '' %}
-        {% endif %}
-
-        {% if button_id is not defined %}
-            {% set button_id = 'button_id' %}
         {% endif %}
 
     {% endif %}

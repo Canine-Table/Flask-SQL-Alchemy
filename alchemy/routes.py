@@ -6,9 +6,7 @@ from sqlalchemy.orm import Session,sessionmaker
 from alchemy.exceptions import QueryException
 from alchemy.jinja2env import Jinja2Env
 from alchemy import app,engine
-from bs4 import BeautifulSoup
-import requests
-import os
+
 
 Session = sessionmaker(bind=engine)
 jinja2_env = Jinja2Env()
@@ -202,7 +200,6 @@ def settings_page(username):
 
                     session.commit()
 
-
             if password_form.submit and password_form.validate():
                 try:
                     QueryException.clear_errors()
@@ -230,9 +227,3 @@ def settings_page(username):
         edit_form=edit_form,
         password_form=password_form,
         env=jinja2_env)
-
-
-
-@app.route('/sandbox', methods=[ 'GET','POST'])
-def sandbox_page():
-    return render_template('sandbox.html',env=jinja2_env)
