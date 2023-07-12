@@ -27,7 +27,7 @@ class MyBase(Base):
     @classmethod
     def _update_state(cls,session):
         count = session.scalar(session.query(func.count(cls.id)))
-        engine.execute(text(f"ALTER TABLE {cls.__tablename__} AUTO_INCREMENT = {str(count)}"))
+        session.execute(text(f"ALTER TABLE {cls.__tablename__} AUTO_INCREMENT = {str(count)}"))
 
 class Account(Signin,MyBase):
     __tablename__ = 'account_list'

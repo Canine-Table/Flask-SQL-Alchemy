@@ -10,35 +10,35 @@
             {{ form.hidden_tag() }}
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span>{{ form.username.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                    <span>{{ form.username.label( class="inptbx input-group-text", id="new_users_username_label") }}</span>
                 </div>
-                {{ form.username( class="inptbx form-control", placeholder="ex. johndoe0123", id="inputGroupPrepend2") }}<br><br>
+                {{ form.username( class="inptbx form-control", placeholder="ex. johndoe0123", id="new_users_username") }}<br><br>
             </div>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span>{{ form.first_name.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                    <span>{{ form.first_name.label( class="inptbx input-group-text", id="new_users_full_name_label") }}</span>
                 </div>
-                {{ form.first_name( class="inptbx form-control", placeholder="first name", id="inputGroupPrepend2") }}<br><br>
-                {{ form.last_name( class="inptbx form-control", placeholder="last name", id="inputGroupPrepend2") }}<br><br>
+                {{ form.first_name( class="inptbx form-control", placeholder="first name", id="new_users_first_name") }}<br><br>
+                {{ form.last_name( class="inptbx form-control", placeholder="last name", id="new_users_last_name") }}<br><br>
             </div>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span>{{ form.email_address.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                    <span>{{ form.email_address.label( class="inptbx input-group-text", id="new_users_email_address_label") }}</span>
                 </div>
-                {{ form.email_address( class="inptbx form-control", placeholder="ex. example@example.com", id="inputGroupPrepend2") }}<br><br>
+                {{ form.email_address( class="inptbx form-control", placeholder="ex. example@example.com", id="new_users_email_address") }}<br><br>
             </div>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span>{{ form.phone_number.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                    <span>{{ form.phone_number.label( class="inptbx input-group-text", id="new_users_phone_number_label") }}</span>
                 </div>
-                {{ form.phone_number( class="inptbx form-control", placeholder="ex. 123-456-7890", id="inputGroupPrepend2") }}<br><br>
+                {{ form.phone_number( class="inptbx form-control", placeholder="ex. 123-456-7890", id="new_users_phone_number") }}<br><br>
             </div>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span>{{ form.password.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                    <span>{{ form.password.label( class="inptbx input-group-text", id="new_users_password_label") }}</span>
                 </div>
-                {{ form.password( class="inptbx form-control", placeholder="password", id="inputGroupPrepend2") }}<br><br>
-                {{ form.verify_password( class="inptbx form-control", placeholder="confirm password", id="inputGroupPrepend2") }}<br><br>
+                {{ form.password( class="inptbx form-control", placeholder="password", id="new_users_password") }}<br><br>
+                {{ form.verify_password( class="inptbx form-control", placeholder="confirm password", id="new_users_verify_password") }}<br><br>
             </div>
             {{ form.submit(class="btn btn-primary btn-block") }}
         </form>

@@ -48,22 +48,22 @@
                     {% macro edit_body() %}
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span>{{ edit_form.first_name.label( class="inptbx input-group-text", id="inputGroupPrepend4") }}</span>
+                                <span>{{ edit_form.first_name.label( class="inptbx input-group-text", id="edit_full_name_label") }}</span>
                             </div>
-                            {{ edit_form.first_name( class="inptbx form-control", placeholder="first name", id="inputGroupPrepend40") }}<br><br>
-                            {{ edit_form.last_name( class="inptbx form-control", placeholder="last name", id="inputGroupPrepend41") }}<br><br>
+                            {{ edit_form.first_name( class="inptbx form-control", placeholder="first name", id="edit_first_name") }}<br><br>
+                            {{ edit_form.last_name( class="inptbx form-control", placeholder="last name", id="edit_last_name") }}<br><br>
                         </div>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span>{{ edit_form.email_address.label( class="inptbx input-group-text", id="inputGroupPrepend5") }}</span>
                             </div>
-                            {{ edit_form.email_address( class="inptbx form-control", placeholder="ex. example@example.com", id="inputGroupPrepend50") }}<br><br>
+                            {{ edit_form.email_address( class="inptbx form-control", placeholder="ex. example@example.com", id="edit_email_address") }}<br><br>
                         </div>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span>{{ edit_form.phone_number.label( class="inptbx input-group-text", id="inputGroupPrepend6") }}</span>
+                                <span>{{ edit_form.phone_number.label( class="inptbx input-group-text", id="edit_phone_number_label") }}</span>
                             </div>
-                            {{ edit_form.phone_number( class="inptbx form-control", placeholder="ex. 123-456-7890", id="inputGroupPrepend60") }}<br><br>
+                            {{ edit_form.phone_number( class="inptbx form-control", placeholder="ex. 123-456-7890", id="edit_phone_number") }}<br><br>
                         </div>
                     {% endmacro %}
                     {% macro edit_footer() %}
@@ -122,21 +122,21 @@
                     {% macro reset_body() %}
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span>{{ password_form.old_password.label( class="inptbx input-group-text", id="inputGroupPrepend1") }}</span>
+                                <span>{{ password_form.old_password.label( class="inptbx input-group-text", id="users_old_password_label") }}</span>
                             </div>
-                            {{ password_form.old_password( class="inptbx form-control", placeholder="old password", id="inputGroupPrepend1") }}<br><br>
+                            {{ password_form.old_password( class="inptbx form-control", placeholder="old password", id="users_old_password") }}<br><br>
                         </div>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span>{{ password_form.new_password.label( class="inptbx input-group-text", id="inputGroupPrepend2") }}</span>
+                                <span>{{ password_form.new_password.label( class="inptbx input-group-text", id="users_password_label") }}</span>
                             </div>
-                            {{ password_form.new_password( class="inptbx form-control", placeholder="new password", id="inputGroupPrepend2") }}<br><br>
+                            {{ password_form.new_password( class="inptbx form-control", placeholder="new password", id="users_password") }}<br><br>
                         </div>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span>{{ password_form.confirm_new_password.label( class="inptbx input-group-text", id="inputGroupPrepend3") }}</span>
+                                <span>{{ password_form.confirm_new_password.label( class="inptbx input-group-text", id="users_confirm_new_password_label") }}</span>
                             </div>
-                            {{ password_form.confirm_new_password( class="inptbx form-control", placeholder="confirm password", id="inputGroupPrepend3") }}<br><br>
+                            {{ password_form.confirm_new_password( class="inptbx form-control", placeholder="confirm password", id="users_confirm_new_password") }}<br><br>
                         </div>
                     {% endmacro %}
                     {% macro reset_footer() %}

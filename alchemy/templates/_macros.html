@@ -37,6 +37,7 @@
         {% set modal_id = 'modal_id' %}
     {% endif %}
 
+
     {% if content_classes is not defined %}
         {% set content_classes = '' %}
     {% endif %}
@@ -99,6 +100,7 @@
     {% else %}
         {% set modal_footer = False %}
     {% endif %}
+
 
 {% if in_button %}
     <button type="button" class="btn {{ button_classes }}" id="{{ button_id }}" data-toggle="modal" data-target="#Modal-{{ modal_id }}">{{ button_text }}</button>

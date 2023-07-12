@@ -126,9 +126,11 @@ def market_page(username):
                 funds = session.query(Wallet.balance).filter_by(id=current_user.id).scalar() + current_item.price
                 session.query(Item).filter_by(id=sold_item).update({Item.owner: None})
                 session.query(Wallet).filter_by(id=current_user.id).update({Wallet.balance: funds})
+                current_user.balance.balance = funds
                 flash(f"You successfully sold your { current_item.name }.", category="success")
                 session.commit()
 
+    current_user.balance.balance = session.query(Wallet.balance).filter_by(id=current_user.id).scalar()
     return render_template('market.html',
         messages=get_flashed_messages(),
         items=items,owned_items=owned_items,purchase_form=purchase_form,sell_form=sell_form,env=jinja2_env)
