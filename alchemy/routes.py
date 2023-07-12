@@ -1,14 +1,18 @@
-from flask import render_template,request,url_for,flash,get_flashed_messages,redirect
-from sqlalchemy.orm import Session,sessionmaker
-from alchemy.models import Account,Phone,Email,Name,Signin,Item,Wallet
 from alchemy.forms import RegistrationForm,LoginForm,DeleteAccountForm,ResetPasswordForm,EditAccountForm,PurchaseItemForm,SellItemForm,AddItemForm,RemoveItemForm
-from alchemy.exceptions import QueryException
-from alchemy import app,engine
+from flask import render_template,request,url_for,flash,get_flashed_messages,redirect
 from flask_login import login_user,current_user,logout_user,login_required
+from alchemy.models import Account,Phone,Email,Name,Signin,Item,Wallet
+from sqlalchemy.orm import Session,sessionmaker
+from alchemy.exceptions import QueryException
 from alchemy.jinja2env import Jinja2Env
+from alchemy import app,engine
+from bs4 import BeautifulSoup
+import requests
+import os
 
 Session = sessionmaker(bind=engine)
 jinja2_env = Jinja2Env()
+
 
 @app.route('/', methods=['GET',"POST"])
 @app.route('/home', methods=['GET',"POST"])

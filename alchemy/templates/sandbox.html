@@ -6,9 +6,8 @@
         {{ errors() }}
     </div>
     <div class="container jumbotron p-2 jbtron pt-3">
-        <p>{{ env.globals['secrets'].token_hex(64)|upper }}<p>
-            {% include '_modals.html' %}
-            {% endi %}
+        {{ response.text }}
+
     </div>
 {% endblock %}
 

@@ -13,21 +13,30 @@
 {% endwith %}
 {% endmacro %}
 
-{% macro modal(button_text,button_classes,modal_id,modal_header,modal_title,header,header_classes,modal_body,body_classes,body,modal_footer,footer_classes,footer,content_classes,keep_close) %}
+{% macro modal(in_button,button_text,button_id,button_classes,modal_id,modal_header,modal_title,header,header_classes,modal_body,body_classes,body,modal_footer,footer_classes,footer,content_classes,keep_close) %}
 
-    {% if button_text is not defined %}
-        {% set button_text = 'Button' %}
-    {% endif %}
 
-    {% if button_classes is not defined %}
-        {% set button_classes = '' %}
+    {% if in_button is not defined %}
+        {% set in_button = True %}
+
+        {% if button_text is not defined %}
+            {% set button_text = 'Button' %}
+        {% endif %}
+
+        {% if button_classes is not defined %}
+            {% set button_classes = '' %}
+        {% endif %}
+
+        {% if button_id is not defined %}
+            {% set button_id = 'button_id' %}
+        {% endif %}
+
     {% endif %}
 
 
     {% if modal_id is not defined %}
         {% set modal_id = 'modal_id' %}
     {% endif %}
-
 
     {% if content_classes is not defined %}
         {% set content_classes = '' %}
@@ -92,8 +101,9 @@
         {% set modal_footer = False %}
     {% endif %}
 
-
-<button type="button" class="btn {{ button_classes }}" data-toggle="modal" data-target="#Modal-{{ modal_id }}">{{ button_text }}</button>
+{% if in_button %}
+    <button type="button" class="btn {{ button_classes }}" id="{{ button_id }}" data-toggle="modal" data-target="#Modal-{{ modal_id }}">{{ button_text }}</button>
+{% endif %}
 
 <div class="modal fade" id="Modal-{{ modal_id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel-{{ modal_id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -102,7 +112,7 @@
                 <div class="modal-header {{ header_classes }}">
                     <h5 class="modal-title" id="ModalLabel-{{ modal_id }}">{{ modal_title }}</h5>
                     {{ header }}
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" id="close-{{ button_id }}" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>

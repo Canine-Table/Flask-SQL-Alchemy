@@ -67,38 +67,7 @@
                         </div>
                     {% endmacro %}
                     {% macro edit_footer() %}
-                        {% macro confirm_body() %}
-                            <div class="container jumbotron fgc p-3 ">
-                                <h5><b><i>{{ edit_form.first_name.label }}</i></b></h5>
-                                <p><b>Old: </b>{{ user.name.first_name }}<br><b>New: </b><span id='first_name'></span></p>
-                            </div>
-                            <div class="container jumbotron fgc p-3 ">
-                                <h5><b><i>{{ edit_form.last_name.label }} </i></b></h5>
-                                <p><b>Old: </b>{{ user.name.last_name }}<br><b>New: </b><span id='last_name'></span></p>
-                            </div>
-                            <div class="container jumbotron fgc p-3 ">
-                                <h5><b><i>{{ edit_form.email_address.label }} </i></b></h5>
-                                <p><b>Old: </b>{{ user.email_address.email_address }}<br><b>New: </b><span id='email_address'></span></p>
-                            </div>
-                            <div class="container jumbotron fgc p-3 ">
-                                <h5><b><i>{{ edit_form.phone_number.label }}</i></b></h5>
-                                <p><b>Old: </b>{{ user.phone_number.phone_number }}<br><b>New: </b><span id='phone_number'></span></p>
-                            </div>
-                        {% endmacro %}
-                        {% macro confirm_footer() %}
-                            {{ edit_form.submit(class='btn btn-info', id='SavedChangesConfirmed_id') }}
-                        {% endmacro %}
-                        {{ modal(
-                            modal_id=env.globals['secrets'].token_hex(12)|upper,
-                            button_classes='btn-primary',
-                            button_text='Preview',
-                            modal_title='Save Changes',
-                            modal_header=True,
-                            modal_body=True,
-                            modal_footer=True,
-                            body=confirm_body(),
-                            footer=confirm_footer(),
-                        ) }}
+                        <button type="button" class="btn btn-primary" id='ShowSavedChanges_id' data-dismiss="modal" aria-label="Close">Preview</button>
                     {% endmacro %}
                     {{ modal(
                         modal_id=env.globals['secrets'].token_hex(12)|upper,
@@ -110,7 +79,41 @@
                         modal_footer=True,
                         body=edit_body(),
                         footer=edit_footer(),
+                        button_id='SaveChanges_id'
                     ) }}
+                    {% macro confirm_body() %}
+                    <div class="container jumbotron fgc p-3 ">
+                        <h5><b><i>{{ edit_form.first_name.label }}</i></b></h5>
+                        <p><b>Old: </b>{{ user.name.first_name }}<br><b>New: </b><span id='first_name'></span></p>
+                    </div>
+                    <div class="container jumbotron fgc p-3 ">
+                        <h5><b><i>{{ edit_form.last_name.label }} </i></b></h5>
+                        <p><b>Old: </b>{{ user.name.last_name }}<br><b>New: </b><span id='last_name'></span></p>
+                    </div>
+                    <div class="container jumbotron fgc p-3 ">
+                        <h5><b><i>{{ edit_form.email_address.label }} </i></b></h5>
+                        <p><b>Old: </b>{{ user.email_address.email_address }}<br><b>New: </b><span id='email_address'></span></p>
+                    </div>
+                    <div class="container jumbotron fgc p-3 ">
+                        <h5><b><i>{{ edit_form.phone_number.label }}</i></b></h5>
+                        <p><b>Old: </b>{{ user.phone_number.phone_number }}<br><b>New: </b><span id='phone_number'></span></p>
+                    </div>
+                {% endmacro %}
+                {% macro confirm_footer() %}
+                    {{ edit_form.submit(class='btn btn-info', id='SavedChangesConfirmed_id') }}
+                {% endmacro %}
+                {% set mid = env.globals['secrets'].token_hex(12)|upper %}
+                <button type="button" style='display: none' id='SavedChanges_id' data-toggle="modal" data-target="#Modal-{{ mid }}"></button>
+                {{ modal(
+                    modal_id=mid,
+                    modal_title='Save Changes',
+                    modal_header=True,
+                    modal_body=True,
+                    modal_footer=True,
+                    body=confirm_body(),
+                    footer=confirm_footer(),
+                    in_button=False
+                ) }}
                 </form><br>
                 <form method="POST">
                     {{ password_form.hidden_tag() }}
