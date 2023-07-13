@@ -58,3 +58,4 @@ wtf
 WTForms
 zope.interface
 Pillow
+python-dotenv
