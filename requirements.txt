@@ -57,3 +57,4 @@ Werkzeug
 wtf
 WTForms
 zope.interface
+Pillow
