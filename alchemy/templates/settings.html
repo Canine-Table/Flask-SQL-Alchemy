@@ -1,10 +1,38 @@
-{% from "_macros.html" import testing  %}
 {% extends '_base.html' %}
 {% block title %}Settings{% endblock %}
 {% block content %}
     <div class="container-xl">
         <div class="jumbotron p-2 text-center jbtron">
-            <h1>Account Settings</h1>
+            <div class="jumbotron fgc p-3 ">
+                <h1><a id='profile_picture_anchor' type="button" data-toggle="modal" data-target="#Modal-profile_picture_anchor"><img id='profile_picture' width='64px' hight='64px' src="{{ current_user.profile_picture }}" alt="..." width='24px' hight='24px' class="rounded-circle profile_picture_class"></a>&nbsp;Account Settings</h1>
+                <form method="POST" enctype="multipart/form-data">
+                    {{ image_form.hidden_tag() }}
+                    <input id="image_form_name" name="form_name" type="hidden" value="image_form">
+                    {% macro profile_picture_anchor_body() %}
+                        {{ image_form.selected_image(TYPE='file', class='btn btn-primary btn-block') }}{{ spacer(1) }}
+                        {{ image_form.file_path( id='image_file_path', class="btn-block", readonly=True) }}
+                    {% endmacro %}
+                    {% macro profile_picture_anchor_footer() %}
+                    <button type="button" class="btn btn-secondary" id='save_image_file'>Update</button>
+                    {{ image_form.submit(class='btn btn-primary', id='image_form_id', disabled=True) }}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {% endmacro %}
+                    {{ modal(
+                        modal_id='profile_picture_anchor',
+                        button_id='profile_picture_anchor',
+                        modal_title='Profile Picture',
+                        modal_header=True,
+                        modal_body=True,
+                        modal_footer=True,
+                        body=profile_picture_anchor_body(),
+                        body_classes='text-left',
+                        footer=profile_picture_anchor_footer(),
+                        in_button=False,
+                        keep_close=False
+                    ) }}
+                </form>
+
+            </div>
             {{ errors() }}
         </div>
         <div class="jumbotron p-2 jbtron">
@@ -19,6 +47,7 @@
             <div class="jumbotron fgc p-3 mb-2 pt-4">
                 <form method="POST">
                     {{ delete_form.hidden_tag() }}
+                    <input id="delete_form_name" name="form_name" type="hidden" value="delete_form">
                     {% macro delete_title() %}
                         Delete {{ user.username }}
                     {% endmacro %}
@@ -27,13 +56,14 @@
                     {% endmacro %}
                     {% macro delete_footer() %}
                         {{ delete_form.username(placeholder='username' ) }}
-                        {{ delete_form.submit(class='btn btn-danger') }}
+                        {{ delete_form.submit(class='btn btn-danger', id=env.globals['secrets'].token_hex(12)|upper) }}
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     {% endmacro %}
                     {{ modal(
                         modal_id=env.globals['secrets'].token_hex(12)|upper,
                         button_classes='btn-block btn-outline-danger',
                         button_text=delete_title(),
+                        button_id=env.globals['secrets'].token_hex(12)|upper,
                         modal_title='Delete Account',
                         modal_header=True,
                         modal_body=True,
@@ -45,6 +75,7 @@
                 </form><br>
                 <form method="POST">
                     {{ edit_form.hidden_tag() }}
+                    <input id="edit_form_name" name="form_name" type="hidden" value="edit_form">
                     {% macro edit_body() %}
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -98,27 +129,28 @@
                         <h5><b><i>{{ edit_form.phone_number.label }}</i></b></h5>
                         <p><b>Old: </b>{{ user.phone_number.phone_number }}<br><b>New: </b><span id='phone_number'></span></p>
                     </div>
-                {% endmacro %}
-                {% macro confirm_footer() %}
-                    <button type="button" class="btn btn-primary" id="BackSavedChangesConfirmed_id" data-dismiss="modal" aria-label="Close">Back</button>
-                    {{ edit_form.submit(class='btn btn-info', id='SavedChangesConfirmed_id') }}
-                {% endmacro %}
-                {% set mid = env.globals['secrets'].token_hex(12)|upper %}
-                <button type="button" style='display: none' id='SavedChanges_id' data-toggle="modal" data-target="#Modal-{{ mid }}"></button>
-                {{ modal(
-                    modal_id=mid,
-                    button_id=SavedChanges_id,
-                    modal_title='Save Changes',
-                    modal_header=True,
-                    modal_body=True,
-                    modal_footer=True,
-                    body=confirm_body(),
-                    footer=confirm_footer(),
-                    in_button=False
-                ) }}
+                    {% endmacro %}
+                    {% macro confirm_footer() %}
+                        <button type="button" class="btn btn-primary" id="BackSavedChangesConfirmed_id" data-dismiss="modal" aria-label="Close">Back</button>
+                        {{ edit_form.submit(class='btn btn-info', id='SavedChangesConfirmed_id') }}
+                    {% endmacro %}
+                    {% set mid = env.globals['secrets'].token_hex(12)|upper %}
+                    <button type="button" style='display: none' id='SavedChanges_id' data-toggle="modal" data-target="#Modal-{{ mid }}"></button>
+                    {{ modal(
+                        modal_id=mid,
+                        button_id=SavedChanges_id,
+                        modal_title='Save Changes',
+                        modal_header=True,
+                        modal_body=True,
+                        modal_footer=True,
+                        body=confirm_body(),
+                        footer=confirm_footer(),
+                        in_button=False
+                    ) }}
                 </form><br>
                 <form method="POST">
                     {{ password_form.hidden_tag() }}
+                    <input id="password_form_name" name="form_name" type="hidden" value="password_form">
                     {% macro reset_body() %}
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -140,13 +172,14 @@
                         </div>
                     {% endmacro %}
                     {% macro reset_footer() %}
-                        {{ password_form.submit(class='btn btn-warning') }}
+                        {{ password_form.submit(class='btn btn-warning', id=env.globals['secrets'].token_hex(12)|upper) }}
                     {% endmacro %}
                     {{ modal(
                         modal_id=env.globals['secrets'].token_hex(12)|upper,
                         button_classes='btn-block btn-outline-warning',
                         button_text='Reset Password',
                         modal_title='Reset Password',
+                        button_id=env.globals['secrets'].token_hex(12)|upper,
                         modal_header=True,
                         modal_body=True,
                         modal_footer=True,

@@ -35,3 +35,12 @@ document.getElementById("SaveChanges_id").addEventListener("click", () => {
         })
     })
 })
+
+document.getElementById('save_image_file').addEventListener("click", () => {
+    let filename = document.getElementById('selected_image').value
+    filename = filename.replace('C:\\fakepath\\','')
+    document.getElementById('image_file_path').value = filename
+    if(filename != ''){
+        document.getElementById('image_form_id').disabled = false
+    }
+})

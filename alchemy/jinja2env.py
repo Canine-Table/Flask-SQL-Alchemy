@@ -1,8 +1,11 @@
 from jinja2 import Environment, select_autoescape
 from jinja2.ext import do,i18n
+from alchemy import app
 import secrets
 
+
 class Jinja2Env(Environment):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.comment_start_string = '<#'
@@ -20,3 +23,5 @@ class Jinja2Env(Environment):
         self.add_extension(i18n)
         self.globals['secrets'] = secrets
 
+
+jinja2_env = Jinja2Env()
