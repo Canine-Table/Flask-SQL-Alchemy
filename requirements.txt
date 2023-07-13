@@ -1,4 +1,3 @@
-apt-xapian-index
 asttokens
 attrs
 backcall
@@ -20,9 +19,6 @@ defer
 distro
 distro-info
 dnspython
-docker
-docker-compose
-dockerpty
 docopt
 email-validator
 executing
