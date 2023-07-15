@@ -1,3 +1,6 @@
+from wtforms import StringField,SubmitField,TextAreaField
+from wtforms.validators import Length,EqualTo,DataRequired,Email
+
 from wtforms import SubmitField
 from flask_wtf import FlaskForm
 
@@ -15,3 +18,8 @@ class AddItemForm(FlaskForm):
 
 class RemoveItemForm(FlaskForm):
     submit = SubmitField(label="Remove")
+
+class AddCommentForm(FlaskForm):
+    title = StringField('Title',validators=[DataRequired(),])
+    content = TextAreaField('Content',validators=[DataRequired(),])
+    submit = SubmitField(label="Submit")

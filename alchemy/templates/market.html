@@ -72,6 +72,7 @@
                             <td>{{ item.name }}</td>
                             <td>${{ item.price }}</td>
                             <td>
+                                <a class="btn btn-primary" href="{{ url_for('market.comments_page',item=item.barcode) }}">Comment</a>
                                 {% macro info_body() %}
                                 <p><b>Item ID:</b> {{ item.id }}</p>
                                 <p><b>Price:</b> ${{ item.price }}</p>

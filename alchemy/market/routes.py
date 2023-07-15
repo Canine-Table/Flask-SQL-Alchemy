@@ -1,4 +1,4 @@
-from alchemy.market.forms import SellItemForm,PurchaseItemForm,AddItemForm,RemoveItemForm
+from alchemy.market.forms import SellItemForm,PurchaseItemForm,AddItemForm,RemoveItemForm,AddCommentForm
 from flask import render_template,request,flash,get_flashed_messages
 from flask_login import current_user,login_required
 from alchemy.models import Item,Wallet
@@ -43,3 +43,13 @@ def market_page(username):
 
     current_user.balance.balance = session.query(Wallet.balance).filter_by(id=current_user.id).scalar()
     return render_template('market.html',messages=get_flashed_messages(),items=items,owned_items=owned_items,purchase_form=purchase_form,sell_form=sell_form,env=jinja2_env)
+
+
+@market.route('/<item>/comment', methods=['GET','POST'])
+@login_required
+def comments_page(item):
+    form=AddCommentForm()
+    barcode = item
+    with Session() as session:
+        item = session.query(Item).filter_by(barcode=barcode).scalar()
+    return render_template('posts.html',form=form,env=jinja2_env,barcode=barcode,item=item)

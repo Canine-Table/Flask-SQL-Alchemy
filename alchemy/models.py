@@ -122,11 +122,24 @@ class Item(MyBase):
     barcode: Mapped[int] = Column(String(length=12), nullable=False)
     description: Mapped[str] = Column(String(2048), nullable=True)
     owner: Mapped['int'] = Column(Integer, nullable=True, default=None)
+    comments: Mapped['Comment'] = relationship('Comment', uselist=False, backref='item_comments', primaryjoin='Item.id==foreign(Comment.id)', lazy=True)
 
     __table_args__ = (CheckConstraint('char_length(barcode) = 12', name='barcode_min_length'),)
 
     def __repr__(self) -> str:
         return f"Item(id={self.id}, name={self.name} price={self.price}, barcode={self.barcode}, owner={self.owner})"
+
+
+class Comment(MyBase):
+    __tablename__ = 'item_comments'
+    id: Mapped[int] = Column(Integer, primary_key=True)
+    owner: Mapped['int'] = Column(Integer, nullable=False)
+    title: Mapped[str] =  Column(String(length=128), nullable=False)
+    body: Mapped[str] =  Column(String(length=4096), nullable=False)
+    creation_date: Mapped[DateTime] = Column(DateTime, nullable=False, default=func.now())
+
+    def __repr__(self) -> str:
+        return f"Comment(id={self.id}, owner={self.owner} title={self.title}, creation_date={self.creation_date})"
 
 
 class Wallet(MyBase):

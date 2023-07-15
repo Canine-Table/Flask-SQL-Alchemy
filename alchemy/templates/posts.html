@@ -1,0 +1,46 @@
+{% extends '_base.html' %}
+{% block title %}Comments{% endblock %}
+{% block content %}
+    <div class="container-xxl jumbotron p-2 ml-4 mr-4 text-center jbtron">
+        <div class="jumbotron fgc p-3 mt-3">
+            <h1>{{ item.name }} Reviews</h1>{{ spacer(1) }}
+            <form method="POST">
+                {{ form.hidden_tag() }}
+
+                {% macro post_body() %}
+                    {{ form.title(class="btn-block", placeholder='comment title') }}
+                    {{ form.content(class="btn-block", placeholder='comment body') }}
+                {% endmacro %}
+
+                {% macro post_footer() %}
+                    {{ form.submit(class="btn btn-primary") }}                
+                {% endmacro %}
+
+                {{ modal(
+                    modal_id=env.globals['secrets'].token_hex(12)|upper,
+                    button_classes='btn-block btn-outline-info',
+                    button_text='New Comment',
+                    modal_title='Add Comment',
+                    button_id=env.globals['secrets'].token_hex(12)|upper,
+                    modal_header=True,
+                    modal_body=True,
+                    modal_footer=True,
+                    body=post_body(),
+                    footer=post_footer(),
+                ) }}
+
+            </form>
+        </div>
+        {{ errors() }}
+    </div>
+</form>
+{{ spacer(1) }}<div class="card ml-4 mr-4">
+    <div class="card-header fgc">
+        Featured
+    </div>
+    <div class="card-body bg-dark">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    </div>
+</div>{{ spacer(2) }}
+{% endblock %}
