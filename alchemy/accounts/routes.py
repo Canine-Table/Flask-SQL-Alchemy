@@ -1,27 +1,21 @@
-from alchemy.forms import RegistrationForm,LoginForm,DeleteAccountForm,ResetPasswordForm,EditAccountForm,PurchaseItemForm,SellItemForm,AddItemForm,RemoveItemForm,ProfilePictureForm
+from alchemy.accounts.forms import RegistrationForm,ResetPasswordForm,LoginForm,DeleteAccountForm,EditAccountForm,ResetPasswordForm,ProfilePictureForm
 from flask import render_template,request,url_for,flash,get_flashed_messages,redirect
 from flask_login import login_user,current_user,logout_user,login_required
 from alchemy.models import Account,Phone,Email,Name,Signin,Item,Wallet
-from sqlalchemy.orm import Session,sessionmaker
-from alchemy.exceptions import QueryException
-from alchemy.jinja2env import jinja2_env
-from alchemy import app,engine
+from alchemy.main.exceptions import QueryException
+from alchemy.accounts.utils import crop_to_square
+from alchemy.main.jinja2env import jinja2_env
+from flask import Blueprint
+from alchemy import Session
 from io import BytesIO
 from PIL import Image
-import secrets
 import base64
-import os
-
-Session = sessionmaker(bind=engine)
 
 
-@app.route('/', methods=['GET','POST'])
-@app.route('/home', methods=['GET','POST'])
-def home_page():
-    return render_template('home.html',env=jinja2_env)
+account = Blueprint('account',__name__)
 
 
-@app.route('/register', methods=['GET','POST'])
+@account.route('/register', methods=['GET','POST'])
 def register_page():
     form = RegistrationForm()
     if request.method == "POST":
@@ -58,12 +52,12 @@ def register_page():
                 flash(f"{form.username.data} was successfully created.",category='success')
                 get_user = Signin.get_session(session).load_user(account_to_create.id)
                 login_user(get_user,remember=False)
-                return redirect(url_for('market_page', username=current_user.username))
+                return redirect(url_for('market.market_page', username=current_user.username))
 
     return render_template('register.html',form=form,env=jinja2_env)
 
 
-@app.route('/login', methods=['GET','POST'])
+@account.route('/login', methods=['GET','POST'])
 def login_page():
     form=LoginForm()
     if request.method == "POST":
@@ -76,7 +70,7 @@ def login_page():
                     get_user = Signin.get_session(session).load_user(attempted_user.id)
                     login_user(get_user,remember=form.remember_me.data)
 
-                    return redirect(url_for('market_page', username=attempted_user.username))
+                    return redirect(url_for('market.market_page', username=attempted_user.username))
                 else:
                     QueryException.add_error_message(f"The username or password does not match.")
                 if QueryException.error_count():
@@ -92,51 +86,14 @@ def login_page():
         current_user=current_user)
 
 
-@app.route('/logout')
+@account.route('/logout')
 def logout_page():
     flash("you logged out of your account", category='primary')
     logout_user()
-    return redirect( url_for('home_page'))
+    return redirect( url_for('main.home_page'))
 
 
-@app.route('/<username>/market', methods=['GET','POST'])
-@login_required
-def market_page(username):
-    purchase_form= PurchaseItemForm()
-    sell_form = SellItemForm()
-    with Session() as session:
-        items = session.query(Item).filter_by(owner=None)
-        owned_items = session.query(Item).filter_by(owner=current_user.id)
-
-        if request.method == 'POST':
-
-            if request.form['form_name'] == 'purchase_form':
-                purchased_item = request.form.get('purchased_item')
-                current_item  = session.query(Item).get(purchased_item)
-                funds = session.query(Wallet.balance).filter_by(id=current_user.id).scalar() - current_item.price
-                if funds >= 0:
-                    session.query(Item).filter_by(id=purchased_item).update({Item.owner: current_user.id})
-                    session.query(Wallet).filter_by(id=current_user.id).update({Wallet.balance: funds})
-                    flash(f"You successfully purchased the { current_item.name }.", category="success")
-                    session.commit()
-                else:
-                    flash("insufficient funds", category="danger")
-
-            elif request.form['form_name'] == 'sold_form':
-                sold_item = request.form.get('sold_item')
-                current_item  = session.query(Item).get(sold_item)
-                funds = session.query(Wallet.balance).filter_by(id=current_user.id).scalar() + current_item.price
-                session.query(Item).filter_by(id=sold_item).update({Item.owner: None})
-                session.query(Wallet).filter_by(id=current_user.id).update({Wallet.balance: funds})
-                current_user.balance.balance = funds
-                flash(f"You successfully sold your { current_item.name }.", category="success")
-                session.commit()
-
-    current_user.balance.balance = session.query(Wallet.balance).filter_by(id=current_user.id).scalar()
-    return render_template('market.html',messages=get_flashed_messages(),items=items,owned_items=owned_items,purchase_form=purchase_form,sell_form=sell_form,env=jinja2_env)
-
-
-@app.route('/<username>/settings', methods=['GET','POST'])
+@account.route('/<username>/settings', methods=['GET','POST'])
 @login_required
 def settings_page(username):
     delete_form=DeleteAccountForm()
@@ -152,13 +109,13 @@ def settings_page(username):
     if request.method == 'POST':
         with Session() as session:
             if delete_form.submit.data and request.form['form_name'] =='delete_form':
-                if delete_form.username.data == current_user.username:
+                if (delete_form.username.data).strip() == current_user.username:
                         session.query(Item).filter_by(owner=current_user.id).update({Item.owner: None})
                         for delete_row in [Account,Email,Name,Phone,Wallet]:
                             session.query(delete_row).filter_by(id=current_user.id).delete()
                             delete_row._update_state(session)
                         session.commit()
-                        return redirect(url_for('logout_page'))
+                        return redirect(url_for('account.logout_page'))
                 else:
                     flash(f"input box did not match your username, account was not deleted", category='warning')
 
@@ -232,17 +189,6 @@ def settings_page(username):
                         flash(f'{ctype} is not a valid image type',category='danger')
                     else:
                         with Image.open(image_form.selected_image.data) as image:
-                            def crop_to_square(image):
-                                width, height = image.size
-                                if width == height:
-                                    return image
-                                elif width > height:
-                                    offset = int(abs(height - width) / 2)
-                                    return image.crop((offset, 0, width - offset, height))
-                                else:
-                                    offset = int(abs(width - height) / 2)
-                                    return image.crop((0, offset, width, height - offset))
-
                             square_image = crop_to_square(image)
                             output_size = (48,48)
                             buffer = BytesIO()

@@ -1,6 +1,5 @@
 from jinja2 import Environment, select_autoescape
 from jinja2.ext import do,i18n
-from alchemy import app
 import secrets
 
 

@@ -1,18 +1,16 @@
 from sqlalchemy import create_engine, inspect
+from sqlalchemy.orm import sessionmaker
 from flask_login import LoginManager
+from alchemy.config import Config
 from flask_bcrypt import Bcrypt
 from flask import Flask
-import secrets
+from alchemy.main.jinja2env import Jinja2Env
 import os
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['SECRET_KEY'] = secrets.token_hex(12)
-login_manager = LoginManager(app)
-login_manager.login_view = "login_page"
+bcrypt = Bcrypt()
+login_manager = LoginManager()
+login_manager.login_view = "account.login_page"
 login_manager.login_message_category = "info"
-bcrypt = Bcrypt(app)
-
 
 class Database:
     db_host = os.environ['DB_HOST']
@@ -31,9 +29,29 @@ class Database:
                 "init_command": "SET foreign_key_checks=0"}})
 
 
-db = Database()
 engine = Database.create()
+Session = sessionmaker(bind=engine)
 inspector = inspect(engine)
 
 
-from alchemy import routes
+
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(Config)
+
+    from alchemy.main.routes import main
+    app.register_blueprint(main)
+
+    from alchemy.market.routes import market
+    app.register_blueprint(market)
+
+    from alchemy.accounts.routes import account
+    app.register_blueprint(account)
+
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
+
+    def create_my_environment():
+        return Jinja2Env(loader=app.jinja_loader)
+
+    return app

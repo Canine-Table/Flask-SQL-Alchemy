@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
-from alchemy import app
+from alchemy import create_app
 
 
 if __name__ == '__main__':
     load_dotenv()
-    app.run()
+    create_app().run()

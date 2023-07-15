@@ -1,6 +1,6 @@
-from wtforms.validators import Length,EqualTo,DataRequired,Email
-from flask_wtf.file import FileAllowed, FileField,FileStorage
 from wtforms import StringField,SubmitField,PasswordField,EmailField,BooleanField
+from wtforms.validators import Length,EqualTo,DataRequired,Email
+from flask_wtf.file import FileAllowed, FileField
 from flask_wtf import FlaskForm
 
 
@@ -42,20 +42,6 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField(label="Reset")
 
 
-class PurchaseItemForm(FlaskForm):
-    submit = SubmitField(label="Purchase")
-
-
-class SellItemForm(FlaskForm):
-    submit = SubmitField(label="Sell")
-
-
-class AddItemForm(FlaskForm):
-    submit = SubmitField(label="Add Item")
-
-
-class RemoveItemForm(FlaskForm):
-    submit = SubmitField(label="Remove")
 
 class ProfilePictureForm(FlaskForm):
     selected_image = FileField('Select Image', validators=[FileAllowed(['jpg','png','jpeg','webp'])])
