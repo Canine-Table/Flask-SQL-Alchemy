@@ -1,11 +1,14 @@
 {% extends '_base.html' %}
 {% block title %}Settings{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/_settings.css') }}">
+{% endblock %}
 {% block content %}
     <div class="container-xl">
         <div class="jumbotron p-2 text-center jbtron">
             <div class="jumbotron fgc p-3 ">
                 <h1><a id='profile_picture_anchor' type="button" data-toggle="modal" data-target="#Modal-profile_picture_anchor"><img id='profile_picture' width='64px' hight='64px' src="{{ current_user.profile_picture }}" alt="..." width='24px' hight='24px' class="rounded-circle profile_picture_class"></a>&nbsp;Account Settings</h1>
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" enctype="multipart/form-data" onsubmit="formSubmited('image_form_id')">
                     {{ image_form.hidden_tag() }}
                     <input id="image_form_name" name="form_name" type="hidden" value="image_form">
                     {% macro profile_picture_anchor_body() %}
@@ -56,7 +59,7 @@
                     {% endmacro %}
                     {% macro delete_footer() %}
                         {{ delete_form.username(placeholder='username' ) }}
-                        {{ delete_form.submit(class='btn btn-danger', id=env.globals['secrets'].token_hex(12)|upper) }}
+                        {{ delete_form.submit(class='btn btn-danger', id='delete_account') }}
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     {% endmacro %}
                     {{ modal(
@@ -190,4 +193,5 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/_settings.js')}}"></script>
 {% endblock %}

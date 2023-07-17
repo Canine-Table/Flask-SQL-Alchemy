@@ -1,0 +1,18 @@
+#profile_picture {
+    size: '64px';
+    width: '64px';
+    height: '64px';
+    background-size: '64px';
+}
+
+.profile_picture_class {
+    border: 2px  solid var(--wt2);
+}
+
+.profile_picture_class:hover {
+    border: 2px  solid green;
+}
+
+.profile_picture_class:active {
+    border: 2px  solid blue;
+}

@@ -18,33 +18,36 @@
                     <div class="col-md-4" >
                         <div class="card text-center mb-4 bkg">
                             <div class="card-body my_content">
-                                <h5 class="card-title">{{ owned_item.name }}</h5>
-                                <button type="button" class="btn btn-outline btn-danger" style="margin-bottom: 5px" data-toggle="modal" data-target="#SellModal-{{ owned_item.id }}">Sell {{ owned_item.name }}</button>
-                                <p class="card-text"><strong>This item costs ${{ owned_item.price }}</strong></p>
-                                <div class="modal fade" id="SellModal-{{ owned_item.id }}" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content bg-dark border">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">{{ owned_item.name }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p class="text-left">Are you sure you want to sell your <b>{{ owned_item.name }}</b> for <b>${{ owned_item.price }}</b>?</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <form method="POST">
-                                                    {{ sell_form.hidden_tag() }}
-                                                    <input id="form_name-{{ owned_item.id }}" name="form_name" type="hidden" value="sold_form">
-                                                    <input id="sold_item-{{ owned_item.id }}" name="sold_item" type="hidden" value="{{ owned_item.id }}">
-                                                    {{ sell_form.submit(class="btn btn-danger") }}
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h5 class="card-title">{{ owned_item.item_purchase.name }}</h5>
+                                {% macro sell_modal_body() %}
+                                    <form method="POST">
+                                        <p class="text-left">Are you sure you want to sell your <b>{{ owned_item.item_purchase.name }}</b> for <b>${{ owned_item.item_purchase.price }}</b>?</p>
+                                        <input type="number" id="sold_item_count-{{ owned_item.id }}" name="sell_count" min="1" max="{{ owned_item.count }}">
+                                {% endmacro %}
+                                {% macro sell_modal_footer() %}
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        {{ sell_form.hidden_tag() }}
+                                        <input id="form_name-{{ owned_item.id }}" name="form_name" type="hidden" value="sold_form">
+                                        <input id="sold_item-{{ owned_item.id }}" name="sold_item" type="hidden" value="{{ owned_item.id }}">
+                                        {{ sell_form.submit(class="btn btn-danger") }}
+                                    </form>
+                                {% endmacro %}
+                                {% set mid = env.globals['secrets'].token_hex(12)|upper %}
+                                <button type="button" class="btn btn-outline btn-danger" style="margin-bottom: 5px" data-toggle="modal" data-target="#Modal-{{ mid }}">Sell {{ owned_item.item_purchase.name }}</button>
+                                <p class="card-text"><strong>This item costs ${{ owned_item.item_purchase.price }}</strong></p>
+                                {{ modal(
+                                    modal_id=mid,
+                                    button_id=mid,
+                                    modal_title=owned_item.item_purchase.name,
+                                    modal_header=True,
+                                    modal_body=True,
+                                    modal_footer=True,
+                                    body=sell_modal_body(),
+                                    body_classes='text-left',
+                                    footer=sell_modal_footer(),
+                                    in_button=False,
+                                    keep_close=False
+                                ) }}
                             </div>
                         </div>
                     </div>
@@ -74,10 +77,10 @@
                             <td>
                                 <a class="btn btn-primary" href="{{ url_for('market.comments_page',item=item.barcode) }}">Comment</a>
                                 {% macro info_body() %}
-                                <p><b>Item ID:</b> {{ item.id }}</p>
-                                <p><b>Price:</b> ${{ item.price }}</p>
-                                <p><b>Barcode:</b> {{ item.barcode }}</p>
-                                <p><b>Description:</b> {{ item.description }}</p>
+                                    <p><b>Item ID:</b> {{ item.id }}</p>
+                                    <p><b>Price:</b> ${{ item.price }}</p>
+                                    <p><b>Barcode:</b> {{ item.barcode }}</p>
+                                    <p><b>Description:</b> {{ item.description }}</p>
                                 {% endmacro %}
                                 {{ modal(
                                     modal_id=env.globals['secrets'].token_hex(12)|upper,
@@ -90,27 +93,28 @@
                                     body=info_body(),
                                 ) }}
                                 {% macro purchase_body() %}
-                                    <p>Are you sure you want to buy a <b>{{ item.name }}</b> for <b>${{ item.price }}</b>?</p>
+                                    <form method="POST">
+                                        <p>Are you sure you want to buy a <b>{{ item.name }}</b> for <b>${{ item.price }}</b>?</p>
+                                        <input type="number" id="purchase_item_count-{{ item.id }}" name="purchase_count" min="1" max="{{ item.stock }}">
                                 {% endmacro %}
                                 {% macro purchase_footer() %}
-                                    <form method="POST">
                                         {{ purchase_form.hidden_tag() }}
                                         <input id="purchase_form_name-{{ item.id }}" name="form_name" type="hidden" value="purchase_form">
                                         <input id="purchased_item-{{ item.id }}" name="purchased_item" type="hidden" value="{{ item.id }}">
                                         {{ purchase_form.submit(class="btn btn-primary") }}
                                     </form>
                                 {% endmacro %}
-                                {{ modal(
-                                    modal_id=env.globals['secrets'].token_hex(12)|upper,
-                                    button_classes='btn-outline btn-success',
-                                    button_text='Purchase',
-                                    modal_header=True,
-                                    modal_body=True,
-                                    modal_footer=True,
-                                    modal_title=item.name,
-                                    body=purchase_body(),
-                                    footer=purchase_footer()
-                                ) }}
+                                    {{ modal(
+                                        modal_id=env.globals['secrets'].token_hex(12)|upper,
+                                        button_classes='btn-outline btn-success',
+                                        button_text='Purchase',
+                                        modal_header=True,
+                                        modal_body=True,
+                                        modal_footer=True,
+                                        modal_title=item.name,
+                                        body=purchase_body(),
+                                        footer=purchase_footer()
+                                    ) }}
                             </td>
                         </tr>
                     {% endfor %}

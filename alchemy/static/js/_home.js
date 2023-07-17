@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 window.addEventListener('DOMContentLoaded', event => {
 
     // Navbar shrink function
