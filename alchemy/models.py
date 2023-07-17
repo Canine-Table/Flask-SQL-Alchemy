@@ -125,7 +125,6 @@ class Phone(MyBase):
 class Item(MyBase):
     __tablename__ = 'item_list'
 
-
     id: Mapped[int] = Column(Integer, primary_key=True)
     name: Mapped[str] = Column(String(length=32), nullable=False)
     price: Mapped[Decimal] = Column(DECIMAL(precision=10, scale=2), nullable=False)
@@ -136,10 +135,9 @@ class Item(MyBase):
     last_updated: Mapped[DateTime] = Column(DateTime, nullable=True)
 
     comments: Mapped['Comment'] = relationship('Comment', uselist=True, backref='item_comments', primaryjoin='Item.barcode==foreign(Comment.barcode)', lazy=True)
-    purchases: Mapped['Purchase'] = relationship('Purchase', uselist=True, backref='item_purchase', primaryjoin='Item.barcode==foreign(Purchase.barcode)', lazy=True)
+    purchases: Mapped['Purchase'] = relationship('Purchase', uselist=True, backref='item_purchase', primaryjoin='Item.barcode==foreign(Purchase.barcode)')
 
     __table_args__ = (UniqueConstraint(barcode),)
-
 
     def __repr__(self) -> str:
         return f"Item(id={self.id}, name={self.name} price={self.price}, barcode={self.barcode}, stock={self.stock})"
@@ -148,19 +146,19 @@ class Item(MyBase):
 class Purchase(MyBase):
     __tablename__ = 'purchase_list'
 
-    id: Mapped[int] = Column(Integer, primary_key=True)
+    id: Mapped[int] = Column(Integer, primary_key=True,nullable=True)
     count: Mapped[int] = Column(Integer, nullable=False)
-    owner: Mapped['int'] = Column(Integer, nullable=False)
+    owner: Mapped[int] = Column(Integer, nullable=False)
     barcode: Mapped[str] = Column(String(length=128), nullable=False)
     date_purchased: Mapped[DateTime] = Column(DateTime, nullable=False, default=func.now())
 
     def __repr__(self) -> str:
-        return f"Purchase(id={self.id}, name={self.name}, name={self.count}, price={self.price}, barcode={self.barcode}, owner={self.owner})"
+        return f"Purchase(id={self.id}, count={self.count}, owner={self.owner}, barcode={self.barcode})"
 
 
 class Comment(MyBase):
     __tablename__ = 'item_comments_list'
-    id: Mapped[int] = Column(Integer, primary_key=True)
+    id: Mapped[int] = Column(Integer, primary_key=True,nullable=True)
     barcode: Mapped[str] = Column(String(length=128), nullable=False)
     written_by: Mapped['int'] = Column(Integer, nullable=False)
     title: Mapped[str] =  Column(String(length=128), nullable=False)
@@ -192,3 +190,7 @@ Base.metadata.create_all(bind=engine)
 def set_barcode(mapper,conn,target):
     target.barcode = func.md5(func.rand())
     conn.execute(Item.__table__.update().where(Item.id == target.id).values(barcode=target.barcode))
+
+@event.listens_for(Purchase,'before_insert')
+def delete_empty_purchases(mapper,conn,target):
+    conn.execute(Purchase.__table__.delete().where(Purchase.count == 0))

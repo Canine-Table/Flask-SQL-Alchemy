@@ -28,7 +28,7 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         {{ sell_form.hidden_tag() }}
                                         <input id="form_name-{{ owned_item.id }}" name="form_name" type="hidden" value="sold_form">
-                                        <input id="sold_item-{{ owned_item.id }}" name="sold_item" type="hidden" value="{{ owned_item.id }}">
+                                        <input id="sold_item-{{ owned_item.id }}" name="sold_item" type="hidden" value='{{ {"id":owned_item.item_purchase.id,"name":owned_item.item_purchase.name,"price":owned_item.item_purchase.price,"barcode":owned_item.barcode,"description":owned_item.item_purchase.description,"stock":owned_item.count,"count":owned_item.owner} | tojson }}'>
                                         {{ sell_form.submit(class="btn btn-danger") }}
                                     </form>
                                 {% endmacro %}
@@ -70,17 +70,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in items %}
+                    {% for purchased_item in purchased_items %}
                         <tr>
-                            <td>{{ item.name }}</td>
-                            <td>${{ item.price }}</td>
+                            <td>{{ purchased_item.name }}</td>
+                            <td>${{ purchased_item.price }}</td>
                             <td>
-                                <a class="btn btn-primary" href="{{ url_for('market.comments_page',item=item.barcode) }}">Comment</a>
+                                <a class="btn btn-primary" href="{{ url_for('market.comments_page',item=purchased_item.barcode) }}">Comment</a>
                                 {% macro info_body() %}
-                                    <p><b>Item ID:</b> {{ item.id }}</p>
-                                    <p><b>Price:</b> ${{ item.price }}</p>
-                                    <p><b>Barcode:</b> {{ item.barcode }}</p>
-                                    <p><b>Description:</b> {{ item.description }}</p>
+                                    <p><b>Item ID:</b> {{ purchased_item.id }}</p>
+                                    <p><b>Price:</b> ${{ purchased_item.price }}</p>
+                                    <p><b>Barcode:</b> {{ purchased_item.barcode }}</p>
+                                    <p><b>Description:</b> {{ purchased_item.description }}</p>
                                 {% endmacro %}
                                 {{ modal(
                                     modal_id=env.globals['secrets'].token_hex(12)|upper,
@@ -89,18 +89,18 @@
                                     modal_header=True,
                                     modal_body=True,
                                     modal_footer=True,
-                                    modal_title=item.name,
+                                    modal_title=purchased_item.name,
                                     body=info_body(),
                                 ) }}
                                 {% macro purchase_body() %}
                                     <form method="POST">
-                                        <p>Are you sure you want to buy a <b>{{ item.name }}</b> for <b>${{ item.price }}</b>?</p>
-                                        <input type="number" id="purchase_item_count-{{ item.id }}" name="purchase_count" min="1" max="{{ item.stock }}">
+                                        {{ purchase_form.hidden_tag() }}
+                                        <p>Are you sure you want to buy a <b>{{ purchased_item.name }}</b> for <b>${{ purchased_item.price }}</b>?</p>
+                                        <input type="number" id="purchase_item_count-{{ purchased_item.id }}" name="purchase_count" min="1" max="{{ purchased_item.stock }}">
                                 {% endmacro %}
                                 {% macro purchase_footer() %}
-                                        {{ purchase_form.hidden_tag() }}
-                                        <input id="purchase_form_name-{{ item.id }}" name="form_name" type="hidden" value="purchase_form">
-                                        <input id="purchased_item-{{ item.id }}" name="purchased_item" type="hidden" value="{{ item.id }}">
+                                        <input id="purchase_form_name-{{ purchased_item.id }}" name="form_name" type="hidden" value="purchase_form">
+                                        <input id="unowned_item-{{ purchased_item.id }}" name="unowned_item" type="hidden" value='{{ {"id":purchased_item.id,"name":purchased_item.name,"price":purchased_item.price,"barcode":purchased_item.barcode,"description":purchased_item.description,"stock":purchased_item.stock} | tojson }}'>
                                         {{ purchase_form.submit(class="btn btn-primary") }}
                                     </form>
                                 {% endmacro %}
@@ -111,7 +111,7 @@
                                         modal_header=True,
                                         modal_body=True,
                                         modal_footer=True,
-                                        modal_title=item.name,
+                                        modal_title=purchased_item.name,
                                         body=purchase_body(),
                                         footer=purchase_footer()
                                     ) }}
