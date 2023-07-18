@@ -12,7 +12,7 @@
                     {{ image_form.hidden_tag() }}
                     <input id="image_form_name" name="form_name" type="hidden" value="image_form">
                     {% macro profile_picture_anchor_body() %}
-                        {{ image_form.selected_image(TYPE='file', class='btn btn-primary btn-block') }}{{ spacer(1) }}
+                        {{ image_form.selected_image(type='file', class='btn btn-primary btn-block') }}{{ spacer(1) }}
                         {{ image_form.file_path( id='image_file_path', class="btn-block", readonly=True) }}
                     {% endmacro %}
                     {% macro profile_picture_anchor_footer() %}

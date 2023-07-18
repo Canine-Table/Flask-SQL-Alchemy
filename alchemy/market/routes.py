@@ -2,7 +2,6 @@ from alchemy.market.forms import SellItemForm,PurchaseItemForm,AddItemForm,Remov
 from flask import render_template,request,flash,get_flashed_messages
 from alchemy.models import Item,Wallet,Comment,Purchase
 from flask_login import current_user,login_required
-from alchemy.market.utils import string_to_dict
 from alchemy.main.jinja2env import jinja2_env
 from flask import Blueprint
 from alchemy import Session
@@ -31,7 +30,7 @@ def market_page(username):
                 if funds.balance - cost > 0:
                     purchased_item.stock -= item_count
                     funds.balance -= cost
-                    add_item = session.query(Purchase).filter_by(id=current_user.id).filter_by(barcode=purchased_json_item["barcode"])
+                    add_item = session.query(Purchase).filter_by(owner=current_user.id).filter_by(barcode=purchased_json_item["barcode"])
                     if add_item.scalar():
                         add_item.update({Purchase.count: Purchase.count + item_count})
                     else:
@@ -53,15 +52,11 @@ def market_page(username):
                 remove_item = session.query(Purchase).filter_by(owner=current_user.id).filter_by(barcode=sold_json_item["barcode"])
                 if remove_item.scalar():
                     remove_item.update({Purchase.count: Purchase.count - item_count})
-                    if session.query(Purchase.count).scalar() == 0:
-                        session.query(Purchase).filter_by(count=0).delete()
+                    if session.query(Purchase.count).filter_by(owner=current_user.id).filter_by(barcode=sold_item.barcode).scalar() == 0:
+                        session.query(Purchase).filter_by(owner=current_user.id).filter_by(barcode=sold_item.barcode).filter_by(count=0).delete()
                         flash(f"You sold out of your { sold_item.name }.", category="success")
                     flash(f"You successfully sold { item_count } { sold_item.name }.", category="success")
                     session.commit()
-                    
-                else:
-                    flash(f"errors: {remove_item.scalar()}{remove_item}",category='danger')
-
 
     current_user.balance.balance = session.query(Wallet.balance).filter_by(id=current_user.id).scalar()
     return render_template('market.html',messages=get_flashed_messages(),purchased_items=purchased_items,owned_items=owned_items,purchase_form=purchase_form,sell_form=sell_form,env=jinja2_env)

@@ -22,7 +22,8 @@
                                 {% macro sell_modal_body() %}
                                     <form method="POST">
                                         <p class="text-left">Are you sure you want to sell your <b>{{ owned_item.item_purchase.name }}</b> for <b>${{ owned_item.item_purchase.price }}</b>?</p>
-                                        <input type="number" id="sold_item_count-{{ owned_item.id }}" name="sell_count" min="1" max="{{ owned_item.count }}">
+                                        {% set sold_item_counter = "sold_item_count-" + owned_item.barcode %}
+                                        <input type="number" id="sold_item_count-{{ owned_item.barcode }}" class="bg-secondary btn-secondary btn-block" name="sell_count"  min="1" max="{{ owned_item.count }}" onclick="update_cost(sold_item_counter)">
                                 {% endmacro %}
                                 {% macro sell_modal_footer() %}
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -35,6 +36,7 @@
                                 {% set mid = env.globals['secrets'].token_hex(12)|upper %}
                                 <button type="button" class="btn btn-outline btn-danger" style="margin-bottom: 5px" data-toggle="modal" data-target="#Modal-{{ mid }}">Sell {{ owned_item.item_purchase.name }}</button>
                                 <p class="card-text"><strong>This item costs ${{ owned_item.item_purchase.price }}</strong></p>
+                                <p class="card-text">You have <b>{{ owned_item.count }}</b> {{ owned_item.item_purchase.name }} items</p>
                                 {{ modal(
                                     modal_id=mid,
                                     button_id=mid,
@@ -64,8 +66,9 @@
             <table class="table table-hover table-bordered table-dark">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Stock</th>
                         <th scope="col">Options</th>
                     </tr>
                 </thead>
@@ -74,13 +77,19 @@
                         <tr>
                             <td>{{ purchased_item.name }}</td>
                             <td>${{ purchased_item.price }}</td>
+                            <td>{{ purchased_item.stock }}</td>
                             <td>
                                 <a class="btn btn-primary" href="{{ url_for('market.comments_page',item=purchased_item.barcode) }}">Comment</a>
                                 {% macro info_body() %}
                                     <p><b>Item ID:</b> {{ purchased_item.id }}</p>
+                                    <p><b>Stock:</b> {{ purchased_item.stock }}</p>
                                     <p><b>Price:</b> ${{ purchased_item.price }}</p>
-                                    <p><b>Barcode:</b> {{ purchased_item.barcode }}</p>
+                                    <p><b>Barcode:</b> {{ purchased_item.barcode|upper }}</p>
                                     <p><b>Description:</b> {{ purchased_item.description }}</p>
+                                    <p><b>Date Added:</b> {{ purchased_item.date_added }}</p>
+                                    {% if purchased_item.last_updated %}
+                                        <p><b>Last Updated:</b> {{ purchased_item.last_updated }}</p>
+                                    {% endif %}
                                 {% endmacro %}
                                 {{ modal(
                                     modal_id=env.globals['secrets'].token_hex(12)|upper,
@@ -96,7 +105,7 @@
                                     <form method="POST">
                                         {{ purchase_form.hidden_tag() }}
                                         <p>Are you sure you want to buy a <b>{{ purchased_item.name }}</b> for <b>${{ purchased_item.price }}</b>?</p>
-                                        <input type="number" id="purchase_item_count-{{ purchased_item.id }}" name="purchase_count" min="1" max="{{ purchased_item.stock }}">
+                                        <input type="number" id="purchase_item_count-{{ purchased_item.id }}" class="bg-secondary btn-secondary btn-block" name="purchase_count" min="1" max="{{ purchased_item.stock }}">
                                 {% endmacro %}
                                 {% macro purchase_footer() %}
                                         <input id="purchase_form_name-{{ purchased_item.id }}" name="form_name" type="hidden" value="purchase_form">
@@ -122,4 +131,5 @@
             </table>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/_market.js')}}"></script>
 {% endblock %}
