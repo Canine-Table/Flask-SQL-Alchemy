@@ -23,7 +23,7 @@
                                     <form method="POST">
                                         <p class="text-left">Are you sure you want to sell your <b>{{ owned_item.item_purchase.name }}</b> for <b>${{ owned_item.item_purchase.price }}</b>?</p>
                                         {% set sold_item_counter = "sold_item_count-" + owned_item.barcode %}
-                                        <input type="number" id="sold_item_count-{{ owned_item.barcode }}" class="bg-secondary btn-secondary btn-block" name="sell_count"  min="1" max="{{ owned_item.count }}" onclick="update_cost(sold_item_counter)">
+                                        <input type="number" value="1" id="sold_item_count-{{ owned_item.barcode }}" class="bg-secondary btn-secondary btn-block" name="sell_count"  min="1" max="{{ owned_item.count }}" onclick="update_cost(sold_item_counter)">
                                 {% endmacro %}
                                 {% macro sell_modal_footer() %}
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -35,8 +35,8 @@
                                 {% endmacro %}
                                 {% set mid = env.globals['secrets'].token_hex(12)|upper %}
                                 <button type="button" class="btn btn-outline btn-danger" style="margin-bottom: 5px" data-toggle="modal" data-target="#Modal-{{ mid }}">Sell {{ owned_item.item_purchase.name }}</button>
-                                <p class="card-text"><strong>This item costs ${{ owned_item.item_purchase.price }}</strong></p>
-                                <p class="card-text">You have <b>{{ owned_item.count }}</b> {{ owned_item.item_purchase.name }} items</p>
+                                <p class="card-text"><strong>This item costs ${{ owned_item.item_purchase.price }} {% if owned_item.count > 1 %}each{% endif %}</strong></p>
+                                <p class="card-text">You have <b>{{ owned_item.count }}</b> {{ owned_item.item_purchase.name }} {% if owned_item.count > 1 %}items{% else %}item{% endif %}</p>
                                 {{ modal(
                                     modal_id=mid,
                                     button_id=mid,
@@ -105,7 +105,7 @@
                                     <form method="POST">
                                         {{ purchase_form.hidden_tag() }}
                                         <p>Are you sure you want to buy a <b>{{ purchased_item.name }}</b> for <b>${{ purchased_item.price }}</b>?</p>
-                                        <input type="number" id="purchase_item_count-{{ purchased_item.id }}" class="bg-secondary btn-secondary btn-block" name="purchase_count" min="1" max="{{ purchased_item.stock }}">
+                                        <input type="number" value="1" id="purchase_item_count-{{ purchased_item.id }}" class="bg-secondary btn-secondary btn-block" name="purchase_count" min="1" max="{{ purchased_item.stock }}">
                                 {% endmacro %}
                                 {% macro purchase_footer() %}
                                         <input id="purchase_form_name-{{ purchased_item.id }}" name="form_name" type="hidden" value="purchase_form">

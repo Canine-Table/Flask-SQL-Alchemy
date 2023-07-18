@@ -8,11 +8,11 @@
         <div class="jumbotron p-2 text-center jbtron">
             <div class="jumbotron fgc p-3 ">
                 <h1><a id='profile_picture_anchor' type="button" data-toggle="modal" data-target="#Modal-profile_picture_anchor"><img id='profile_picture' width='64px' hight='64px' src="{{ current_user.profile_picture }}" alt="..." width='24px' hight='24px' class="rounded-circle profile_picture_class"></a>&nbsp;Account Settings</h1>
-                <form method="POST" enctype="multipart/form-data" onsubmit="formSubmited('image_form_id')">
+                <form method="POST" enctype="multipart/form-data">
                     {{ image_form.hidden_tag() }}
                     <input id="image_form_name" name="form_name" type="hidden" value="image_form">
                     {% macro profile_picture_anchor_body() %}
-                        {{ image_form.selected_image(type='file', class='btn btn-primary btn-block') }}{{ spacer(1) }}
+                        {{ image_form.selected_image(type='file', class='btn btn-light bg-light btn-block') }}{{ spacer(1) }}
                         {{ image_form.file_path( id='image_file_path', class="btn-block", readonly=True) }}
                     {% endmacro %}
                     {% macro profile_picture_anchor_footer() %}
@@ -34,7 +34,6 @@
                         keep_close=False
                     ) }}
                 </form>
-
             </div>
             {{ errors() }}
         </div>
@@ -45,7 +44,7 @@
                 <p><b>Phone Number:</b><span id="phone_number_display"> {{ user.phone_number.phone_number }}</span></p>
                 <p><b>Email Address:</b><span id="email_address_display"> {{ user.email_address.email_address }}</span></p>
                 <p><b>Member Since:</b> {{ user.creation_date }}</p>
-                <p><b>Account Balance:</b> {{ user.balance.balance }}</p>
+                <p><b>Account Balance:</b> ${{ user.balance.balance }}</p>
             </div>
             <div class="jumbotron fgc p-3 mb-2 pt-4">
                 <form method="POST">

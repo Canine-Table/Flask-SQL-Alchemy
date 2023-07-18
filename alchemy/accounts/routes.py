@@ -107,6 +107,7 @@ def settings_page(username):
     edit_form.phone_number.data = edit_form.phone_number.data or current_user.phone_number.phone_number
 
     if request.method == 'POST':
+
         with Session() as session:
             if delete_form.submit.data and request.form['form_name'] =='delete_form':
                 if (delete_form.username.data).strip() == current_user.username:
@@ -140,25 +141,21 @@ def settings_page(username):
                     message_template = "You have successfully updated your {} from {} to {}!"
                     if edit_form.first_name.data != current_user.name.first_name:
                         session.query(Name).filter_by(id=current_user.id).update({Name.first_name: (edit_form.first_name.data).title()})
-                        Name._update_timestamp(session)
                         flash(message_template.format('first name',current_user.name.first_name,edit_form.first_name.data), category='success')
                         current_user.name.first_name = edit_form.first_name.data
 
                     if edit_form.last_name.data != current_user.name.last_name:
                         session.query(Name).filter_by(id=current_user.id).update({Name.last_name: (edit_form.last_name.data).title()})
-                        Name._update_timestamp(session)
                         flash(message_template.format('last name',current_user.name.last_name,edit_form.last_name.data), category='success')
                         current_user.name.last_name = edit_form.last_name.data
 
                     if edit_form.email_address.data != current_user.email_address.email_address:
                         session.query(Email).filter_by(id=current_user.id).update({Email.email_address: edit_form.email_address.data})
-                        Email._update_timestamp(session)
                         flash(message_template.format('email address',current_user.email_address.email_address,edit_form.email_address.data), category='success')
                         current_user.email_address.email_address = edit_form.email_address.data
 
                     if edit_form.phone_number.data != current_user.phone_number.phone_number:
                         session.query(Phone).filter_by(id=current_user.id).update({Phone.phone_number: edit_form.phone_number.data})
-                        Phone._update_timestamp(session)
                         flash(message_template.format('phone number',current_user.phone_number.phone_number,edit_form.phone_number.data), category='success')
                         current_user.phone_number.phone_number = edit_form.phone_number.data
                     session.commit()
@@ -185,7 +182,6 @@ def settings_page(username):
                 else:
                     current_user.password = password_form.new_password.data
                     session.query(Account).filter_by(id=current_user.id).update({Account.password_hash:current_user.password_hash})
-                    Account._update_timestamp(session)
                     session.commit()
                     flash(f"Your password has been updated", category='success')
 
@@ -203,8 +199,8 @@ def settings_page(username):
                             square_image.save(buffer, format=ctype[6::].upper())
                             base64_image = f"data:{ctype};base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
                             session.query(Account).filter_by(id=current_user.id).update({Account.profile_picture: str(base64_image)})
-                            Account._update_timestamp(session)
                             session.commit()
+                            current_user.profile_picture = session.query(Account.profile_picture).filter_by(id=current_user.id).scalar()
                 except Exception as e:
                     flash(f"{e}", category='danger')
 
