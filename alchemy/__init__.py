@@ -4,7 +4,6 @@ from flask_login import LoginManager
 from alchemy.config import Config
 from flask_bcrypt import Bcrypt
 from flask import Flask
-from alchemy.main.jinja2env import Jinja2Env
 import os
 
 bcrypt = Bcrypt()
@@ -55,3 +54,5 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
 
     return app
+
+app = create_app()
