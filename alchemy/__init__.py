@@ -6,15 +6,14 @@ from flask_bcrypt import Bcrypt
 from flask import Flask
 import os
 
-bcrypt = Bcrypt()
-login_manager = LoginManager()
-login_manager.login_view = "account.login_page"
-login_manager.login_message_category = "info"
 
 app = Flask(__name__)
 app.config.from_object(Config)
-bcrypt.init_app(app)
-login_manager.init_app(app)
+bcrypt = Bcrypt(app)
+login_manager = LoginManager(app)
+login_manager.login_view = "account.login_page"
+login_manager.login_message_category = "info"
+
 
 class Database:
     db_host = os.environ['DB_HOST']
