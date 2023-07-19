@@ -194,3 +194,4 @@ def set_barcode(mapper,conn,target):
 @event.listens_for(Purchase,'before_insert')
 def delete_empty_purchases(mapper,conn,target):
     conn.execute(Purchase.__table__.delete().where(Purchase.count == 0))
+

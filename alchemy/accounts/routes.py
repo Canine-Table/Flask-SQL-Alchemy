@@ -10,7 +10,7 @@ from alchemy import Session
 from io import BytesIO
 from PIL import Image
 import base64
-
+from alchemy.utils import error_log,error_string
 
 account = Blueprint('account',__name__)
 
@@ -40,7 +40,8 @@ def register_page():
             except QueryException:
                 pass
             except Exception as e:
-                flash(f"{e}", category='danger')
+                flash(f"{type(e).__name__}: {error_string(error=e)}",category="danger")
+                error_log(error=e)
             else:
                 account_to_create = Account(username=form.username.data,password=form.password.data)
                 phone_to_create = Phone(phone_number=form.phone_number.data,user_account=account_to_create)
@@ -78,7 +79,8 @@ def login_page():
             except QueryException:
                 pass
             except Exception as e:
-                flash(f"{e}", category='danger')
+                flash(f"{type(e).__name__}: {error_string(error=e)}",category="danger")
+                error_log(error=e)
 
     return render_template('login.html',
         messages=get_flashed_messages(),
@@ -136,7 +138,8 @@ def settings_page(username):
                 except QueryException:
                     pass
                 except Exception as e:
-                    flash(f"{e}", category='danger')
+                    flash(f"{type(e).__name__}: {error_string(error=e)}",category="danger")
+                    error_log(error=e)
                 else:
                     message_template = "You have successfully updated your {} from {} to {}!"
                     if edit_form.first_name.data != current_user.name.first_name:
@@ -178,7 +181,8 @@ def settings_page(username):
                 except QueryException:
                     pass
                 except Exception as e:
-                    flash(f"{e}", category='danger')
+                    flash(f"{type(e).__name__}: {error_string(error=e)}",category="danger")
+                    error_log(error=e)
                 else:
                     current_user.password = password_form.new_password.data
                     session.query(Account).filter_by(id=current_user.id).update({Account.password_hash:current_user.password_hash})
@@ -202,7 +206,8 @@ def settings_page(username):
                             session.commit()
                             current_user.profile_picture = session.query(Account.profile_picture).filter_by(id=current_user.id).scalar()
                 except Exception as e:
-                    flash(f"{e}", category='danger')
+                    flash(f"{type(e).__name__}: {error_string(error=e)}",category="danger")
+                    error_log(error=e)
 
 
     return render_template('settings.html',user=current_user,

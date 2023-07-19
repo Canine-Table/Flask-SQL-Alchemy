@@ -48,10 +48,10 @@ def create_app(config_class=Config):
     from alchemy.accounts.routes import account
     app.register_blueprint(account)
 
+    from alchemy.administration.routes import administration
+    app.register_blueprint(administration)
+
     bcrypt.init_app(app)
     login_manager.init_app(app)
-
-    def create_my_environment():
-        return Jinja2Env(loader=app.jinja_loader)
 
     return app

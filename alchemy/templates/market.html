@@ -63,72 +63,74 @@
                 <h2>Available Items on the Market</h2>
                 <p>Click on one of the items to start buying</p>
             </div>
-            <table class="table table-hover table-bordered table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for purchased_item in purchased_items %}
+            <div class="overflow-auto">
+                <table class="table table-hover table-bordered table-dark">
+                    <thead class="fgc">
                         <tr>
-                            <td>{{ purchased_item.name }}</td>
-                            <td>${{ purchased_item.price }}</td>
-                            <td>{{ purchased_item.stock }}</td>
-                            <td>
-                                <a class="btn btn-primary" href="{{ url_for('market.comments_page',item=purchased_item.barcode) }}">Comment</a>
-                                {% macro info_body() %}
-                                    <p><b>Item ID:</b> {{ purchased_item.id }}</p>
-                                    <p><b>Stock:</b> {{ purchased_item.stock }}</p>
-                                    <p><b>Price:</b> ${{ purchased_item.price }}</p>
-                                    <p><b>Barcode:</b> {{ purchased_item.barcode|upper }}</p>
-                                    <p><b>Description:</b> {{ purchased_item.description }}</p>
-                                    <p><b>Date Added:</b> {{ purchased_item.date_added }}</p>
-                                    {% if purchased_item.last_updated %}
-                                        <p><b>Last Updated:</b> {{ purchased_item.last_updated }}</p>
-                                    {% endif %}
-                                {% endmacro %}
-                                {{ modal(
-                                    modal_id=env.globals['secrets'].token_hex(12)|upper,
-                                    button_classes='btn-outline btn-info',
-                                    button_text='More Info',
-                                    modal_header=True,
-                                    modal_body=True,
-                                    modal_footer=True,
-                                    modal_title=purchased_item.name,
-                                    body=info_body(),
-                                ) }}
-                                {% macro purchase_body() %}
-                                    <form method="POST">
-                                        {{ purchase_form.hidden_tag() }}
-                                        <p>Are you sure you want to buy a <b>{{ purchased_item.name }}</b> for <b>${{ purchased_item.price }}</b>?</p>
-                                        <input type="number" value="1" id="purchase_item_count-{{ purchased_item.id }}" class="bg-secondary btn-secondary btn-block" name="purchase_count" min="1" max="{{ purchased_item.stock }}">
-                                {% endmacro %}
-                                {% macro purchase_footer() %}
-                                        <input id="purchase_form_name-{{ purchased_item.id }}" name="form_name" type="hidden" value="purchase_form">
-                                        <input id="unowned_item-{{ purchased_item.id }}" name="unowned_item" type="hidden" value='{{ {"id":purchased_item.id,"name":purchased_item.name,"price":purchased_item.price,"barcode":purchased_item.barcode,"description":purchased_item.description,"stock":purchased_item.stock} | tojson }}'>
-                                        {{ purchase_form.submit(class="btn btn-primary") }}
-                                    </form>
-                                {% endmacro %}
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchased_item in purchased_items %}
+                            <tr>
+                                <td>{{ purchased_item.name }}</td>
+                                <td>${{ purchased_item.price }}</td>
+                                <td>{{ purchased_item.stock }}</td>
+                                <td>
+                                    <a class="btn btn-primary my-1" href="{{ url_for('market.comments_page',item=purchased_item.barcode) }}">Comment</a>
+                                    {% macro info_body() %}
+                                        <p><b>Item ID:</b> {{ purchased_item.id }}</p>
+                                        <p><b>Stock:</b> {{ purchased_item.stock }}</p>
+                                        <p><b>Price:</b> ${{ purchased_item.price }}</p>
+                                        <p><b>Barcode:</b> {{ purchased_item.barcode|upper }}</p>
+                                        <p><b>Description:</b> {{ purchased_item.description }}</p>
+                                        <p><b>Date Added:</b> {{ purchased_item.date_added }}</p>
+                                        {% if purchased_item.last_updated %}
+                                            <p><b>Last Updated:</b> {{ purchased_item.last_updated }}</p>
+                                        {% endif %}
+                                    {% endmacro %}
                                     {{ modal(
                                         modal_id=env.globals['secrets'].token_hex(12)|upper,
-                                        button_classes='btn-outline btn-success',
-                                        button_text='Purchase',
+                                        button_classes='btn-outline btn-info my-1',
+                                        button_text='More Info',
                                         modal_header=True,
                                         modal_body=True,
                                         modal_footer=True,
                                         modal_title=purchased_item.name,
-                                        body=purchase_body(),
-                                        footer=purchase_footer()
+                                        body=info_body(),
                                     ) }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                                    {% macro purchase_body() %}
+                                        <form method="POST">
+                                            {{ purchase_form.hidden_tag() }}
+                                            <p>Are you sure you want to buy a <b>{{ purchased_item.name }}</b> for <b>${{ purchased_item.price }}</b>?</p>
+                                            <input type="number" value="1" id="purchase_item_count-{{ purchased_item.id }}" class="bg-secondary btn-secondary btn-block" name="purchase_count" min="1" max="{{ purchased_item.stock }}">
+                                    {% endmacro %}
+                                    {% macro purchase_footer() %}
+                                            <input id="purchase_form_name-{{ purchased_item.id }}" name="form_name" type="hidden" value="purchase_form">
+                                            <input id="unowned_item-{{ purchased_item.id }}" name="unowned_item" type="hidden" value='{{ {"id":purchased_item.id,"name":purchased_item.name,"price":purchased_item.price,"barcode":purchased_item.barcode,"description":purchased_item.description,"stock":purchased_item.stock} | tojson }}'>
+                                            {{ purchase_form.submit(class="btn btn-primary") }}
+                                        </form>
+                                    {% endmacro %}
+                                        {{ modal(
+                                            modal_id=env.globals['secrets'].token_hex(12)|upper,
+                                            button_classes='btn-outline btn-success my-1',
+                                            button_text='Purchase',
+                                            modal_header=True,
+                                            modal_body=True,
+                                            modal_footer=True,
+                                            modal_title=purchased_item.name,
+                                            body=purchase_body(),
+                                            footer=purchase_footer()
+                                        ) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/_market.js')}}"></script>

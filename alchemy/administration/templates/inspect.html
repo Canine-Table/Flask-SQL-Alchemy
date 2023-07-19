@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+{% block title %}Inspector{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/_inspect.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="jumbotron container-xxl p-2 ml-4 mr-4 text-center jbtron pt-3">
+        <div class="jumbotron fgc p-3 mt-3">
+            <h1>SQL Inspector</h1>
+        </div>
+        {{ errors() }}
+    </div>
+
+
+
+    <div class="jumbotron container-xxl p-2 ml-4 mr-4 jbtron pt-3">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.text_body(class="btn-block") }}
+            {{ form.submit(class="btn btn-primary btn-block") }}
+            <p class=" jumbotron fgc mt-3 p-2">Commit: {{ form.commit }}
+                <span class="px-5">Rollback: {{ form.rollback }}<span>
+            </p>
+        </form>
+    </div>
+    <div class="jumbotron container-xxl p-2 ml-4 mr-4 jbtron pt-3 overflow-auto">
+        {% if data['not_set'] %}
+            <h5 class="text-center"><b>Your tables will show up here</b></h5>
+        {% else %}
+            <table class="table table-hover table-bordered table-dark">
+                <thead class="fgc">
+                    <tr>
+                        {% for header in data['headers'] %}
+                            <th scope="col">{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data['rows']() %}
+                        <tr>
+                            {% for column in row %}
+                                <td>{{ column }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}

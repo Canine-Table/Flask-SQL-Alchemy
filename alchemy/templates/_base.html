@@ -50,6 +50,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('market.market_page',username=current_user.username) }}">Market</a>
                         </li>
+                        {% if current_user.username in ['root','johndoe0123','administrator'] %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('administration.inspector_page',username=current_user.username) }}">Inspector</a>
+                            </li>
+                        {% endif %}
                     {% endif %}
                 </ul>
             </div>

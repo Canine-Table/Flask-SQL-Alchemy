@@ -1,5 +1,10 @@
+# Ignore 
+**/desktop.ini
+**/_*_logs.json
+**/tmp/
+
 # Byte-compiled / optimized / DLL files
-**/__pycache_/_
+**/__pycache__/
 venv
 *.py[cod]
 *$py.class
