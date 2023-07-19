@@ -27,7 +27,9 @@ def json_database(query,data):
     }
 
     file_dump = os.path.join(os.path.realpath('./alchemy'),'administration','static','json','_query_logs.json')
-
+    if not os.path.exists(file_dump):
+        with open(file_dump, 'w'):
+            pass
 
     if os.path.getsize(file_dump) != 0:
         with open(str(file_dump), 'r') as f:

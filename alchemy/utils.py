@@ -32,6 +32,9 @@ def error_log(**kwargs):
     name = type(error).__name__
 
     file_dump = kwargs.get('file_dump',os.path.join(os.path.realpath('./alchemy'),'static','json','_error_logs.json'))
+    if not os.path.exists(file_dump):
+        with open(file_dump, 'w'):
+            pass
 
     error_msg = {
         "messages":[{
