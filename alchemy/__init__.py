@@ -11,6 +11,11 @@ login_manager = LoginManager()
 login_manager.login_view = "account.login_page"
 login_manager.login_message_category = "info"
 
+app = Flask(__name__)
+app.config.from_object(Config)
+bcrypt.init_app(app)
+login_manager.init_app(app)
+
 class Database:
     db_host = os.environ['DB_HOST']
     db_port = os.environ['DB_PORT']
@@ -32,27 +37,15 @@ engine = Database.create()
 Session = sessionmaker(bind=engine)
 inspector = inspect(engine)
 
+from alchemy.main.routes import main
+app.register_blueprint(main)
 
+from alchemy.market.routes import market
+app.register_blueprint(market)
 
-def create_app(config_class=Config):
-    app = Flask(__name__)
-    app.config.from_object(Config)
+from alchemy.accounts.routes import account
+app.register_blueprint(account)
 
-    from alchemy.main.routes import main
-    app.register_blueprint(main)
+from alchemy.administration.routes import administration
+app.register_blueprint(administration)
 
-    from alchemy.market.routes import market
-    app.register_blueprint(market)
-
-    from alchemy.accounts.routes import account
-    app.register_blueprint(account)
-
-    from alchemy.administration.routes import administration
-    app.register_blueprint(administration)
-
-    bcrypt.init_app(app)
-    login_manager.init_app(app)
-
-    return app
-
-app = create_app()
