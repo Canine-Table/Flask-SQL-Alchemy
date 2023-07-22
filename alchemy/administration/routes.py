@@ -67,28 +67,27 @@ def inspector_page(username):
             with engine.connect() as conn:
                 try:
                     data['selected'] = request.form['inlineRadioOptions']
-                    match data['selected']:
-                        case 'query_database':
-                            query = form.text_body.data
-                            _data = conn.execute(text(f"{query}"))
+                    if data['selected'] == 'query_database':
+                        query = form.text_body.data
+                        _data = conn.execute(text(f"{query}"))
 
-                            data['frozen_headers'] = _data.keys()
-                            data['frozen_rows'] = _data.freeze()
-                            data['frozen_not_set'] = False
+                        data['frozen_headers'] = _data.keys()
+                        data['frozen_rows'] = _data.freeze()
+                        data['frozen_not_set'] = False
 
-                            if form.rollback.data:
-                                conn.rollback()
+                        if form.rollback.data:
+                            conn.rollback()
 
-                            if form.commit.data:
-                                conn.commit()
+                        if form.commit.data:
+                            conn.commit()
 
-                            json_database(query,data)
-                        case 'query_query_dump':
-                            data['frozen_not_set'] = False
-                        case 'query_error_dump':
-                            data['frozen_not_set'] = False
-                        case _:
-                            raise
+                        json_database(query,data)
+                    elif data['selected'] == 'query_query_dump':
+                        data['frozen_not_set'] = False
+                    elif data['selected'] == 'query_error_dump':
+                        data['frozen_not_set'] = False
+                    else:
+                        raise
 
 
 
