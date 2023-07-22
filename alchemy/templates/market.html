@@ -18,7 +18,7 @@
                     <div class="col-md-4" >
                         <div class="card text-center mb-4 bkg">
                             <div class="card-body my_content">
-                                <h5 class="card-title">{{ owned_item.item_purchase.name }}</h5>
+                                <h5 class="card-title"><b><u>{{ owned_item.item_purchase.name }}</b></u></h5>
                                 {% macro sell_modal_body() %}
                                     <form method="POST">
                                         <p class="text-left">Are you sure you want to sell your <b>{{ owned_item.item_purchase.name }}</b> for <b>${{ owned_item.item_purchase.price }}</b>?</p>
@@ -34,8 +34,8 @@
                                     </form>
                                 {% endmacro %}
                                 {% set mid = env.globals['secrets'].token_hex(12)|upper %}
-                                <button type="button" class="btn btn-outline btn-danger" style="margin-bottom: 5px" data-toggle="modal" data-target="#Modal-{{ mid }}">Sell {{ owned_item.item_purchase.name }}</button>
                                 <p class="card-text"><strong>This item costs ${{ owned_item.item_purchase.price }} {% if owned_item.count > 1 %}each{% endif %}</strong></p>
+                                <button type="button" class="btn btn-outline btn-danger btn-block mb-3" data-toggle="modal" data-target="#Modal-{{ mid }}">Sell {{ owned_item.item_purchase.name }}</button>
                                 <p class="card-text">You have <b>{{ owned_item.count }}</b> {{ owned_item.item_purchase.name }} {% if owned_item.count > 1 %}items{% else %}item{% endif %}</p>
                                 {{ modal(
                                     modal_id=mid,

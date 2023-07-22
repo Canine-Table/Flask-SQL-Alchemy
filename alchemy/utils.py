@@ -37,13 +37,9 @@ def error_log(**kwargs):
             pass
 
     error_msg = {
+        "headers":["datetime","name","message","full"],
         "messages":[{
-            str(secrets.token_hex(128)):{
-                "datetime":str(error_date),
-                "name":str(name),
-                "message":str(msg),
-                "full":str(error)
-            }
+            str(secrets.token_hex(128)):[str(error_date),str(name),str(msg),str(error)]
         }]
     }
 

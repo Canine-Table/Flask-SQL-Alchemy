@@ -1,0 +1,314 @@
+{
+    "headers": [
+        "datetime",
+        "name",
+        "message",
+        "full"
+    ],
+    "messages": [
+        {
+            "de6d70ea7c001d3c880127db2080c9cac4d3c2a6bcfba2712a177929d4ec3042df86843178bb766e32e015bdd2d5e468b99006990902a055475b43e810a21655624ecc2364b88808e066c125ba294e2d9690e2c53f482d6f1215de557aca1492c42d19bf294181634a751e4735015d3ff294a824d83cc09fd24b6f6fe114b69b": [
+                "2023-07-19 13:58:22",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "b5941fa41102b16ca67beaca56cd970dd403d828f9b4b3a32fd51a13065d04c6e59053246d5e0125c3c1275ae6b47071160607d6704ced2295f736fad3361915e19d887157fbf05d13dc5f735cc1be7bd068247360f71441b695dfceb94aa10686aa65c2d52265872398e1f00b9c2348c279660857ee117800b570b123ebf569": [
+                "2023-07-19 13:58:24",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "3cf8e855b6bab8943ec3129a15795a7c002e7918fbfc4d10bbe9046efcb26537d5ab780be501aa7353dbb06a4125b44cc8d0980c08b25627828b63da2010e8855bcba42cd197f46dcee84464565eff35495708a52c1f5e7e8980a949b137100d3139c16af3f558befa28919697e43070c3ae3f8e00f0b10747dd8e4b33d01de9": [
+                "2023-07-19 14:22:42",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "2528edd1146856ebc3607e1a11a6ac8addab01f2fccb26c9dfedd885f04fd807f7ea989b0f9933dee7f372a3a50a80d65d05ef25ccd4ad171265db90f5311e35909fcabc5d3a00db8cc30b49d773b7537a58346973c73a5829b658a3be675191a36b232d062b4c95b492f424fa746617fe56495e3b6cd7a18a446a9f65781ac0": [
+                "2023-07-19 14:22:44",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "e414eabb3692383289af6bb6e7d073ee51b6fcc7b642af2af51e4328d884c543928143cfa6387bef354cf3c3e951f0f4a0ce53cf8be2af2aff6d5eaa9e94158dfeb7d9843c76c58bcbe90a1e3e33ec993f9ca3df9d930b604e0082daa473cbc5eb8b7ff2bfda060ac067633cd5dbcc03a7fab754b2818d0488207bc71b3f524d": [
+                "2023-07-19 14:22:45",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "3ed44343884ed18a99364cac8e6913d67fc425985ccf7b318d830007af6036a5aaa40d7eb691a8d4cfa577211e081125c50ac33e1356091c6787d7a5a2428a043fe9c076fe04c0c66f8e3db098307468375b5739f79a2158d45ed799dfaf0dcc6dedaf5c40c0d9fb39a5c91e647e9c55704248a71603146a01e0d7b80cc46ac8": [
+                "2023-07-19 14:28:32",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "3de96dd63ac4a4f5e3d9cded9650601380c5b7ffa46d714ff668c3ad03d324f3c6e558dff1bde2e67e86ce228a4b509e2e4d73cb3d63577ceac76c65dbe4974dc8b9b21ba48ab557a467b802469470effaa962533f1c011fbb21bdc69fbe780bccde47b5af602afed955ff861a1e3996cb51ee5507ef0dac144745b3e826a9b9": [
+                "2023-07-19 14:29:00",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "3eb31ba74366470a6fda0ba86f1959b7b770933755066bd088c479d48517a521488066790225550bec84d6dfb5de5361c255fa58cc65f1fd4bee1a8ca8137e50b0edcffcfbdb81fbe48029ecf13f0e9e09487a75a36725fd4a733d74a9b5d8046aacf1cc76cb4407b869ad070636777e4c3d3ac75ae48d10514513f349287741": [
+                "2023-07-19 14:29:02",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "a954293b2a1f963863763ee04d49609556c933890ae3ab067743049709616da03de2b0b4d675253efa4991a59183a0a2b2323a12ee56c8c83d6e9af854e5b11e3f0046da0335f2c99d8c4d4c5f18fefae8c477694b87a0f64bed0520a6c1bf4ef628d4f76bd7e70535f11d481cf900480571e3931211ac0e11407979d91ace86": [
+                "2023-07-19 14:29:43",
+                "AttributeError",
+                "dict",
+                "'dict' object has no attribute 'extend'"
+            ]
+        },
+        {
+            "9732ad96e153ba74c51f44fd96ddf1001c0b221e036706171e087dd97d389ca46deb0e19b4252394b95870f94926c83b2e47c86be7602444c3c77507f4e160ae89d329bd5dfde4d7aab1b5987bf3bb9a0237bbd769f0eeb75e8b11e065d64fe46b0b4c7a0d8dc3a3699cd8eb3abdedb8c4a8a2b589dd6d75517cfb1563043416": [
+                "2023-07-19 14:29:47",
+                "AttributeError",
+                "dict",
+                "'dict' object has no attribute 'extend'"
+            ]
+        },
+        {
+            "93f2b7c3d17fbdc31b5ab126bc6b5a746b06e0d68a83b941d2e771b0919dac0b7a65aa1ff8c59baaa4b45b0703f3a7cc655e9d19f5699d3ef22156ff195ba4e8526c13cf63a78f3947b495d2c654b778c796995cb4ce93854462bcbccf63f5c624b402cdda5bd4f926e2f092614ec34cf4d47a15640bb9ecaf793d99b39e77e2": [
+                "2023-07-19 14:29:50",
+                "AttributeError",
+                "dict",
+                "'dict' object has no attribute 'extend'"
+            ]
+        },
+        {
+            "10293c856258489f123741c84bd9f6d4e48a520d4c94032638fd0940d994b64dbfaac30a280a20b70723eab0104f095cba02a86d2d06c514a028c2ec1c2105f1bc22bd59bba079edb1b3d4a94139ede1a4920042dc35667b9536cd2da317daf320d585971584bcbb53d6cace5864e32b0fb685ac084bc0a5b7514b74d15d8a01": [
+                "2023-07-19 14:35:49",
+                "AttributeError",
+                "dict",
+                "'dict' object has no attribute 'extend'"
+            ]
+        },
+        {
+            "18727f490846421107b3d605eddd1e3f6b155822fd0ef95f330bf4c9ec1a6e306adb50702a1334ef4f170d2266fbb8af5a6eaa94cf4f55716167c687bb3357e906f37f3051a78c4c03b2920469c39c5ef07571c1a3e295413eadb562490e8a4592c99523de035ab725fe53642fe681d509ce4e515a50eccdd26a8b6ef656152c": [
+                "2023-07-19 14:36:32",
+                "AttributeError",
+                "dict",
+                "'dict' object has no attribute 'extend'"
+            ]
+        },
+        {
+            "ad46ec48b76b018c133ec4533effa447aa401119dadf8a8214689a92c8aaf3028d3d9acc99888aca4faf12e007813d96fb8b6d6b19686d448f538bf3822e5de328e09bf80b846d5181be7f534b03b6424aa5ea8b53a466f520faf95b2f49ecb993c1ec8aafd87dbb12d423d0c7c1bc844c564f7197317039fade86f6d459c454": [
+                "2023-07-19 14:36:34",
+                "AttributeError",
+                "dict",
+                "'dict' object has no attribute 'extend'"
+            ]
+        },
+        {
+            "e21667ce79a19bed8cbaa50696b4b146668e99a37fefd20ed657220b669f7b647770e1137ca4105a4cf7fd481e0348d497f4265cec093b887808dbc58aa573f306f12052285761f8ab76e112047bf6405c9d7a8f12b25d31bc9683e8ad2c2438b548fb5297fa1bd55d7f6e4375039e41dda93ef9aeb516ca93772b9c5b8b464f": [
+                "2023-07-19 14:36:36",
+                "AttributeError",
+                "dict",
+                "'dict' object has no attribute 'extend'"
+            ]
+        },
+        {
+            "1b1f30f72007f965e8ab84d75c86196fa0c551e4ff7920d58648037d7e1db53fdff2e3823cd8f0436994e9f3d2f3cd8a58d9f8c525cef8b294b66363bdc043162f1778a091cecfaed36f4567102f42decc58ca6c3788db79d7b6202f854e5a27a45e166344bb264aae44ee3d31f9de89e834fc716ca4283164ad5dd8912b7f73": [
+                "2023-07-19 21:25:21",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "ec64a6ad4c606fb61762a2be68b0f4422ca97324ed942b99e33b6d77dd13729eeb8204874f55a0ed859a511f8ed9c8d02d31ed15046e3ed100a2d3c1614d28ebca6b334ca8e0806f017bbada982c13d2f7e6df48b0cccee62724d5c32debb1d898875b6ae0ddfa41ec7a1eb78be5aa6824da5e77500c32d7fe04bdc93235879d": [
+                "2023-07-19 23:35:35",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "b427f3dc79724dc93a9620a6025c423da9a3aa4c2d2497916728277e590bf3103a96260629978fb6a003a44e2aa11a9eafb6c442251d0062836ad78386b078c042ee394b59e4b23884eba1aec1f07b62fbce2536520bff8e33d7ac626223d8b583bf5d1f3e8227391d96b8674e5ece61ede6c68c32a988e90608dfdf4b1c5fa7": [
+                "2023-07-19 23:38:34",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "b88b0ce32230b168558958d66fb8c0fdb8f308966b1fff42ec2dc64b2ebe6331c4bd609dbc6ede4c2de5c7d9dc22366579c2fa778d1d27f4f03546f0c04fcb91138dc26b6807780ed80cdeaa553d08e559c56e5747aa1b8dbe4a3e5b63fa6064c4f28de7d32bbd25241c43216faab036bc6afa0bee90b602bab1a935dcb0e149": [
+                "2023-07-19 23:52:37",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "249d5372146604c452bcb74b7e9486097f73d666e6ef5c87e88338ec7fb651c8201c6b67121dc275a7db7c9d5e39536004a5533a5fb00c38764b645e9893fceaa03fbecb24e6e1bc4caccd09944d6e997eea30e4aa9144042b022fee67945498d5da0b96602141a825c79c6870394a26f9a66f9d4af65cca51d3207ad81c38a3": [
+                "2023-07-20 00:03:32",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "c110817ab6b0a3194e7e2b037e976b5516e02413cee08927c2843d410825001bafa0f3e930c7ad6a2d37f7059b40935ce51fef75805fbc240b54a0eb8b5465fb0139bf6ae6aea51bbe630778121498e577179c16add4716b18ed378086de08f4a6e6e26c4091c6b84bd7b7f3d882674be264d4cfe38311bf23d0a350526a7fe2": [
+                "2023-07-20 00:03:52",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "c4b9f2485c4f7967a6b45ac100e93ecf84e1e8cfa7ef5a3ff44b07f3894ed8558f07c60b6d39b8ffede204b2137ecd40d2003cf68eccd33dae64d43e848902289be4521ce3ecc0c8458ae4c3b4749344f28c58dca5573e58d536899605d2e116786d672199a3ccd2d2190ad14ca109c92e63251520f69107d954e3260ca462cd": [
+                "2023-07-20 00:29:12",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "846f5c7bbd3abc2e8168a4b634616a3072dcd9aefd7c4ae2bbf4750716f58380bf85cecfc99d51f4285a6d842f651ea4e884b3c0fb5129e5564d25e87af6e811e8bcdc33413e3db60585eea44176dabd146042f2528f26d3d930c839c3fe7ac426b2a1c0213bf464b93ac46fbb0fc42d68ce2d7656c274f8743e3e287c1c2251": [
+                "2023-07-20 00:29:14",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "ced4534f232a1d6d4bf525c743714886418f909a88a58e69a9364ec12939dd5a0eeb395d5459dbabc3bb9e1ff5f6c48c3b2e1c0a9105fb818b2f76484293eb3b6c9c3f5daa253900014d886805c4ad4227eb3dbe1f17cc95ee0869f6f55e80a3750b7e35b7f82d17c1a7c1d0eceed2f9d9d5407a448b30275e6c4d0270dc69c6": [
+                "2023-07-20 00:33:40",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "84339683d79d5b081124baa0510ab348482f5924fb14d0652e3c59f35b401d319ea535e27037f6efb3a57a14c500dbb058cd1ed2e7b199dee4c6a39cbe2d5578b74c0260b822cad220bdeee0fbf3664848d9f9873a635594d07e55854c525d1d98e87630de8d0dc88c8b2fd0d80c0f2074b0d7b8b65912e93405b9b85c1c91f0": [
+                "2023-07-20 04:06:16",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "d890766fd1439e763889ad19ec68438a144cdd19e584a3139d480e0763876d21046b56fc3d5e65fe360424dcccb2433583d99d5e581882e7227db19211781214db70f043e0c441088659db603af3f60b42d848bee1a8026fe09bf8a304fc3389385d1802c429d2a29d8c7b280da88d5424af9baf57c34ef6bf54cb17dfd600c6": [
+                "2023-07-20 04:38:43",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "46730b63d10059cc736c2e0c742fec2fb46448ad4f3bc8fc6f1da547bddf9531df4017f423d6a79f179ea1b4994796f6301d5da82411e140c30ea194244d36bd8ad697ff605aef878e657bfae3141c849f592cd759a31f4bb301c93e79b6d8e30a11a7f717c3be0114cc3a30b065099e5711a5aa8417e308de72ca695493cf3e": [
+                "2023-07-20 05:38:21",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "853a8e507b193aec99c182cc3fb91fa97cfdec4ffa8f59a1a4e2355be7848695c4dfa391583be422857cb062574a86c80e626c439111908018ce8e809087fdc11f0201f655e1251d056ff2388efd58dae34ad45f1ab07739a71b2fd84626b07c65a2918b02edce6df06ebca1a59d6c856a388fe927eff4bb4367effbf29b2dad": [
+                "2023-07-21 17:24:52",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "dc4b51432650f774be3c355179d941e25778772fbc46588e47e648037045b636441e4ad091b6816db274b96b6e77f454535164455788102711152fd75aa65a1d6e4b576f2637eb00656727a924381192c5bc567c65571b6fa42e6986f28c5b92ad2f5b0aed3cf6f80f5b45f4cb5fa9ddbe1e53b30f52aab36dbc6821b92f137b": [
+                "2023-07-21 17:43:11",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "3cb44c12870996a4b35a469fc23ff4b10fd2150f5787433f91955b41c2a7071f3aece366ec79e9ee43aba710f9e7858f96005e2fa0e2aaf91a79698f10788385a81a650df6f4d9e7e99462ed9f21039e49677a615475c6fb6ef62839efb75d9e0058fe18f53a263f922a8a055e48d7db32b7eb18e59f3c265e3dd081f145ead0": [
+                "2023-07-21 18:13:15",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "75dad0121d1acba873ccf01d5f74e1ce4c4a29fb623e510f9916086ca824d37b13252e796362f403ed439d4fe8c92fff35ec958f17ec05dc90c84350fcda8a70bb035bc96e67927f9d11f5b74575496e218055bf4db85f60a088575eb41f7974124f10bb2ffcf536e7cff65b3de7b9d62c635e3f3cdf1d8252b9b994710a6bbe": [
+                "2023-07-21 18:13:25",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "b2027894a5e50f6f9599ce7e1164d5c0d0b791f4d7abf6f6aad29809762084fbff828529866353201995efb5f690f3b153cfc113521eec680df5e1cdd20ab49090c10120f7272dd898fb0e2a1edbffde871ff7caa50922fb86c76512e1bc93907bafdb45ed2e536d20727f1ad73bef0970ea01b437c9bf19fefc216d1fb2cad7": [
+                "2023-07-21 18:13:54",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "f945086f191dbbefc3ca5bcd6bd204e14fd9c924fe98b8d4e39148f42729988064b69510b33c5d25180f90c8550da9c5b3b6903ab3cd02c709db49dc1ae7962c7348e4f80c8c436edf24874ea79b534bc2f3efb13d614eeec1f568a8a5a1063a1c1c19cc3303cca7b06a5421c40853f5be907b72d32ddd65a674383e64865141": [
+                "2023-07-21 18:17:22",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "25d334a2666f6e3ed98319c4d6c6ccd2eba2278e442deae87102f0313950a74bb1814781cc8d72fe1b9382de5a331b6fc8d980e86e900287438424d0bae879b3f5e5bbf7c516184b0dc51d1eb68f62a963ac9d075a4382073afc4600f237bb9c925355f52cd79c6ad69e16e76af37b290ca0aeb932becc9359fe1adae59b3b11": [
+                "2023-07-21 22:07:14",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "b4d15f1874ccec1a1ca794523f4fccc016d93f13158f8035d37f257a18b16efe44303fa96b33ee8027965eb72e540a36bef94c8549b909ed81c6206f81b0e9ff6ca6baebf2d460ed818530b7afc6680e9f2c52e782b2d9cb50e15bc8d21dff906dba3997ecf5120c50c8f5093314a82cbd107b3c0e8844c628846eb5564355cd": [
+                "2023-07-21 22:07:25",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "daf8c7346dc3b7fb16c1a71c2d1ec0ea14d20b294eeae29a5acf6ddd72c90ef9824123b72e0d31a874d6ddd82dd0f3554b76f3c79ad91ced4350149b6be366c4b89bf8dc356df3c8a9117eb3314341a3ee39f87670ec3dc7a8aba6d8ad7e94ca945ef244006d5b425e9d864c6e110dfc22cb69dae1365ae7b2e9e9db77fcc29a": [
+                "2023-07-21 22:11:40",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "b769a81ecc359a8f355ec0d5bbee1e400af1d361c4b9684b1190d23aab63901e0923c9c2c4730318da17f33bad01909f133791762cd7767073cc9504065d41aa4c89f3fba540259559460838ca71652adb15775ed5d3d315e784063a39bb12db2c15286c4303d0a24bc57180b741d0c4b948aa89f5e58ad4741dbe01dd33bb0c": [
+                "2023-07-21 22:11:51",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "79b8425aa2f365cfad46bfe4458397a3ac12fafb9ee481390d633b4af1c45b2dea1a46415e469027422e91a1975f13d7e104490e4c408f219ae178e5c50dcd32cc380d52f9a5f833b64ee2f5161e99ffa7a69557a99542d640896ad984e15517e2010f59fdad3c5ceb7d2c2aeb72a693b5339016c68330e226a4280baeab0ace": [
+                "2023-07-21 22:13:03",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        }
+    ]
+}

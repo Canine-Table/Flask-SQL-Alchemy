@@ -1,5 +1,5 @@
 from jinja2 import Environment, select_autoescape
-from jinja2.ext import do,i18n
+from jinja2.ext import do,i18n,loopcontrols
 import secrets
 
 
@@ -20,6 +20,7 @@ class Jinja2Env(Environment):
         self.cache_size = 400
         self.add_extension(do)
         self.add_extension(i18n)
+        self.add_extension(loopcontrols)
         self.globals['secrets'] = secrets
 
 

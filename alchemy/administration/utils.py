@@ -7,7 +7,7 @@ def json_database(query,data):
 
     rows = []
     index = []
-    for k,v in enumerate(data['rows']()):
+    for k,v in enumerate(data['frozen_rows']()):
         index.append(k)
         tmp = []
         for column in v:
@@ -16,20 +16,18 @@ def json_database(query,data):
 
 
     history_log = {
+        "headers":["date_queried","raw_query"],
         "query_history":[{
             str(secrets.token_hex(128)):{
-                "date_queried":get_date_string(),
-                "raw_query":query,
-                "table_data":{int(k):str(v) for k,v in zip(index,data['headers'])},
+                "query_string":[get_date_string(),query],
+                "table_data":[str(header) for header in data['frozen_headers']],
                 "table_body":[{int(k):list(v) for k,v in zip(index,rows)}]
             }
         }]
     }
 
     file_dump = os.path.join(os.path.realpath('./alchemy'),'administration','static','json','_query_logs.json')
-    if not os.path.exists(file_dump):
-        with open(file_dump, 'w'):
-            pass
+
 
     if os.path.getsize(file_dump) != 0:
         with open(str(file_dump), 'r') as f:
@@ -38,6 +36,7 @@ def json_database(query,data):
             updated_msg['query_history'].extend(history_log['query_history'])
     else:
         updated_msg = history_log
+
 
     with open(str(file_dump), 'w') as f:
         json.dump(updated_msg,f,indent=4)
