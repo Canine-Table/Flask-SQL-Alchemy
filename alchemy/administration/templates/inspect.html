@@ -14,9 +14,10 @@
         <form method="POST">
             {{ form.hidden_tag() }}
             <input id="pending_query_id" name="pending_query" type="hidden" value="{{ data['pending_query'] }}">
-            <input id="done_query_id" name="done_query" type="hidden" value="{{ data['done_query'] }}">
+            <input id="json_key_id" name="json_key" type="hidden" value="{{ data['json_key'] }}">
             <input id="md5_hash_id" name="md5_hash" type="hidden" value="{{ data['md5_hash'] }}">
-            {{ form.text_body(class="btn-block") }}
+            <input id="file_path_id" name="file_path" type="hidden" value="{{ data['file_path'] }}">
+            {{ form.text_body(class="btn-block", placeholder='Query Database') }}
             <div class="jumbotron fgc mt-3 p-2 mb-3">
                 {% for radio in form.example %}
                     <div class="form-check form-check-inline">
@@ -25,8 +26,7 @@
                         <label class="form-check-label" for="{{ radio_value }}">{{ radio.label }}</label>
                     </div>
                 {% endfor %}
-                </div>
-
+            </div>
             {{ form.submit(class="btn btn-primary btn-block",id='submit_query_choice') }}
             <p class="jumbotron fgc mt-3 p-2">{{ form.commit }} Commit
                 <span class="px-5">{{ form.rollback }} Rollback<span>
@@ -46,11 +46,37 @@
                             {% endfor %}
                         </tr>
                     {% elif data['selected'] == 'query_error_dump' %}
-                        <tr>
-                            {% for header in loaded_error_dump['headers'] %}
-                                <th scope="col">{{ header }}</th>
-                            {% endfor %}
-                        </tr>
+                        {% if loaded_error_dump['messages'] %}
+                            {% if loaded_error_dump['messages']|length >= 3 %}
+                                {% macro error_logs__body() %}
+                                    <p>Are you sure you want to wipe your error logs?</p>
+                                    <p>you will be clearing <b>{{ loaded_error_dump['messages']|length }}</b> entries.</p>
+                                {% endmacro %}
+                                {% macro error_logs_footer() %}
+                                    <button class='btn btn-danger' onclick='deleteQueryEntry("delete_all_entries","{{ data['file_path'] }}","{{ data['selected'] }}")'>Confirm</button>
+                                {% endmacro %}
+                                {{ modal(
+                                    modal_id=env.globals['secrets'].token_hex(12)|upper,
+                                    button_classes='btn-block btn-danger mb-3',
+                                    button_text='Clear Error Logs',
+                                    modal_title='Clear Error Logs',
+                                    button_id=env.globals['secrets'].token_hex(12)|upper,
+                                    modal_header=True,
+                                    modal_body=True,
+                                    modal_footer=True,
+                                    body=error_logs__body(),
+                                    footer=error_logs_footer()
+                                ) }}
+                            {% endif %}
+                            <tr>
+                                {% for header in loaded_error_dump['headers'] %}
+                                    <th scope="col">{{ header }}</th>
+                                {% endfor %}
+                                <th scope='col'>Options</th>
+                            </tr>
+                        {% else %}
+                            <h5 class="text-center"><b>Your error logs will show up here</b></h5>
+                        {% endif %}
                     {% elif data['selected'] == 'query_query_dump' %}
                         {% if data['pending_query'] %}
                             {% set loop_header = "table_data" %}
@@ -60,15 +86,40 @@
                             {% set loop_body = "query_string" %}
                         {% endif %}
                             {% if  loop_header == "headers" %}
-                                <tr>
-                                    {% for header in loaded_query_dump[loop_header] %}
-                                        <th scope="col">{{ header }}</th>
-                                    {% endfor %}
-                                    <th scope='col'>Options</th>
-                                </tr>
+                                {% if loaded_query_dump['query_history'] %}
+                                    {% if loaded_query_dump['query_history']|length >= 3 %}
+                                        {% macro history_logs__body() %}
+                                            <p>Are you sure you want to wipe your history logs?</p>
+                                            <p>you will be clearing <b>{{ loaded_query_dump['query_history']|length }}</b> entries.</p>
+                                        {% endmacro %}
+                                        {% macro history_logs_footer() %}
+                                            <button class='btn btn-danger' onclick='deleteQueryEntry("delete_all_entries","{{ data['file_path'] }}","{{ data['selected'] }}")'>Confirm</button>
+                                        {% endmacro %}
+                                        {{ modal(
+                                            modal_id=env.globals['secrets'].token_hex(12)|upper,
+                                            button_classes='btn-block btn-danger mb-3',
+                                            button_text='Clear Query History Logs',
+                                            modal_title='Clear Query History Logs',
+                                            button_id=env.globals['secrets'].token_hex(12)|upper,
+                                            modal_header=True,
+                                            modal_body=True,
+                                            modal_footer=True,
+                                            body=history_logs__body(),
+                                            footer=history_logs_footer()
+                                        ) }}
+                                    {% endif %}
+                                    <tr>
+                                        {% for header in loaded_query_dump[loop_header] %}
+                                            <th scope="col">{{ header }}</th>
+                                        {% endfor %}
+                                        <th scope='col'>Options</th>
+                                    </tr>
+                                {% else %}
+                                    <h5 class="text-center"><b>Your history logs will show up here</b></h5>
+                                {% endif %}
                             {% else %}
                                 <tr  scope='column'>
-                                    {% for items in loaded_query_dump.query_history %}
+                                    {% for items in loaded_query_dump['query_history'] %}
                                         {% for md5_hash,query_string in items.items() %}
                                             {% if md5_hash == data['md5_hash'] %}
                                                 <th scope='col'>#</th>
@@ -92,12 +143,15 @@
                             </tr>
                         {% endfor %}
                     {% elif data['selected'] == 'query_error_dump' %}
-                        {% for row in loaded_error_dump['messages'] %}
-                            {% for column in row.values() %}
+                        {% for row in loaded_error_dump.messages %}
+                            {% for md5_hash,column in row.items() %}
                                 <tr>
                                     {% for value in column %}
                                         <td>{{ value }}</td>
                                     {% endfor %}
+                                    <td scope='col'>
+                                        <button class='btn btn-danger' onclick='deleteQueryEntry("{{ md5_hash }}","{{ data['file_path'] }}","{{ data['selected'] }}")'>Delete Entry</button>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         {% endfor %}
@@ -110,8 +164,8 @@
                                             <td scope='col'>{{ values }}</td>
                                         {% endfor %}
                                         <td scope='col'>
-                                            <button class='btn btn-primary' onclick='fetchQueryLog("{{ md5_hash }}")'>Fetch Query</button>
-                                            <button class='btn btn-danger' onclick='deleteQueryEntry("{{ md5_hash }}")'>Delete Entry</button>
+                                            <button class='btn btn-primary my-1' onclick='fetchQueryLog("{{ md5_hash }}")'>Fetch Past Query</button>
+                                            <button class='btn btn-danger my-1' onclick='deleteQueryEntry("{{ md5_hash }}","{{ data['file_path'] }}","{{ data['selected'] }}")'>Delete Entry</button>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -120,6 +174,7 @@
                             <script>
                                 document.getElementById('pending_query_id').value = 'False'
                                 document.getElementById('md5_hash_id').value = 'None'
+                                document.getElementById('file_path_id').value = 'None'
                             </script>
                             {% for items in loaded_query_dump.query_history %}
                                 {% for md5_hash, table_body in items.items() %}
@@ -143,5 +198,5 @@
             </table>
         </div>
     {% endif %}
-    <script src="{{ url_for('static', filename='js/_inspect.js')}}"></script>
+    <script src="{{ url_for('administration.static', filename='js/_inspect.js')}}"></script>
 {% endblock %}

@@ -9,7 +9,7 @@ from decimal import Decimal
 import json
 
 
-market = Blueprint('market',__name__)
+market = Blueprint('market',__name__,template_folder='templates',static_folder='static',static_url_path='/market/static')
 
 @market.route('/<username>/market', methods=['GET','POST'])
 @login_required

@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% block title %}Settings{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/_settings.css') }}">
+    <link rel="stylesheet" href="{{ url_for('account.static', filename='css/_settings.css') }}">
 {% endblock %}
 {% block content %}
     <div class="container-xl">
@@ -192,5 +192,5 @@
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/_settings.js')}}"></script>
+    <script src="{{ url_for('account.static', filename='js/_settings.js')}}"></script>
 {% endblock %}

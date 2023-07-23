@@ -12,7 +12,7 @@ from PIL import Image
 import base64
 from alchemy.utils import error_log,error_string
 
-account = Blueprint('account',__name__)
+account = Blueprint('account',__name__,template_folder='templates',static_folder='static',static_url_path='/accounts/static')
 
 
 @account.route('/register', methods=['GET','POST'])
@@ -113,7 +113,6 @@ def settings_page(username):
         with Session() as session:
             if delete_form.submit.data and request.form['form_name'] =='delete_form':
                 if (delete_form.username.data).strip() == current_user.username:
-                        session.query(Item).filter_by(owner=current_user.id).update({Item.owner: None})
                         for delete_row in [Account,Email,Name,Phone,Wallet]:
                             session.query(delete_row).filter_by(id=current_user.id).delete()
                             delete_row._update_state(session)
