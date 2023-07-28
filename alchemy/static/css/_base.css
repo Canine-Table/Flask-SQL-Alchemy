@@ -97,3 +97,20 @@ span .dropdown-menu {
     border-radius: 25px;
 
 }
+
+#navigationBar {
+    width: 100vw;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+@keyframes slide {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}

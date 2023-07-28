@@ -2,46 +2,79 @@
 
 
 document.getElementById("SaveChanges_id").addEventListener("click", () => {
-
+    $('#ShowSavedChanges_id').prop('disabled', false);
     document.getElementById("ShowSavedChanges_id").addEventListener("click", () => {
 
-        document.getElementById("SavedChanges_id").click()
+        $("#SavedChanges_id").click();
+        let first_name = $('#edit_first_name').val();
+        let last_name = $('#edit_last_name').val();
+        let email_address = $('#edit_email_address').val();
+        let phone_number = $('#edit_phone_number').val();
 
-        let first_name = document.getElementById('edit_first_name').value
-        let last_name = document.getElementById('edit_last_name').value
-        let email_address = document.getElementById('edit_email_address').value
-        let phone_number = document.getElementById('edit_phone_number').value
-
-        document.getElementById('first_name').innerHTML = first_name
-        document.getElementById('last_name').innerHTML =  last_name
-        document.getElementById('email_address').innerHTML = email_address
-        document.getElementById('phone_number').innerHTML = phone_number
+        $('#first_name').html(first_name);
+        $('#last_name').html(last_name);
+        $('#email_address').html(email_address);
+        $('#phone_number').html(phone_number);
 
         document.getElementById("BackSavedChangesConfirmed_id").addEventListener("click", () => {
-            document.getElementById("SaveChanges_id").click()
-        })
+            $("#SaveChanges_id").click();
+            $('#BackSavedChangesConfirmed_id').prop('disabled', true);
+            $('#ShowSavedChanges_id').prop('disabled', false);
+        });
 
         document.getElementById("SavedChangesConfirmed_id").addEventListener("click", () => {
 
-            let first_name = document.getElementById('edit_first_name').value
-            let last_name = document.getElementById('edit_last_name').value
-            let full_name = `${first_name} ${last_name}`
-            let email_address = document.getElementById('edit_email_address').value
-            let phone_number = document.getElementById('edit_phone_number').value
+            let first_name = $('#edit_first_name').val();
+            let last_name = $('#edit_last_name').val();
+            let full_name = `${first_name} ${last_name}`;
+            let email_address = $('#edit_email_address').val();
+            let phone_number = $('#edit_phone_number').val();
 
-            document.getElementById('full_name_display').innerHTML = ` ${full_name}`
-            document.getElementById('email_address_display').innerHTML = ` ${email_address}`
-            document.getElementById('phone_number_display').innerHTML = ` ${phone_number}`
+            $('#full_name_display').html(` ${full_name}`);
+            $('#email_address_display').html(` ${email_address}`);
+            $('#phone_number_display').html(` ${phone_number}`);
+            $('#SavedChangesConfirmed_id').prop('disabled', true);
+        });
 
-        })
-    })
-})
+        $('#ShowSavedChanges_id').prop('disabled', true);
+        $('#SavedChangesConfirmed_id').prop('disabled', false);
+        $('#BackSavedChangesConfirmed_id').prop('disabled', false);
+
+    });
+});
+
+
+
 
 document.getElementById('save_image_file').addEventListener("click", () => {
-    let filename = document.getElementById('selected_image').value
-    filename = filename.replace('C:\\fakepath\\','')
-    document.getElementById('image_file_path').value = filename
+    let filename = $('#selected_image').val();
+    filename = filename.replace('C:\\fakepath\\','');
+    $('#image_file_path').val(filename);
     if(filename != ''){
-        document.getElementById('image_form_id').disabled = false
+        $('#image_form_id').prop('disabled', false);
+        document.getElementById('image_form_id').addEventListener("click", () => {
+            $('#image_form_id').prop('disabled', true);
+        })
+
     }
+
+})
+
+
+
+
+document.getElementById('resetYourPassword_id').addEventListener("click", () => {
+    $('#confirmResetingYourPassword_id').prop('disabled', false);
+    document.getElementById('confirmResetingYourPassword_id').addEventListener("click", () => {
+        $('#confirmResetingYourPassword_id').prop('disabled', true);
+    })
+
+})
+
+
+document.getElementById('deletingAccount_id').addEventListener("click", () => {
+    $('#confirmDeletingAccount_id').prop('disabled', false);
+    document.getElementById('confirmDeletingAccount_id').addEventListener("click", () => {
+        $('#confirmDeletingAccount_id').prop('disabled', true);
+    })
 })

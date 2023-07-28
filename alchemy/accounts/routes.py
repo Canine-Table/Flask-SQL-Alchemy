@@ -125,7 +125,6 @@ def settings_page(username):
     edit_form.phone_number.data = edit_form.phone_number.data or current_user.phone_number.phone_number
 
     if request.method == 'POST':
-
         with Session() as session:
             user = session.query(Account).get(current_user.id)
             if delete_form.submit.data and request.form['form_name'] =='delete_form':

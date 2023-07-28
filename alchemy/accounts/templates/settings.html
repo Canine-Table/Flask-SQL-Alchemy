@@ -5,8 +5,8 @@
 {% endblock %}
 {% block content %}
     <div class="container-xl">
-        <div class="jumbotron p-2 text-center jbtron">
-            <div class="jumbotron fgc p-3 ">
+        <div class="jumbotron p-2 py-2 text-center jbtron">
+            <div class="jumbotron fgc p-3 my-2 {{ "mb-4" if get_flashed_messages() }}">
                 <h1><a id='profile_picture_anchor' type="button" data-toggle="modal" data-target="#Modal-profile_picture_anchor"><img id='profile_picture' width='64px' hight='64px' src="{{ current_user.profile_picture }}" alt="..." width='24px' hight='24px' class="rounded-circle profile_picture_class"></a>&nbsp;Account Settings</h1>
                 <form method="POST" enctype="multipart/form-data">
                     {{ image_form.hidden_tag() }}
@@ -38,157 +38,156 @@
             {{ errors() }}
         </div>
         <div class="jumbotron p-2 jbtron">
-            <div class="jumbotron fgc p-3 ">
-                <p><b>Name:</b><span id="full_name_display"> {{ user.name.first_name }} {{ user.name.last_name }}</span></p>
-                <p><b>Username:</b> {{ user.username }}</p>
-                <p><b>Phone Number:</b><span id="phone_number_display"> {{ user.phone_number.phone_number }}</span></p>
-                <p><b>Email Address:</b><span id="email_address_display"> {{ user.email_address.email_address }}</span></p>
-                <p><b>Member Since:</b> {{ user.creation_date }}</p>
-                <p><b>Account Balance:</b> ${{ user.balance.balance }}</p>
-            </div>
-            <div class="jumbotron fgc p-3 mb-2 pt-4">
-                <form method="POST">
-                    {{ delete_form.hidden_tag() }}
-                    <input id="delete_form_name" name="form_name" type="hidden" value="delete_form">
-                    {% macro delete_title() %}
-                        Delete {{ user.username }}
-                    {% endmacro %}
-                    {% macro delete_body() %}
-                        Are you sure you want to delete {{ user.username }}? This action can not be undone. Insert <b>{{ user.username }}</b> below to confirm the deletion of this account.
-                    {% endmacro %}
-                    {% macro delete_footer() %}
-                        {{ delete_form.username(placeholder='username' ) }}
-                        {{ delete_form.submit(class='btn btn-danger', id='delete_account') }}
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    {% endmacro %}
-                    {{ modal(
-                        modal_id=secrets.token_hex(12)|upper,
-                        button_classes='btn-block btn-outline-danger',
-                        button_text=delete_title(),
-                        button_id=secrets.token_hex(12)|upper,
-                        modal_title='Delete Account',
-                        modal_header=True,
-                        modal_body=True,
-                        modal_footer=True,
-                        body=delete_body(),
-                        footer=delete_footer(),
-                        keep_close=False
-                    ) }}
-                </form><br>
-                <form method="POST">
-                    {{ edit_form.hidden_tag() }}
-                    <input id="edit_form_name" name="form_name" type="hidden" value="edit_form">
-                    {% macro edit_body() %}
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span>{{ edit_form.first_name.label( class="inptbx input-group-text", id="edit_full_name_label") }}</span>
+            <div class="jumbotron bgc p-3 my-2">
+                <div class="jumbotron fgc p-3 ">
+                    <p><b>Name:</b><span id="full_name_display"> {{ user.name.first_name }} {{ user.name.last_name }}</span></p>
+                    <p><b>Username:</b> {{ user.username }}</p>
+                    <p><b>Phone Number:</b><span id="phone_number_display"> {{ user.phone_number.phone_number }}</span></p>
+                    <p><b>Email Address:</b><span id="email_address_display"> {{ user.email_address.email_address }}</span></p>
+                    <p><b>Member Since:</b> {{ user.creation_date }}</p>
+                    <p><b>Account Balance:</b> ${{ user.balance.balance }}</p>
+                </div>
+                <div class="jumbotron fgc p-3 mb-2 pt-3">
+                    <form method="POST">
+                        {{ delete_form.hidden_tag() }}
+                        <input id="delete_form_name" name="form_name" type="hidden" value="delete_form">
+                        {% macro delete_title() %}
+                            Delete {{ user.username }}
+                        {% endmacro %}
+                        {% macro delete_body() %}
+                            Are you sure you want to delete {{ user.username }}? This action can not be undone. Insert <b>{{ user.username }}</b> below to confirm the deletion of this account.
+                        {% endmacro %}
+                        {% macro delete_footer() %}
+                            {{ delete_form.username(placeholder='username' ) }}
+                            {{ delete_form.submit(class='btn btn-danger', id='confirmDeletingAccount_id') }}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        {% endmacro %}
+                        {{ modal(
+                            modal_id=secrets.token_hex(12)|upper,
+                            button_classes='btn btn-block btn-outline-danger',
+                            button_text=delete_title(),
+                            button_id='deletingAccount_id',
+                            modal_title='Delete Account',
+                            modal_header=True,
+                            modal_body=True,
+                            modal_footer=True,
+                            body=delete_body(),
+                            footer=delete_footer(),
+                            keep_close=False
+                        ) }}
+                    </form><br>
+                    <form method="POST">
+                        {{ edit_form.hidden_tag() }}
+                        <input id="edit_form_name" name="form_name" type="hidden" value="edit_form">
+                        {% macro edit_body() %}
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span>{{ edit_form.first_name.label( class="inptbx input-group-text", id="edit_full_name_label") }}</span>
+                                </div>
+                                {{ edit_form.first_name( class="inptbx form-control", placeholder="first name", id="edit_first_name") }}<br><br>
+                                {{ edit_form.last_name( class="inptbx form-control", placeholder="last name", id="edit_last_name") }}<br><br>
                             </div>
-                            {{ edit_form.first_name( class="inptbx form-control", placeholder="first name", id="edit_first_name") }}<br><br>
-                            {{ edit_form.last_name( class="inptbx form-control", placeholder="last name", id="edit_last_name") }}<br><br>
-                        </div>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span>{{ edit_form.email_address.label( class="inptbx input-group-text", id="inputGroupPrepend5") }}</span>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span>{{ edit_form.email_address.label( class="inptbx input-group-text", id="inputGroupPrepend5") }}</span>
+                                </div>
+                                {{ edit_form.email_address( class="inptbx form-control", placeholder="ex. example@example.com", id="edit_email_address") }}<br><br>
                             </div>
-                            {{ edit_form.email_address( class="inptbx form-control", placeholder="ex. example@example.com", id="edit_email_address") }}<br><br>
-                        </div>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span>{{ edit_form.phone_number.label( class="inptbx input-group-text", id="edit_phone_number_label") }}</span>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span>{{ edit_form.phone_number.label( class="inptbx input-group-text", id="edit_phone_number_label") }}</span>
+                                </div>
+                                {{ edit_form.phone_number( class="inptbx form-control", placeholder="ex. 123-456-7890", id="edit_phone_number") }}<br><br>
                             </div>
-                            {{ edit_form.phone_number( class="inptbx form-control", placeholder="ex. 123-456-7890", id="edit_phone_number") }}<br><br>
+                        {% endmacro %}
+                        {% macro edit_footer() %}
+                            <button type="button" class="btn btn-primary" id='ShowSavedChanges_id' data-toggle="modal" data-target="#Modal-ShowSavedChanges_id" data-dismiss="modal" aria-label="Close">Preview</button>
+                        {% endmacro %}
+                        {{ modal(
+                            modal_id=secrets.token_hex(12)|upper,
+                            button_classes='btn btn-block btn-outline-info',
+                            button_text='Edit Profile',
+                            modal_title=delete_title(),
+                            modal_header=True,
+                            modal_body=True,
+                            modal_footer=True,
+                            body=edit_body(),
+                            footer=edit_footer(),
+                            button_id='SaveChanges_id'
+                        ) }}
+                        {% macro confirm_body() %}
+                        <div class="container jumbotron fgc p-3 ">
+                            <h5><b><i>{{ edit_form.first_name.label }}</i></b></h5>
+                            <p><b>Old: </b>{{ user.name.first_name }}<br><b>New: </b><span id='first_name'></span></p>
                         </div>
-                    {% endmacro %}
-                    {% macro edit_footer() %}
-                        <button type="button" class="btn btn-primary" id='ShowSavedChanges_id' data-dismiss="modal" aria-label="Close">Preview</button>
-                    {% endmacro %}
-                    {{ modal(
-                        modal_id=secrets.token_hex(12)|upper,
-                        button_classes='btn-block btn-outline-info',
-                        button_text='Edit Profile',
-                        modal_title=delete_title(),
-                        modal_header=True,
-                        modal_body=True,
-                        modal_footer=True,
-                        body=edit_body(),
-                        footer=edit_footer(),
-                        button_id='SaveChanges_id'
-                    ) }}
-                    {% macro confirm_body() %}
-                    <div class="container jumbotron fgc p-3 ">
-                        <h5><b><i>{{ edit_form.first_name.label }}</i></b></h5>
-                        <p><b>Old: </b>{{ user.name.first_name }}<br><b>New: </b><span id='first_name'></span></p>
-                    </div>
-                    <div class="container jumbotron fgc p-3 ">
-                        <h5><b><i>{{ edit_form.last_name.label }} </i></b></h5>
-                        <p><b>Old: </b>{{ user.name.last_name }}<br><b>New: </b><span id='last_name'></span></p>
-                    </div>
-                    <div class="container jumbotron fgc p-3 ">
-                        <h5><b><i>{{ edit_form.email_address.label }} </i></b></h5>
-                        <p><b>Old: </b>{{ user.email_address.email_address }}<br><b>New: </b><span id='email_address'></span></p>
-                    </div>
-                    <div class="container jumbotron fgc p-3 ">
-                        <h5><b><i>{{ edit_form.phone_number.label }}</i></b></h5>
-                        <p><b>Old: </b>{{ user.phone_number.phone_number }}<br><b>New: </b><span id='phone_number'></span></p>
-                    </div>
-                    {% endmacro %}
-                    {% macro confirm_footer() %}
-                        <button type="button" class="btn btn-primary" id="BackSavedChangesConfirmed_id" data-dismiss="modal" aria-label="Close">Back</button>
-                        {{ edit_form.submit(class='btn btn-info', id='SavedChangesConfirmed_id') }}
-                    {% endmacro %}
-                    {% set mid = secrets.token_hex(12)|upper %}
-                    <button type="button" style='display: none' id='SavedChanges_id' data-toggle="modal" data-target="#Modal-{{ mid }}"></button>
-                    {{ modal(
-                        modal_id=mid,
-                        button_id=SavedChanges_id,
-                        modal_title='Save Changes',
-                        modal_header=True,
-                        modal_body=True,
-                        modal_footer=True,
-                        body=confirm_body(),
-                        footer=confirm_footer(),
-                        in_button=False
-                    ) }}
-                </form><br>
-                <form method="POST">
-                    {{ password_form.hidden_tag() }}
-                    <input id="password_form_name" name="form_name" type="hidden" value="password_form">
-                    {% macro reset_body() %}
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span>{{ password_form.old_password.label( class="inptbx input-group-text", id="users_old_password_label") }}</span>
+                        <div class="container jumbotron fgc p-3 ">
+                            <h5><b><i>{{ edit_form.last_name.label }} </i></b></h5>
+                            <p><b>Old: </b>{{ user.name.last_name }}<br><b>New: </b><span id='last_name'></span></p>
+                        </div>
+                        <div class="container jumbotron fgc p-3 ">
+                            <h5><b><i>{{ edit_form.email_address.label }} </i></b></h5>
+                            <p><b>Old: </b>{{ user.email_address.email_address }}<br><b>New: </b><span id='email_address'></span></p>
+                        </div>
+                        <div class="container jumbotron fgc p-3 ">
+                            <h5><b><i>{{ edit_form.phone_number.label }}</i></b></h5>
+                            <p><b>Old: </b>{{ user.phone_number.phone_number }}<br><b>New: </b><span id='phone_number'></span></p>
+                        </div>
+                        {% endmacro %}
+                        {% macro confirm_footer() %}
+                            <button type="button" class="btn btn-primary" id="BackSavedChangesConfirmed_id" data-dismiss="modal" aria-label="Close">Back</button>
+                            {{ edit_form.submit(class='btn btn-info', id='SavedChangesConfirmed_id') }}
+                        {% endmacro %}
+                        {{ modal(
+                            modal_id='ShowSavedChanges_id',
+                            modal_title='Save Changes',
+                            modal_header=True,
+                            modal_body=True,
+                            modal_footer=True,
+                            body=confirm_body(),
+                            footer=confirm_footer(),
+                            in_button=False
+                        ) }}
+                    </form><br>
+                    <form method="POST">
+                        {{ password_form.hidden_tag() }}
+                        <input id="password_form_name" name="form_name" type="hidden" value="password_form">
+                        {% macro reset_body() %}
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span>{{ password_form.old_password.label( class="inptbx input-group-text", id="users_old_password_label") }}</span>
+                                </div>
+                                {{ password_form.old_password( class="inptbx form-control", placeholder="old password", id="users_old_password") }}<br><br>
                             </div>
-                            {{ password_form.old_password( class="inptbx form-control", placeholder="old password", id="users_old_password") }}<br><br>
-                        </div>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span>{{ password_form.new_password.label( class="inptbx input-group-text", id="users_password_label") }}</span>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span>{{ password_form.new_password.label( class="inptbx input-group-text", id="users_password_label") }}</span>
+                                </div>
+                                {{ password_form.new_password( class="inptbx form-control", placeholder="new password", id="users_password") }}<br><br>
                             </div>
-                            {{ password_form.new_password( class="inptbx form-control", placeholder="new password", id="users_password") }}<br><br>
-                        </div>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span>{{ password_form.confirm_new_password.label( class="inptbx input-group-text", id="users_confirm_new_password_label") }}</span>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span>{{ password_form.confirm_new_password.label( class="inptbx input-group-text", id="users_confirm_new_password_label") }}</span>
+                                </div>
+                                {{ password_form.confirm_new_password( class="inptbx form-control", placeholder="confirm password", id="users_confirm_new_password") }}<br><br>
                             </div>
-                            {{ password_form.confirm_new_password( class="inptbx form-control", placeholder="confirm password", id="users_confirm_new_password") }}<br><br>
-                        </div>
-                    {% endmacro %}
-                    {% macro reset_footer() %}
-                        {{ password_form.submit(class='btn btn-warning', id=secrets.token_hex(12)|upper) }}
-                    {% endmacro %}
-                    {{ modal(
-                        modal_id=secrets.token_hex(12)|upper,
-                        button_classes='btn-block btn-outline-warning',
-                        button_text='Reset Password',
-                        modal_title='Reset Password',
-                        button_id=secrets.token_hex(12)|upper,
-                        modal_header=True,
-                        modal_body=True,
-                        modal_footer=True,
-                        body=reset_body(),
-                        footer=reset_footer(),
-                    ) }}
-                </form>
+                        {% endmacro %}
+                        {% macro reset_footer() %}
+                            {{ password_form.submit(class='btn btn-warning', id='confirmResetingYourPassword_id') }}
+                        {% endmacro %}
+                        {{ modal(
+                            modal_id=secrets.token_hex(12)|upper,
+                            button_classes='btn btn-block btn-outline-warning',
+                            button_text='Reset Password',
+                            modal_title='Reset Password',
+                            button_id='resetYourPassword_id',
+                            modal_header=True,
+                            modal_body=True,
+                            modal_footer=True,
+                            body=reset_body(),
+                            footer=reset_footer(),
+                        ) }}
+                    </form>
+                </div>
             </div>
         </div>
     </div>
