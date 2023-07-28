@@ -3,7 +3,6 @@ from alchemy.administration.utils import json_database,delete_json_column
 from alchemy.administration.forms import InspectQueryForm
 from flask_login import current_user,login_required
 from alchemy.utils import error_log,error_string
-from alchemy.main.jinja2env import jinja2_env
 from flask import render_template
 from flask import Blueprint
 from sqlalchemy import text
@@ -18,7 +17,7 @@ administration = Blueprint('administration',__name__,template_folder='templates'
 @administration.route('/<username>/administration/inspector', methods=['GET','POST'])
 @login_required
 def inspector_page(username):
-    if current_user.username in ['root','johndoe0123','administrator']:
+    if current_user.groups.user_group == 'root_users':
         static_folder = os.path.join(current_app.root_path, 'administration', 'static')
         error_dump = os.path.join(static_folder,'json','_error_logs.json')
         query_dump = os.path.join(static_folder,'json','_query_logs.json')
@@ -53,7 +52,7 @@ def inspector_page(username):
         else:
             loaded_error_dump = None
 
-        if request.method == 'POST':
+        if request.method == "POST":
 
             if request.form['md5_hash'] != None:
                 data['md5_hash'] = request.form['md5_hash']
@@ -118,6 +117,6 @@ def inspector_page(username):
                     flash(f"{type(e).__name__}: {error_string(error=e)}",category="danger")
                     error_log(error=e,file_dump=error_dump)
 
-        return render_template('inspect.html',env=jinja2_env,form=form,data=data,loaded_error_dump=loaded_error_dump,loaded_query_dump=loaded_query_dump)
+        return render_template('inspect.html',form=form,data=data,loaded_error_dump=loaded_error_dump,loaded_query_dump=loaded_query_dump)
     else:
         return redirect(url_for('main.home_page'))

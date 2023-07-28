@@ -1,32 +1,38 @@
 {% extends '_base.html' %}
 {% block title %}Login{% endblock %}
 {% block content %}
-    <div class="container jumbotron p-2 text-center jbtron">
-        <h1>Login to your Account</h1>
+    <div class="container-xxl jumbotron p-2 text-center mx-4 jbtron">
+        <div class="jumbotron bgc p-3 my-2 {{ "mb-4" if get_flashed_messages() }}">
+            <h1>Login to your Account</h1>
+        </div>
         {{ errors() }}
     </div>
-    <div class="container jumbotron p-2 jbtron pt-3">
+    <div class="container-xxl jumbotron p-2 mx-4 jbtron">
         <form method="POST">
-            {{ form.hidden_tag() }}
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span>{{ form.username.label( class="inptbx input-group-text", id="get_user_username_label") }}</span>
+            <div class="jbtron px-2 py-1 my-2">
+                {{ form.hidden_tag() }}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span>{{ form.username.label( class="inptbx input-group-text", id="get_user_username_label") }}</span>
+                    </div>
+                    {{ form.username( class="inptbx form-control", placeholder="username", id="get_user_username") }}<br><br>
                 </div>
-                {{ form.username( class="inptbx form-control", placeholder="username", id="get_user_username") }}<br><br>
-            </div>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span>{{ form.password.label( class="inptbx input-group-text", id="get_user_password_label") }}</span>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span>{{ form.password.label( class="inptbx input-group-text", id="get_user_password_label") }}</span>
+                    </div>
+                    {{ form.password( class="inptbx form-control", placeholder="password", id="get_user_password") }}<br><br>
                 </div>
-                {{ form.password( class="inptbx form-control", placeholder="password", id="get_user_password") }}<br><br>
             </div>
-            {{ form.submit(class="btn btn-primary btn-block mb-4")}}
-            {{ form.remember_me(class="ml-3") }} {{ form.remember_me.label(class="mb-0") }}
-        </form>
-        <br><div class="container jumbotron fgc p-3 checkbox mb-2 pt-4">
-            <h6>
-                Do not have an account? <a class="btn btn-sm btn-secondary p-0 px-2 mx-2" href="{{ url_for('account.register_page') }}">Register</a>
-            </h6>
+            <div class="jumbotron bgc my-2 px-3 py-4 ">
+                {{ form.submit(class="btn btn-primary btn-block mb-4")}}
+                {{ form.remember_me(class="ml-3") }} {{ form.remember_me.label(class="mb-0") }}
+        </form>{{ spacer(1) }}
+        <div class="container-xxl jumbotron mt-4 fgc p-3 mb-2 pt-4">
+                <h6>
+                    Do not have an account? <a class="btn btn-sm btn-secondary p-0 px-2 mx-2" href="{{ url_for('account.register_page') }}">Register</a>
+                </h6>
+            </div>
         </div>
     </div>
 {% endblock %}

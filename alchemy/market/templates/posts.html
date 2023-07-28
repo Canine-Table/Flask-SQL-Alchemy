@@ -13,15 +13,15 @@
                 {% endmacro %}
 
                 {% macro post_footer() %}
-                    {{ form.submit(class="btn btn-primary") }}                
+                    {{ form.submit(class="btn btn-primary") }}
                 {% endmacro %}
 
                 {{ modal(
-                    modal_id=env.globals['secrets'].token_hex(12)|upper,
+                    modal_id=secrets.token_hex(12)|upper,
                     button_classes='btn-block btn-outline-info',
                     button_text='New Comment',
                     modal_title='Add Comment',
-                    button_id=env.globals['secrets'].token_hex(12)|upper,
+                    button_id=secrets.token_hex(12)|upper,
                     modal_header=True,
                     modal_body=True,
                     modal_footer=True,

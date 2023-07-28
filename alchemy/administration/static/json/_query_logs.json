@@ -3,5 +3,36 @@
         "date_queried",
         "raw_query"
     ],
-    "query_history": []
+    "query_history": [
+        {
+            "9828d6768bb66b94b7e8759f15b679be5e4a18270b2fa11b7eb50f3b3234e3c7f6990bfa99f88ffef238124efab6c3dc527e91c1cc7fa5f78d4b42220d908170ce83070b5b84b563934ec5833be6904475e00e960ac7ba25ba7847a1a1ccb3b82b0cd9a779577cd5f1807a1794c0139d4ec00a3a4209ab8fe391269a75afa77d": {
+                "query_string": [
+                    "2023-07-27 23:48:01",
+                    "show databases"
+                ],
+                "table_data": [
+                    "Database"
+                ],
+                "table_body": [
+                    {
+                        "0": [
+                            "enl8720_group_7_mysql_database"
+                        ],
+                        "1": [
+                            "information_schema"
+                        ],
+                        "2": [
+                            "mysql"
+                        ],
+                        "3": [
+                            "sys"
+                        ],
+                        "4": [
+                            "performance_schema"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
 }

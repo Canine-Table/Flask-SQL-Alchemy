@@ -62,10 +62,10 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     {% endmacro %}
                     {{ modal(
-                        modal_id=env.globals['secrets'].token_hex(12)|upper,
+                        modal_id=secrets.token_hex(12)|upper,
                         button_classes='btn-block btn-outline-danger',
                         button_text=delete_title(),
-                        button_id=env.globals['secrets'].token_hex(12)|upper,
+                        button_id=secrets.token_hex(12)|upper,
                         modal_title='Delete Account',
                         modal_header=True,
                         modal_body=True,
@@ -103,7 +103,7 @@
                         <button type="button" class="btn btn-primary" id='ShowSavedChanges_id' data-dismiss="modal" aria-label="Close">Preview</button>
                     {% endmacro %}
                     {{ modal(
-                        modal_id=env.globals['secrets'].token_hex(12)|upper,
+                        modal_id=secrets.token_hex(12)|upper,
                         button_classes='btn-block btn-outline-info',
                         button_text='Edit Profile',
                         modal_title=delete_title(),
@@ -136,7 +136,7 @@
                         <button type="button" class="btn btn-primary" id="BackSavedChangesConfirmed_id" data-dismiss="modal" aria-label="Close">Back</button>
                         {{ edit_form.submit(class='btn btn-info', id='SavedChangesConfirmed_id') }}
                     {% endmacro %}
-                    {% set mid = env.globals['secrets'].token_hex(12)|upper %}
+                    {% set mid = secrets.token_hex(12)|upper %}
                     <button type="button" style='display: none' id='SavedChanges_id' data-toggle="modal" data-target="#Modal-{{ mid }}"></button>
                     {{ modal(
                         modal_id=mid,
@@ -174,14 +174,14 @@
                         </div>
                     {% endmacro %}
                     {% macro reset_footer() %}
-                        {{ password_form.submit(class='btn btn-warning', id=env.globals['secrets'].token_hex(12)|upper) }}
+                        {{ password_form.submit(class='btn btn-warning', id=secrets.token_hex(12)|upper) }}
                     {% endmacro %}
                     {{ modal(
-                        modal_id=env.globals['secrets'].token_hex(12)|upper,
+                        modal_id=secrets.token_hex(12)|upper,
                         button_classes='btn-block btn-outline-warning',
                         button_text='Reset Password',
                         modal_title='Reset Password',
-                        button_id=env.globals['secrets'].token_hex(12)|upper,
+                        button_id=secrets.token_hex(12)|upper,
                         modal_header=True,
                         modal_body=True,
                         modal_footer=True,

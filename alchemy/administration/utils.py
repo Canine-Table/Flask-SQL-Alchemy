@@ -1,4 +1,3 @@
-from flask import flash
 from alchemy.utils import get_date_string
 import secrets
 import json

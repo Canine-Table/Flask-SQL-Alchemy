@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="{{ url_for('administration.static', filename='css/_inspect.css') }}">
 {% endblock %}
 {% block content %}
-    <div class="jumbotron container-xxl p-2 ml-4 mr-4 text-center jbtron pt-3">
-        <div class="jumbotron fgc p-3 mt-3">
+    <div class="jumbotron container-xxl p-2 mx-4 text-center jbtron ">
+        <div class="jumbotron fgc p-3 my-2  {{ "mb-4" if get_flashed_messages() }}">
             <h1>SQL Inspector</h1>
         </div>
         {{ errors() }}
@@ -18,24 +18,28 @@
             <input id="md5_hash_id" name="md5_hash" type="hidden" value="{{ data['md5_hash'] }}">
             <input id="file_path_id" name="file_path" type="hidden" value="{{ data['file_path'] }}">
             {{ form.text_body(class="btn-block", placeholder='Query Database') }}
-            <div class="jumbotron fgc mt-3 p-2 mb-3">
-                {% for radio in form.example %}
-                    <div class="form-check form-check-inline">
-                        {% set radio_value = radio.data %}
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="{{ radio_value }}_id" value="{{ radio_value }}" {{ "checked" if radio_value == 'query_database' }}>
-                        <label class="form-check-label" for="{{ radio_value }}">{{ radio.label }}</label>
-                    </div>
-                {% endfor %}
+            <div class="jumbotron bgc px-3 pb-4 pt-1 my-2">
+                <div class="jumbotron fgc mt-3 p-2 mb-3">
+                    {% for radio in form.example %}
+                        <div class="form-check form-check-inline">
+                            {% set radio_value = radio.data %}
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="{{ radio_value }}_id" value="{{ radio_value }}" {{ "checked" if radio_value == 'query_database' }}>
+                            <label class="form-check-label" for="{{ radio_value }}">{{ radio.label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                {{ form.submit(class="btn btn-primary btn-block",id='submit_query_choice') }}
+                <p class="jumbotron fgc mt-3 mb-0 p-2">{{ form.commit }} Commit
+                    <span class="px-5">{{ form.rollback }} Rollback<span>
+                </p>
             </div>
-            {{ form.submit(class="btn btn-primary btn-block",id='submit_query_choice') }}
-            <p class="jumbotron fgc mt-3 p-2">{{ form.commit }} Commit
-                <span class="px-5">{{ form.rollback }} Rollback<span>
-            </p>
         </form>
     </div>
-    <div class="jumbotron container-xxl p-2 ml-4 mr-4 jbtron pt-3 overflow-auto">
+    <div class="jumbotron container-xxl px-2 pb-2 mx-4 jbtron pt-3 overflow-auto">
         {% if data['frozen_not_set'] or data['selected'] == None %}
-            <h5 class="text-center"><b>Your tables will show up here</b></h5>
+            <div class="jumbotron fgc p-3 mb-2">
+                <h5 class="text-center"><b>Your tables will show up here</b></h5>
+            </div>
         {% else %}
             <table class="table table-hover table-bordered table-dark">
                 <thead class="fgc">
@@ -56,11 +60,11 @@
                                     <button class='btn btn-danger' onclick='deleteQueryEntry("delete_all_entries","{{ data['file_path'] }}","{{ data['selected'] }}")'>Confirm</button>
                                 {% endmacro %}
                                 {{ modal(
-                                    modal_id=env.globals['secrets'].token_hex(12)|upper,
+                                    modal_id=secrets.token_hex(12)|upper,
                                     button_classes='btn-block btn-danger mb-3',
                                     button_text='Clear Error Logs',
                                     modal_title='Clear Error Logs',
-                                    button_id=env.globals['secrets'].token_hex(12)|upper,
+                                    button_id=secrets.token_hex(12)|upper,
                                     modal_header=True,
                                     modal_body=True,
                                     modal_footer=True,
@@ -75,7 +79,9 @@
                                 <th scope='col'>Options</th>
                             </tr>
                         {% else %}
-                            <h5 class="text-center"><b>Your error logs will show up here</b></h5>
+                            <div class="jumbotron fgc p-3 mb-0">
+                                <h5 class="text-center"><b>Your error logs will show up here</b></h5>
+                            </div>
                         {% endif %}
                     {% elif data['selected'] == 'query_query_dump' %}
                         {% if data['pending_query'] %}
@@ -96,11 +102,11 @@
                                             <button class='btn btn-danger' onclick='deleteQueryEntry("delete_all_entries","{{ data['file_path'] }}","{{ data['selected'] }}")'>Confirm</button>
                                         {% endmacro %}
                                         {{ modal(
-                                            modal_id=env.globals['secrets'].token_hex(12)|upper,
+                                            modal_id=secrets.token_hex(12)|upper,
                                             button_classes='btn-block btn-danger mb-3',
                                             button_text='Clear Query History Logs',
                                             modal_title='Clear Query History Logs',
-                                            button_id=env.globals['secrets'].token_hex(12)|upper,
+                                            button_id=secrets.token_hex(12)|upper,
                                             modal_header=True,
                                             modal_body=True,
                                             modal_footer=True,
@@ -115,7 +121,9 @@
                                         <th scope='col'>Options</th>
                                     </tr>
                                 {% else %}
-                                    <h5 class="text-center"><b>Your history logs will show up here</b></h5>
+                                    <div class="jumbotron fgc p-3 mb-0">
+                                        <h5 class="text-center"><b>Your history logs will show up here</b></h5>
+                                    </div>
                                 {% endif %}
                             {% else %}
                                 <tr  scope='column'>
@@ -133,7 +141,7 @@
                             {% endif %}
                     {% endif %}
                 </thead>
-                <tbody>
+                <tbody class='obgc'>
                     {% if data['selected'] == 'query_database' %}
                         {% for row in data['frozen_rows']() %}
                             <tr>

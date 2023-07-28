@@ -5,5 +5,54 @@
         "message",
         "full"
     ],
-    "messages": []
+    "messages": [
+        {
+            "693d5f4a75394717329fd0453f4c319eab01796d346248de88a378f7a32a20f0f2f33a7b6bba530de27b262dfa6a6ef54a080443d62fb0b8204f157ff3d03e7fed88a2a5068ac7866ceb7b86e3ec147b38bf81a0d231b5d7065d7c56d3cb2e22bfb342a0d184840fd59285fa06475a8293fded66c5bc6f987a8cb1a51f0c1170": [
+                "2023-07-27 23:18:11",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "631597ac37dc3d0777cc0faa34f5c62166ac8a9135c51cc3b4dadf29b7cd2a49f106ed50cf0dc92b0f5f8de2f1fe01a5089f78e6e8f023a5785276c35a84506264b387e6f9813522cb81fe11fff80806a2518b0aaec02dd5018ebbe8718f8885c6e95f1cafe796000d5087b58663832378eaafe288769f3fccbfa0ab064c5b99": [
+                "2023-07-27 23:20:39",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "d783a7815473ca2f2e2bfbc89a9adbfc62d6cf9325b94c4f304fb85420ea02a1d23a5ac0df1de072509616cc4e52a9d27415a21962c94bf735ff4302935787b03bca2414933c5465ec7a5fea08bb724747e653f3b081a2cc4f51f2c086eaab346416a60e1fde4f22fb718e0fdc0232582ab805e6303e78ea787f0a3a7f2fc436": [
+                "2023-07-27 23:20:43",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "1f35c925d32382bed91e832161770de41196be7a2748f04251033436327b1a4d2a1c3dd67d2bb169fd9f7056b3d3ce05d8f94cd98a45fab94e45133f1ab10a886219e9e583debb723cc3fed40f485c0b822d7b1e83f804c9272c0c8aa065d1243fb6ba8f295c016780ac99c52a95d39ef18b7bd8df9b0d43df2f5b97d2e900f4": [
+                "2023-07-27 23:20:45",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "7bf95bce1e6402bd89b81d5dbc7a698ebf7978f6cf223a70e140673d576f7c9a474a1a6e9885cef0c593f809881b3b50df74287a6a23c2dfbaa7f4a62124b1a69a06564f70e49990a55ff60b8236d4f742dfebea42cf00a053309cba51dbf0f2f5eb6ec6e85bcc419716e0e85d86f3521e1efad4e86837450cf5652fc825681d": [
+                "2023-07-27 23:47:53",
+                "OperationalError",
+                "syntax error at position 14 near 'database'",
+                "(pymysql.err.OperationalError) (1105, \"syntax error at position 14 near 'database'\")\n[SQL: show database]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "3ea1731e46201dde5e898533ac1814365164879312a762645cdec519c0103910f7be54ac68ac504c6491c6ef82a112127a9eb5f7a01170e3c34a062e30fb2b84dff61478b449d3c57ef0b5af9226eb107aa066234fbedcf1777688f7ce4a091d25af2623306f08444c6e7234d80f41a042f71240b3bdfd3f194fd82041944d27": [
+                "2023-07-27 23:47:57",
+                "ProgrammingError",
+                "show databasea",
+                "(pymysql.err.ProgrammingError) (1064, 'target: enl8720_group_7_mysql_database.-.primary: vttablet: rpc error: code = InvalidArgument desc = You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \\'databasea\\' at line 1 (errno 1064) (sqlstate 42000) (CallerID: 2bmhv2vg4tejeu6l48xf): Sql: \"show databasea\", BindVars: {REDACTED}')\n[SQL: show databasea]\n(Background on this error at: https://sqlalche.me/e/20/f405)"
+            ]
+        }
+    ]
 }

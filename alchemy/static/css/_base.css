@@ -4,6 +4,8 @@
     --bk2: #161617;
     --bk3: #343A40;
     --bk4: #212529;
+    --bk5: #51484f;
+    --bk6: #353839;
     --wt1: #FAFAFA;
     --wt2:  #E9ECEF;
     --wt3: #E9EBEC;
@@ -32,6 +34,9 @@ body {
     background-color: var(--bk1);
 }
 
+.obgc {
+    background-color: var(--bk6);
+}
 .jbtron {
     background-color: var(--bk3);
     color: var(--wt2);

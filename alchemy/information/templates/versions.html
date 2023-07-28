@@ -1,0 +1,52 @@
+{% extends '_base.html' %}
+{% block title %}Modules{% endblock %}
+{% block content %}
+    <div class="container-xxl jumbotron p-2 ml-4 mr-4 text-center jbtron">
+        <div class="jumbotron bgc p-3 my-2">
+            <div class="jumbotron fgc px-4 pb-4 pt-4 mt-1 mb-0">
+                <h3 class='my-4'>Python {{ python_version }}</h3>
+                <h5 class='my-4'>Python {{ python_version_info }}</h5>
+            </div>
+            {{ errors() }}
+            <div class="jumbotron fgc mt-4 px-4 pb-4 pt-5 my-1 mb-2">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span>{{ form.submit(class="btn btn-primary btn-block mb-4", id="regex_n_redirect")}}</span>
+                        </div>
+                        {{ form.search(class="inptbx form-control", placeholder="search for or filter through modules", id="module_regex_searching") }}
+                        <input id="get_more_info_id" name="get_more_info" type="hidden" value="{{ pip3_modules['load'] }}">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron container-xxl mx-4 jbtron p-2 my-2">
+        <div class="jumbotron container-xxl mx-0 my-2 p-2 bgc {{ "row" if not pip3_modules['TypeNone'] }}">
+            {% if pip3_modules['TypeNone'] %}
+                <div class="jumbotron fgc p-3 mb-2">
+                    <h5 class="text-center"><b>No modules were found.</b></h5>
+                </div>
+            {% else %}
+                {% for module in pip3_modules['names_n_versions'] %}
+                    {% if module['name'] in pip3_modules['names'] %}
+                        <div class="col-sm-4 my-3">
+                            <div class="card">
+                                <div class="card-body fgc">
+                                    <h5 class="card-title"><b>Module:</b> {{ module['name'] }}</h5>
+                                    <p class="card-text"><b>Version:</b> {{ module['version'] }}</p>
+                                    <button class="btn btn-block btn-secondary" id="{{ module['name'] }}" onclick="getMoreInfo('{{ module['name'] }}')">More Info</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <script>
+                document.getElementById('get_more_info').value = 'None'
+            </script>
+        </div>
+    </div>
+    <script src="{{ url_for('information.static', filename='js/_versions.js')}}"></script>
+{% endblock %}

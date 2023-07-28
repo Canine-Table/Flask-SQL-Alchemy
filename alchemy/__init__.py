@@ -1,3 +1,5 @@
+from alchemy.main.jinja2env import Jinja2Env
+from jinja2 import PackageLoader, ChoiceLoader
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 from flask_login import LoginManager
@@ -35,16 +37,33 @@ class Database:
 engine = Database.create()
 Session = sessionmaker(bind=engine)
 inspector = inspect(engine)
+loaders = []
 
+
+loaders.append(PackageLoader(package_name='alchemy', package_path='templates', encoding='utf-8'))
+loaders.append(PackageLoader(package_name='alchemy.main', package_path='templates', encoding='utf-8'))
 from alchemy.main.routes import main
 app.register_blueprint(main)
 
+
+loaders.append(PackageLoader(package_name='alchemy.market', package_path='templates', encoding='utf-8'))
 from alchemy.market.routes import market
 app.register_blueprint(market)
 
+
+loaders.append(PackageLoader(package_name='alchemy.accounts', package_path='templates', encoding='utf-8'))
 from alchemy.accounts.routes import account
 app.register_blueprint(account)
 
+
+loaders.append(PackageLoader(package_name='alchemy.administration', package_path='templates', encoding='utf-8'))
 from alchemy.administration.routes import administration
 app.register_blueprint(administration)
 
+
+loaders.append(PackageLoader(package_name='alchemy.information', package_path='templates', encoding='utf-8'))
+from alchemy.information.routes import information
+app.register_blueprint(information)
+
+
+app.jinja_env = Jinja2Env(loader=ChoiceLoader(loaders))
