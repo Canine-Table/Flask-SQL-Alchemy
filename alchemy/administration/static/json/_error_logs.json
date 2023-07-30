@@ -53,6 +53,22 @@
                 "show databasea",
                 "(pymysql.err.ProgrammingError) (1064, 'target: enl8720_group_7_mysql_database.-.primary: vttablet: rpc error: code = InvalidArgument desc = You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \\'databasea\\' at line 1 (errno 1064) (sqlstate 42000) (CallerID: 2bmhv2vg4tejeu6l48xf): Sql: \"show databasea\", BindVars: {REDACTED}')\n[SQL: show databasea]\n(Background on this error at: https://sqlalche.me/e/20/f405)"
             ]
+        },
+        {
+            "a89d808f88f20322141b3367a1b46eddaa5a3e34a2aee17d412b7eb61ae1cabeb5d98b9f9a6936bb594022b5917dc57a23ec4373806ceadbb4d63c192a95a6f6295b74cc25a2c59180e1dd94f3de08feabe27b15175b8e3f3a7df691f9f9ab2c36b15e9587d071f7726a06825db4839d1eb45b193af38c89a6345a539adabf79": [
+                "2023-07-30 13:32:56",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        },
+        {
+            "18b81da4d99aa4202b5485bf6e48023031839350276bc81c253c41a1c598400404241499fa01b599b0bd620388c935563846a563443b9a3b4a4f04258425cd1a4b5f578c565af057fcf026ece55a47bfb789fd44fa73110d24dfdfc4d01db014b43884b1a275202ca819f7ac9fdf51d4a883bb910fe306442ca0945796fa73ec": [
+                "2023-07-30 13:34:52",
+                "OperationalError",
+                "Query was empty",
+                "(pymysql.err.OperationalError) (1105, 'Query was empty')\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
         }
     ]
 }

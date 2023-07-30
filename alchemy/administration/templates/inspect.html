@@ -17,7 +17,7 @@
             <input id="json_key_id" name="json_key" type="hidden" value="{{ data['json_key'] }}">
             <input id="md5_hash_id" name="md5_hash" type="hidden" value="{{ data['md5_hash'] }}">
             <input id="file_path_id" name="file_path" type="hidden" value="{{ data['file_path'] }}">
-            {{ form.text_body(class="btn-block", placeholder='Query Database') }}
+            {{ form.text_body(class="d-grid", placeholder='Query Database') }}
             <div class="jumbotron bgc px-3 pb-4 pt-1 my-2">
                 <div class="jumbotron fgc mt-3 p-2 mb-3">
                     {% for radio in form.example %}
