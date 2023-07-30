@@ -28,7 +28,7 @@
                         </div>
                     {% endfor %}
                 </div>
-                {{ form.submit(class="btn btn-primary btn-block",id='submit_query_choice') }}
+                {{ form.submit(class="btn btn-primary d-flex",id='submit_query_choice') }}
                 <p class="jumbotron fgc mt-3 mb-0 p-2">{{ form.commit }} Commit
                     <span class="px-5">{{ form.rollback }} Rollback<span>
                 </p>
@@ -61,7 +61,7 @@
                                 {% endmacro %}
                                 {{ modal(
                                     modal_id=secrets.token_hex(12)|upper,
-                                    button_classes='btn-block btn-danger mb-3',
+                                    button_classes='d-flex btn-danger mb-3',
                                     button_text='Clear Error Logs',
                                     modal_title='Clear Error Logs',
                                     button_id=secrets.token_hex(12)|upper,
@@ -103,7 +103,7 @@
                                         {% endmacro %}
                                         {{ modal(
                                             modal_id=secrets.token_hex(12)|upper,
-                                            button_classes='btn-block btn-danger mb-3',
+                                            button_classes='d-flex btn-danger mb-3',
                                             button_text='Clear Query History Logs',
                                             modal_title='Clear Query History Logs',
                                             button_id=secrets.token_hex(12)|upper,

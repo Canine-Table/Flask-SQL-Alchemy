@@ -12,8 +12,8 @@
                     {{ image_form.hidden_tag() }}
                     <input id="image_form_name" name="form_name" type="hidden" value="image_form">
                     {% macro profile_picture_anchor_body() %}
-                        {{ image_form.selected_image(type='file', class='btn btn-light bg-light btn-block') }}{{ spacer(1) }}
-                        {{ image_form.file_path( id='image_file_path', class="btn-block", readonly=True) }}
+                        {{ image_form.selected_image(type='file', class='btn btn-light bg-light d-flex d-grid') }}{{ spacer(1) }}
+                        {{ image_form.file_path( id='image_file_path', class="d-flex d-grid", readonly=True) }}
                     {% endmacro %}
                     {% macro profile_picture_anchor_footer() %}
                     <button type="button" class="btn btn-secondary" id='save_image_file'>Update</button>
@@ -64,7 +64,7 @@
                         {% endmacro %}
                         {{ modal(
                             modal_id=secrets.token_hex(12)|upper,
-                            button_classes='btn btn-block btn-outline-danger',
+                            button_classes='btn d-grid d-flex btn-outline-danger',
                             button_text=delete_title(),
                             button_id='deletingAccount_id',
                             modal_title='Delete Account',
@@ -105,7 +105,7 @@
                         {% endmacro %}
                         {{ modal(
                             modal_id=secrets.token_hex(12)|upper,
-                            button_classes='btn btn-block btn-outline-info',
+                            button_classes='btn d-flex d-grid btn-outline-info',
                             button_text='Edit Profile',
                             modal_title=delete_title(),
                             modal_header=True,
@@ -176,7 +176,7 @@
                         {% endmacro %}
                         {{ modal(
                             modal_id=secrets.token_hex(12)|upper,
-                            button_classes='btn btn-block btn-outline-warning',
+                            button_classes='btn d-flex d-grid btn-outline-warning',
                             button_text='Reset Password',
                             modal_title='Reset Password',
                             button_id='resetYourPassword_id',
