@@ -1,13 +1,15 @@
-from flask import render_template,request,url_for,flash,get_flashed_messages,redirect
+from flask import url_for,flash,get_flashed_messages,redirect
 from jinja2 import Environment, select_autoescape
 from jinja2.ext import do,i18n,loopcontrols
 import secrets
 import sys
 
 class Jinja2Env(Environment):
+
+    loaders = []
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.autoescape = select_autoescape(disabled_extensions=('txt','log','md',),default_for_string=True,default=True)
 
         self.add_extension(loopcontrols)

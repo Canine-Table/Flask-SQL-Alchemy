@@ -2,7 +2,8 @@ from sqlalchemy import Column,Integer,String,DateTime,Date,func,Index,UniqueCons
 from sqlalchemy.orm import relationship,Mapped,declarative_base,Mapper
 from alchemy.accounts.utils import after_create_account_table
 from alchemy.market.utils import after_create_item_table
-from alchemy import engine,bcrypt,login_manager,Session
+from alchemy.utilities.database import Session,engine
+from alchemy import bcrypt,login_manager
 from flask_login import UserMixin
 from decimal import Decimal
 import secrets

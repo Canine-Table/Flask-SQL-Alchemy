@@ -1,0 +1,18 @@
+{
+    "headers": [
+        "datetime",
+        "name",
+        "message",
+        "full"
+    ],
+    "messages": [
+        {
+            "b4f8f56d8a3a8caea18e2851ec4577e2f94de6a664cf1f3b8ab3a178d49ecb9312c21c4387103a3eaf27bc21bd6ae0e3fa36ad10c9b3ec1a00aaf99edd70b0ce0a7b8a332b511696a206e2689b0f3a6d15260bc2700e680ab679ca2bb18d14feb8497e7ee449c3a5236beaf5dc58f8be0cb1e658eefe10c3d523ac6bd0d02069": [
+                "2023-07-30 21:24:11",
+                "OperationalError",
+                "MySQL server has gone away (SSLEOFError(8, 'EOF occurred in violation of protocol (_ssl.c:2396)'))",
+                "(pymysql.err.OperationalError) (2006, \"MySQL server has gone away (SSLEOFError(8, 'EOF occurred in violation of protocol (_ssl.c:2396)'))\")\n[SQL: SELECT account_list.id AS account_list_id, account_list.username AS account_list_username, account_list.password_hash AS account_list_password_hash, account_list.profile_picture AS account_list_profile_picture, account_list.age AS account_list_age, account_list.creation_date AS account_list_creation_date, account_list.last_updated AS account_list_last_updated \nFROM account_list \nWHERE account_list.username = %(username_1)s \n LIMIT %(param_1)s]\n[parameters: {'username_1': 'johndoe0123', 'param_1': 1}]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+            ]
+        }
+    ]
+}

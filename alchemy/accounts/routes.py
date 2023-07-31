@@ -1,12 +1,12 @@
 from alchemy.accounts.forms import RegistrationForm,ResetPasswordForm,LoginForm,DeleteAccountForm,EditAccountForm,ResetPasswordForm,ProfilePictureForm
 from flask import render_template,request,url_for,flash,get_flashed_messages,redirect
 from flask_login import login_user,current_user,logout_user,login_required
-from alchemy.models import Account,Phone,Email,Name,Signin,Item,Wallet
+from alchemy.utilities.models import Account,Phone,Email,Name,Signin
 from alchemy.utils import error_log,error_string,get_date_string
-from alchemy.main.exceptions import QueryException
+from alchemy.utilities.exceptions import QueryException
 from alchemy.accounts.utils import crop_to_square
+from alchemy.utilities.database import Session
 from flask import Blueprint
-from alchemy import Session
 from io import BytesIO
 from PIL import Image
 import base64
@@ -227,4 +227,4 @@ def settings_page(username):
                     flash(f"{type(e).__name__}: {error_string(error=e)}",category="danger")
                     error_log(error=e)
 
-    return render_template('settings.html',user=current_user,delete_form=delete_form,edit_form=edit_form,password_form=password_form,image_form=image_form)
+    return render_template('settings.html',delete_form=delete_form,edit_form=edit_form,password_form=password_form,image_form=image_form)

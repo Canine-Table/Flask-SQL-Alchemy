@@ -3,10 +3,10 @@ from alchemy.administration.utils import json_database,delete_json_column
 from alchemy.administration.forms import InspectQueryForm
 from flask_login import current_user,login_required
 from alchemy.utils import error_log,error_string
+from alchemy.utilities.database import engine
 from flask import render_template
 from flask import Blueprint
 from sqlalchemy import text
-from alchemy import engine
 import json
 import os
 

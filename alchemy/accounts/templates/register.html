@@ -1,61 +1,61 @@
 {% extends '_base.html' %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<div class="container-xxl jumbotron p-2 text-center mx-4 jbtron">
-    <div class="jumbotron bgc p-3 my-2 {{ "mb-4" if get_flashed_messages() }}">
-            <h1>Create your Account</h1>
+    <div class="container-fluid jumbotron-fluid text-center jbtron mx-auto my-3">
+        <div class="jumbotron bgc my-2 py-2 {{ "mb-4" if get_flashed_messages() }}">
+                <h1>Create your Account</h1>
         </div>
         {{ errors() }}
     </div>
-    <div class="container-xxl jumbotron p-2 mx-4 jbtron">
-        <div class="jbtron px-2 py-1 my-2">
+    <div class="container-fluid jumbotron-fluid jbtron mx-auto my-3">
+        <div class="jbtron pt-1 my-2">
             <form method="POST">
                 {{ form.hidden_tag() }}
-                <div class="input-group">
+                <div class="input-group input-group-sm input-group-smaller mb-1 mt-2">
                     <div class="input-group-prepend">
                         <span>{{ form.username.label( class="inptbx input-group-text", id="new_users_username_label") }}</span>
                     </div>
                     {{ form.username( class="inptbx form-control", placeholder="ex. johndoe0123", id="new_users_username") }}{{ spacer(2) }}
                 </div>
-                <div class="input-group">
+                <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
                         <span>{{ form.first_name.label( class="inptbx input-group-text", id="new_users_full_name_label") }}</span>
                     </div>
                     {{ form.first_name( class="inptbx form-control", placeholder="first name", id="new_users_first_name") }}{{ spacer(2) }}
                     {{ form.last_name( class="inptbx form-control", placeholder="last name", id="new_users_last_name") }}{{ spacer(2) }}
                 </div>
-                <div class="input-group">
+                <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
                         <span>{{ form.age.label( class="inptbx input-group-text", id="new_users_age_label") }}</span>
                     </div>
                     {{ form.age( class="inptbx datepicker form-control", id="new_users_age") }}{{ spacer(2) }}
                 </div>
-                <div class="input-group">
+                <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
                         <span>{{ form.email_address.label( class="inptbx input-group-text", id="new_users_email_address_label") }}</span>
                     </div>
                     {{ form.email_address( class="inptbx form-control", placeholder="ex. example@example.com", id="new_users_email_address") }}{{ spacer(2) }}
                 </div>
-                <div class="input-group">
+                <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
                         <span>{{ form.phone_number.label( class="inptbx input-group-text", id="new_users_phone_number_label") }}</span>
                     </div>
                     {{ form.phone_number( class="inptbx form-control", placeholder="ex. 123-456-7890", id="new_users_phone_number") }}{{ spacer(2) }}
                 </div>
-                <div class="input-group">
+                <div class="input-group input-group-sm input-group-smaller mb-2 mt-1">
                     <div class="input-group-prepend">
                         <span>{{ form.password.label( class="inptbx input-group-text", id="new_users_password_label") }}</span>
                     </div>
                     {{ form.password( class="inptbx form-control", placeholder="password", id="new_users_password") }}{{ spacer(2) }}
                     {{ form.verify_password( class="inptbx form-control", placeholder="confirm password", id="new_users_verify_password") }}{{ spacer(2) }}
                 </div>
-            </div>
-            <div class="jumbotron bgc my-2 px-3 py-4 ">
-                {{ form.submit(class="btn btn-primary d-grid d-flex") }}
-        </form>
-        {{ spacer(1) }}<div class="containerxxl jumbotron fgc mb-0 p-3 checkbox pt-4">
-            <h6>Already have an account? <a class="btn btn-sm btn-secondary p-0 px-2 mx-2" href="{{ url_for('account.login_page') }}">Login</a></h6>
-            </div>
+                <div class="jumbotron bgc p-2 my-2">
+                    {{ form.submit(class="btn btn-primary col-12 col-sm-8 col-md-6 col-lg-4 col-xl-2 col-xxl-2 my-2") }}
+                    <div class="container-fluid jumbotron d-flex flex-row fgc my-2 py-3">
+                        Already Have an account?&nbsp;&nbsp;<a class="btn btn-sm btn-secondary py-0" href="{{ url_for('account.login_page') }}">Login</a>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}

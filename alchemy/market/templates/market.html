@@ -1,13 +1,13 @@
 {% extends '_base.html' %}
 {% block title %}Market{% endblock %}
 {% block content %}
-    <div class="container-xxl jumbotron p-2 ml-4 mr-4 text-center jbtron">
+    <div class="container-fluid jumbotron p-2 my-3 text-center jbtron">
         <div class="jumbotron fgc p-3 my-2 {{ 'mb-4' if get_flashed_messages() }}">
             <h1>Hello {{ current_user.username }}, welcome to the Flask Marketplace.</h1>{{ spacer(1) }}
         </div>
         {{ errors() }}
     </div>
-    <div class="jumbotron container-xxl p-2 ml-4 mr-4 jbtron">
+    <div class="jumbotron container-fluid p-2 my-3 jbtron">
         <div class="jumbotron bgc p-3 my-2">
             <div class="jumbotron fgc p-3 my-2 {{ 'mb-4' if owned_items.count() > 0 }}">
                 <h2>Owned Items</h2>
@@ -24,7 +24,7 @@
                                         <form method="POST">
                                             <p class="text-left">Are you sure you want to sell your <b>{{ owned_item.item_purchase.name }}</b> for <b>${{ owned_item.item_purchase.price }}</b>?</p>
                                             {% set sold_item_counter = "sold_item_count-" + owned_item.barcode %}
-                                            <input type="number" value="1" id="sold_item_count-{{ owned_item.barcode }}" class="bg-secondary btn-secondary btn-block" name="sell_count"  min="1" max="{{ owned_item.count }}" onclick="update_cost(sold_item_counter)">
+                                            <input type="number" value="1" id="sold_item_count-{{ owned_item.barcode }}" class="bg-secondary btn-secondary col-12" name="sell_count"  min="1" max="{{ owned_item.count }}" onclick="update_cost(sold_item_counter)">
                                     {% endmacro %}
                                     {% macro sell_modal_footer() %}
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -59,16 +59,16 @@
             </div>
         </div>
     </div>
-    <div class="jumbotron p-0 container-xxl bgc">
-        <div class="jumbotron p-2 ml-4 mr-4 jbtron">
-            <div class="jumbotron fgc p-3 mt-2">
+    <div class="jumbotron p-2 my-3 container-fluid bgc">
+        <div class="jumbotron p-2 jbtron">
+            <div class="jumbotron fgc p-3 my-2 {{ 'mb-4' if purchased_items.count() > 0 }}">
                 <h2>Available Items on the Market</h2>
                 <p>{% if purchased_items.count() > 0 %}Click on one of the items to start buying.{% else %}The marketplace is currently out of stock.{% endif %}</p>{{ spacer(1) }}
             </div>
             <div class="overflow-auto">
                 {% if purchased_items.count() > 0 %}
                     <table class="table table-hover table-bordered table-dark">
-                        <thead class="fgc">
+                        <thead>
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Price</th>
@@ -76,7 +76,7 @@
                                 <th scope="col">Options</th>
                             </tr>
                         </thead>
-                        <tbody class="obgc">
+                        <tbody>
                             {% for purchased_item in purchased_items %}
                                 <tr>
                                     <td>{{ purchased_item.name }}</td>
@@ -88,7 +88,6 @@
                                             <p><b>Item ID:</b> {{ purchased_item.id }}</p>
                                             <p><b>Stock:</b> {{ purchased_item.stock }}</p>
                                             <p><b>Price:</b> ${{ purchased_item.price }}</p>
-                                            <p><b>Barcode:</b> {{ purchased_item.barcode|upper }}</p>
                                             <p><b>Description:</b> {{ purchased_item.description }}</p>
                                             <p><b>Date Added:</b> {{ purchased_item.date_added }}</p>
                                             {% if purchased_item.last_updated %}
@@ -109,7 +108,7 @@
                                             <form method="POST">
                                                 {{ purchase_form.hidden_tag() }}
                                                 <p>Are you sure you want to buy a <b>{{ purchased_item.name }}</b> for <b>${{ purchased_item.price }}</b>?</p>
-                                                <input type="number" value="1" id="purchase_item_count-{{ purchased_item.id }}" class="bg-secondary btn-secondary btn-block" name="purchase_count" min="1" max="{{ purchased_item.stock }}">
+                                                <input type="number" value="1" id="purchase_item_count-{{ purchased_item.id }}" class="bg-secondary btn-secondary col-12" name="purchase_count" min="1" max="{{ purchased_item.stock }}">
                                         {% endmacro %}
                                         {% macro purchase_footer() %}
                                                 <input id="purchase_form_name-{{ purchased_item.id }}" name="form_name" type="hidden" value="purchase_form">

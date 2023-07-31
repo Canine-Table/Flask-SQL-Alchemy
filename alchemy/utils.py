@@ -1,10 +1,21 @@
-from alchemy.models import Account,Phone,Email,Name,Wallet,Group,Purchase,Comment
-from alchemy import Session
 from datetime import datetime
 import secrets
 import json
 import os
 import re
+
+def return_type(boolean):
+    if boolean:
+        return True
+    else:
+        return False
+
+def get_configurations(is_enabled):
+    if os.getenv('GUNICORN_CMD_ARGS') and is_enabled:
+        return is_enabled
+    return not is_enabled
+
+
 
 def error_string(**kwargs):
     error = kwargs['error']
