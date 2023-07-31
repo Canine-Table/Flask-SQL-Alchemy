@@ -18,9 +18,6 @@ login_manager.login_view = "account.login_page"
 Scss(app,static_dir=app.config['SCSS_STATIC_DIR'],asset_dir=app.config['SCSS_ASSET_DIR'])
 
 
-
-
-
 Jinja2Env.loaders.append(PackageLoader(package_name='alchemy', package_path='templates', encoding='utf-8'))
 Jinja2Env.loaders.append(PackageLoader(package_name='alchemy.main', package_path='templates', encoding='utf-8'))
 from alchemy.main.routes import main
@@ -48,5 +45,3 @@ app.register_blueprint(information)
 
 
 app.jinja_env = Jinja2Env(loader=ChoiceLoader(Jinja2Env.loaders))
-
-
