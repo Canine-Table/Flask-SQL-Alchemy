@@ -4,4 +4,5 @@ from alchemy import create_app
 
 if __name__ == '__main__':
     load_dotenv()
-    create_app().run(port=5000)
+    app =  create_app()
+    app.run()
