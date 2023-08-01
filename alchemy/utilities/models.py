@@ -143,7 +143,7 @@ class Phone(MyBase):
     phone_number: Mapped[str] = Column(String(12), nullable=False)
     last_updated: Mapped[DateTime] = Column(DateTime)
 
-    __table_args__ = (UniqueConstraint(phone_number),CheckConstraint('char_length(phone_number) = 12', name='phone_number_length'))
+    __table_args__ = (UniqueConstraint(phone_number),CheckConstraint('char_length(phone_number) = 10', name='phone_number_length'))
 
     @classmethod
     def unique_phone(cls,session,form):
