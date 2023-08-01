@@ -24,8 +24,8 @@ body {
 }
 
 .close-modal {
-    background-color: var(--r1);
-    color: var(--wt1);
+    background-color: transparent;
+    border: transparent 0px none;
 }
 
 #content {

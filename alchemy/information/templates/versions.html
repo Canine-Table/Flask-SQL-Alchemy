@@ -1,14 +1,14 @@
 {% extends '_base.html' %}
 {% block title %}Modules{% endblock %}
 {% block content %}
-    <div class="container-fluid jumbotron p-2 my-3 text-center jbtron">
-        <div class="jumbotron bgc p-3 my-2">
-            <div class="jumbotron fgc px-4 pb-4 pt-4 mt-1 mb-0">
+    <div class="container-fluid jumbotron rounded p-2 my-3 text-center jbtron">
+        <div class="jumbotron rounded bgc p-3 my-2">
+            <div class="jumbotron rounded fgc px-4 pb-4 pt-4 mt-1 mb-0">
                 <h3 class='my-4'>Python {{ python_version }}</h3>
                 <h5 class='my-4'>Python {{ python_version_info }}</h5>
             </div>
             {{ errors() }}
-            <div class="jumbotron fgc mt pb-4 px-4 pt-5 mb-1 mt-4">
+            <div class="jumbotron fgc rounded pb-4 px-4 pt-5 mb-1 mt-4">
                 <form method="POST">
                     {{ form.hidden_tag() }}
                     <div class="input-group input-group-sm input-group-smaller">
@@ -22,10 +22,10 @@
             </div>
         </div>
     </div>
-    <div class="jumbotron container-fluid jbtron p-2 my-2">
-        <div class="jumbotron container-fluid mx-0 my-2 p-2 bgc {{ "row" if not pip3_modules['TypeNone'] }}">
+    <div class="jumbotron rounded container-fluid jbtron p-2 my-2">
+        <div class="jumbotron rounded container-fluid my-2 p-2 bgc {{ 'row' if not pip3_modules['TypeNone'] }}">
             {% if pip3_modules['TypeNone'] %}
-                <div class="jumbotron fgc p-3 mb-2">
+                <div class="jumbotron fgc rounded p-3">
                     <h5 class="text-center"><b>No modules were found.</b></h5>
                 </div>
             {% else %}

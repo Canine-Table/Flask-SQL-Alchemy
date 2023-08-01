@@ -1,13 +1,13 @@
 {% extends '_base.html' %}
 {% block title %}Login{% endblock %}
 {% block content %}
-    <div class="container-fluid jumbotron text-center jbtron mx-auto my-3">
+    <div class="container-fluid rounded jumbotron text-center jbtron mx-auto my-3">
         <div class="jumbotron bgc my-2 py-2 {{ "mb-4" if get_flashed_messages() }}">
             <h1>Login to your Account</h1>
         </div>
         {{ errors() }}
     </div>
-    <div class="container-fluid jumbotron jbtron mx-auto my-3">
+    <div class="container-fluid jumbotron jbtron mx-auto rounded my-3">
         <form method="POST">
             <div class="jbtron">
                 {{ form.hidden_tag() }}
@@ -15,19 +15,19 @@
                     <div class="input-group-prepend">
                         <span>{{ form.username.label( class="inptbx input-group-text", id="get_user_username_label") }}</span>
                     </div>
-                    {{ form.username( class="inptbx form-control", placeholder="username", id="get_user_username") }}<br><br>
+                    {{ form.username( class="inptbx rounded-end form-control", placeholder="username", id="get_user_username") }}<br><br>
                 </div>
                 <div class="input-group input-group-sm input-group-smaller mb-2 mt-1">
                     <div class="input-group-prepend ">
                         <span>{{ form.password.label( class="inptbx input-group-text", id="get_user_password_label") }}</span>
                     </div>
-                    {{ form.password( class="inptbx form-control", placeholder="password", id="get_user_password") }}<br><br>
+                    {{ form.password( class="inptbx form-control rounded-end", placeholder="password", id="get_user_password") }}<br><br>
                 </div>
             </div>
-            <div class="jumbotron bgc p-2 my-2">
+            <div class="jumbotron rounded bgc p-2 my-2">
                 {{ form.submit(class="btn btn-primary col-12 col-sm-8 col-md-6 col-lg-4 col-xl-2 col-xxl-1 my-2")}}
                 {{ form.remember_me(class="my-3 ms-2") }} {{ form.remember_me.label }}
-                <div class="container-fluid jumbotron d-flex flex-row fgc my-2 py-3">
+                <div class="container-fluid rounded jumbotron d-flex flex-row fgc my-2 py-3">
                     Don't Have an account?&nbsp;&nbsp;<a class="btn btn-sm btn-secondary py-0" href="{{ url_for('account.register_page') }}">Register</a>
                 </div>
             </div>

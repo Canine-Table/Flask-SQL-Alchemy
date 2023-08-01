@@ -4,22 +4,22 @@
     <link rel="stylesheet" href="{{ url_for('administration.static', filename='css/_inspect.css') }}">
 {% endblock %}
 {% block content %}
-    <div class="jumbotron container-fluid mx-auto my-3 text-center jbtron ">
+    <div class="jumbotron container-fluid rounded mx-auto my-3 text-center jbtron ">
         <div class="jumbotron fgc p-3 my-2  {{ "mb-4" if get_flashed_messages() }}">
             <h1>SQL Inspector</h1>
         </div>
         {{ errors() }}
     </div>
-    <div class="jumbotron container-fluid p-2 jbtron my-3">
+    <div class="jumbotron container-fluid rounded p-2 jbtron my-3">
         <form method="POST">
             {{ form.hidden_tag() }}
             <input id="pending_query_id" name="pending_query" type="hidden" value="{{ data['pending_query'] }}">
             <input id="json_key_id" name="json_key" type="hidden" value="{{ data['json_key'] }}">
             <input id="md5_hash_id" name="md5_hash" type="hidden" value="{{ data['md5_hash'] }}">
             <input id="file_path_id" name="file_path" type="hidden" value="{{ data['file_path'] }}">
-            {{ form.text_body(class="mt-1 col-12", placeholder='Query Database') }}
-            <div class="jumbotron bgc pb-4 pt-1 py-2 my-2 ps-3 pe-3">
-                <div class="jumbotron fgc my-3 p-2">
+            {{ form.text_body(class="mt-1 rounded bg-dark fg-white text-white p-2 col-12", placeholder='Query Database') }}
+            <div class="jumbotron bgc rounded pb-4 pt-1 py-2 my-2 ps-3 pe-3">
+                <div class="jumbotron rounded fgc my-3 p-2">
                     {% for radio in form.example %}
                         <div class="form-check form-check-inline">
                             {% set radio_value = radio.data %}
@@ -29,15 +29,15 @@
                     {% endfor %}
                 </div>
                 {{ form.submit(class="btn btn-primary col-12",id='submit_query_choice') }}
-                <p class="jumbotron fgc mt-3 mb-0 p-2">{{ form.commit }} Commit
+                <p class="jumbotron rounded fgc mt-3 mb-0 p-2">{{ form.commit }} Commit
                     <span class="ps-5 pe-5-5">{{ form.rollback }} Rollback<span>
                 </p>
             </div>
         </form>
     </div>
-    <div class="jumbotron container-fluid my-3 py-2 mx-auto jbtron overflow-auto">
+    <div class="jumbotron rounded container-fluid my-3 py-2 mx-auto jbtron overflow-auto">
         {% if data['frozen_not_set'] or data['selected'] == None %}
-            <div class="jumbotron fgc p-3 mb-3 col-12">
+            <div class="jumbotron rounded fgc p-3 mb-3 col-12">
                 <h5 class="text-center"><b>Your tables will show up here</b></h5>
             </div>
         {% else %}
@@ -79,7 +79,7 @@
                                 <th scope='col'>Options</th>
                             </tr>
                         {% else %}
-                            <div class="jumbotron fgc p-3 col-12">
+                            <div class="jumbotron rounded fgc p-3 col-12">
                                 <h5 class="text-center"><b>Your error logs will show up here</b></h5>
                             </div>
                         {% endif %}
@@ -121,7 +121,7 @@
                                         <th scope='col'>Options</th>
                                     </tr>
                                 {% else %}
-                                    <div class="jumbotron fgc p-3 col-12">
+                                    <div class="jumbotron rounded fgc p-3 col-12">
                                         <h5 class="text-center"><b>Your history logs will show up here</b></h5>
                                     </div>
                                 {% endif %}

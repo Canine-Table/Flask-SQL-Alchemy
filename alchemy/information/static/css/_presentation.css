@@ -1,17 +1,15 @@
 #qualityQueries {
+    background-image: url("https://cdn.wallpapersafari.com/98/65/JT1jNk.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    justify-content: center;
+    background-size: cover;
+    align-items: center;
     position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 50vh;
 }
 
-#qualityQueries {
-    background-image: url("https://cdn.wallpapersafari.com/98/65/JT1jNk.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 .mySqlImage {
     background-image: url("https://pngimg.com/uploads/mysql/mysql_PNG4.png");
     background-position: center;
@@ -19,17 +17,13 @@
 }
 
 
-#carouselCaptions {
-    height: 85vh;
-    position: relative;
-
+#qualityQueriesCarouselContainer {
+    height: 75%
 }
 
-#carouselImages {
-    background-size:inherit;
-    height: 90%;
+
+.qualityQueriesCarouselItem {
+    object-fit: cover;
+    height: 100%;
 }
-.carousel {
-    max-width: 1px;
-    margin: 0 auto;
-}
+

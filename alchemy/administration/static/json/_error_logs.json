@@ -1,9 +1,0 @@
-{
-    "headers": [
-        "datetime",
-        "name",
-        "message",
-        "full"
-    ],
-    "messages": []
-}

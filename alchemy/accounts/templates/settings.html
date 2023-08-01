@@ -4,9 +4,9 @@
     <link rel="stylesheet" href="{{ url_for('account.static', filename='css/_settings.css') }}">
 {% endblock %}
 {% block content %}
-    <div class="container-fluid mx-auto my-3">
-        <div class="jumbotron text-center jbtron mx-auto p-2 py-1 my-2">
-            <div class="jumbotron fgc p-3 my-2 {{ "mb-4" if get_flashed_messages() }}">
+    <div class="rounded container-fluid mx-auto my-3">
+        <div class="rounded jumbotron text-center jbtron mx-auto p-2 py-1 my-2">
+            <div class="jumbotron rounded fgc p-3 my-2 {{ "mb-4" if get_flashed_messages() }}">
                 <h1><a id='profile_picture_anchor' type="button" data-bs-toggle="modal" data-bs-target="#Modal-profile_picture_anchor"><img id='profile_picture' width='64px' hight='64px' src="{{ current_user.profile_picture }}" alt="..." width='24px' hight='24px' class="rounded-circle profile_picture_class"></a>&nbsp;Account Settings</h1>
                 <form method="POST" enctype="multipart/form-data">
                     {{ image_form.hidden_tag() }}
@@ -38,10 +38,10 @@
             {{ errors() }}
         </div>
     </div>
-    <div class="container-fluid mx-auto my-3">
-        <div class="jumbotron p-2 mx-auto my-3 jbtron">
-            <div class="jumbotron bgc p-2 my-2">
-                <div class="jumbotron fgc p-3 my-2">
+    <div class="container-fluid rounded mx-auto my-3">
+        <div class="jumbotron rounded p-2 mx-auto my-3 jbtron">
+            <div class="jumbotron rounded bgc p-2 my-2">
+                <div class="jumbotron rounded fgc p-3 my-2">
                     <p><b>Name:</b><span id="full_name_display"> {{ current_user.name.first_name }} {{ current_user.name.last_name }}</span></p>
                     <p><b>Username:</b> {{ current_user.username }}</p>
                     <p><b>Phone Number:</b><span id="phone_number_display"> {{ current_user.phone_number.phone_number }}</span></p>
@@ -50,7 +50,7 @@
                     <p><b>Account Balance:</b> ${{ current_user.balance.balance }}</p>
                     <p><b>User Group:</b> {{ current_user.groups.user_group }}</p>
                 </div>
-                <div class="jumbotron fgc p-3 mt-4 mb-2">
+                <div class="jumbotron fgc rounded p-3 mt-4 mb-2">
                     <form method="POST">
                         {{ delete_form.hidden_tag() }}
                         <input id="delete_form_name" name="form_name" type="hidden" value="delete_form">
@@ -78,29 +78,29 @@
                             footer=delete_footer(),
                             keep_close=False
                         ) }}
-                    </form><br>
+                    </form>{{ spacer(1) }}
                     <form method="POST">
                         {{ edit_form.hidden_tag() }}
                         <input id="edit_form_name" name="form_name" type="hidden" value="edit_form">
                         {% macro edit_body() %}
                             <div class="input-group input-group-sm input-group-smaller mb-1 mt-2">
                                 <div class="input-group-prepend">
-                                    <span>{{ edit_form.first_name.label( class="inptbx input-group-text", id="edit_full_name_label") }}</span>
+                                    <span class="inptbx input-group-text", id="edit_full_name_label">Name</span>
                                 </div>
-                                {{ edit_form.first_name( class="inptbx form-control", placeholder="first name", id="edit_first_name") }}<br><br>
-                                {{ edit_form.last_name( class="inptbx form-control", placeholder="last name", id="edit_last_name") }}<br><br>
+                                {{ edit_form.first_name( class="inptbx form-control", placeholder="first name", id="edit_first_name") }}{{ spacer(2) }}
+                                {{ edit_form.last_name( class="inptbx rounded-end form-control", placeholder="last name", id="edit_last_name") }}{{ spacer(2) }}
                             </div>
                             <div class="input-group input-group-sm input-group-smaller my-1">
                                 <div class="input-group-prepend">
                                     <span>{{ edit_form.email_address.label( class="inptbx input-group-text", id="inputGroupPrepend5") }}</span>
                                 </div>
-                                {{ edit_form.email_address( class="inptbx form-control", placeholder="ex. example@example.com", id="edit_email_address") }}<br><br>
+                                {{ edit_form.email_address( class="inptbx rounded-end form-control", placeholder="ex. example@example.com", id="edit_email_address") }}{{ spacer(2) }}
                             </div>
                             <div class="input-group input-group-sm input-group-smaller mb-2 mt-1">
                                 <div class="input-group-prepend">
-                                    <span>{{ edit_form.phone_number.label( class="inptbx input-group-text", id="edit_phone_number_label") }}</span>
+                                    <span>{{ edit_form.phone_number.label( class="inptbx rounded-end input-group-text", id="edit_phone_number_label") }}</span>
                                 </div>
-                                {{ edit_form.phone_number( class="inptbx form-control", placeholder="ex. 123-456-7890", id="edit_phone_number") }}<br><br>
+                                {{ edit_form.phone_number( class="inptbx rounded-end form-control", placeholder="ex. 123-456-7890", id="edit_phone_number") }}{{ spacer(2) }}
                             </div>
                         {% endmacro %}
                         {% macro edit_footer() %}
@@ -121,19 +121,19 @@
                         {% macro confirm_body() %}
                         <div class="container jumbotron fgc p-3 ">
                             <h5><b><i>{{ edit_form.first_name.label }}</i></b></h5>
-                            <p><b>Old: </b>{{ current_user.name.first_name }}<br><b>New: </b><span id='first_name'></span></p>
+                            <p><b>Old: </b>{{ current_user.name.first_name }}{{ spacer(1) }}<b>New: </b><span id='first_name'></span></p>
                         </div>
                         <div class="container jumbotron fgc p-3 ">
                             <h5><b><i>{{ edit_form.last_name.label }} </i></b></h5>
-                            <p><b>Old: </b>{{ current_user.name.last_name }}<br><b>New: </b><span id='last_name'></span></p>
+                            <p><b>Old: </b>{{ current_user.name.last_name }}{{ spacer(1) }}<b>New: </b><span id='last_name'></span></p>
                         </div>
                         <div class="container jumbotron fgc p-3 ">
                             <h5><b><i>{{ edit_form.email_address.label }} </i></b></h5>
-                            <p><b>Old: </b>{{ current_user.email_address.email_address }}<br><b>New: </b><span id='email_address'></span></p>
+                            <p><b>Old: </b>{{ current_user.email_address.email_address }}{{ spacer(1) }}<b>New: </b><span id='email_address'></span></p>
                         </div>
                         <div class="container jumbotron fgc p-3 ">
                             <h5><b><i>{{ edit_form.phone_number.label }}</i></b></h5>
-                            <p><b>Old: </b>{{ current_user.phone_number.phone_number }}<br><b>New: </b><span id='phone_number'></span></p>
+                            <p><b>Old: </b>{{ current_user.phone_number.phone_number }}{{ spacer(1) }}<b>New: </b><span id='phone_number'></span></p>
                         </div>
                         {% endmacro %}
                         {% macro confirm_footer() %}
@@ -150,7 +150,7 @@
                             footer=confirm_footer(),
                             in_button=False
                         ) }}
-                    </form><br>
+                    </form>{{ spacer(1) }}
                     <form method="POST">
                         {{ password_form.hidden_tag() }}
                         <input id="password_form_name" name="form_name" type="hidden" value="password_form">
@@ -159,19 +159,19 @@
                                 <div class="input-group-prepend">
                                     <span>{{ password_form.old_password.label( class="inptbx input-group-text", id="users_old_password_label") }}</span>
                                 </div>
-                                {{ password_form.old_password( class="inptbx form-control", placeholder="old password", id="users_old_password") }}<br><br>
+                                {{ password_form.old_password( class="inptbx rounded-end form-control", placeholder="old password", id="users_old_password") }}{{ spacer(2) }}
                             </div>
                             <div class="input-group input-group-sm input-group-smaller my-1">
                                 <div class="input-group-prepend">
                                     <span>{{ password_form.new_password.label( class="inptbx input-group-text", id="users_password_label") }}</span>
                                 </div>
-                                {{ password_form.new_password( class="inptbx form-control", placeholder="new password", id="users_password") }}<br><br>
+                                {{ password_form.new_password( class="inptbx rounded-end form-control", placeholder="new password", id="users_password") }}{{ spacer(2) }}
                             </div>
                             <div class="input-group input-group-sm input-group-smaller mb-2 mt-1">
                                 <div class="input-group-prepend">
                                     <span>{{ password_form.confirm_new_password.label( class="inptbx input-group-text", id="users_confirm_new_password_label") }}</span>
                                 </div>
-                                {{ password_form.confirm_new_password( class="inptbx form-control", placeholder="confirm password", id="users_confirm_new_password") }}<br><br>
+                                {{ password_form.confirm_new_password( class="inptbx rounded-end form-control", placeholder="confirm password", id="users_confirm_new_password") }}{{ spacer(2) }}
                             </div>
                         {% endmacro %}
                         {% macro reset_footer() %}

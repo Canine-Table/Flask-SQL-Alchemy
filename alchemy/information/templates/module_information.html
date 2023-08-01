@@ -1,12 +1,12 @@
 {% extends '_base.html' %}
 {% block title %}{{ module_info }} Info{% endblock %}
 {% block content %}
-    <div class="container-fluid jumbotron p-2 my-3 jbtron">
-        <div class="jumbotron bgc p-3 my-2">
-            <div class="jumbotron fgc px-4 pb-4 pt-4 mt-1 mb-0">
-                <h1 class='text-center'>{{ module_name }}</h1>
+    <div class="container-fluid rounded jumbotron p-2 my-3 jbtron">
+        <div class="jumbotron bgc rounded p-3 my-2">
+            <div class="jumbotron fgc rounded px-4 pb-4 pt-4 mt-1 mb-0">
+                <h1 class='text-center'><b><i>{{ module_name }}</i></b></h1>
             </div>
-            <div class="jumbotron fgc mt-4 px-4 pb-4 pt-5 my-1 mb-2">
+            <div class="jumbotron rounded fgc mt-4 px-4 pb-4 pt-5 my-1 mb-2">
                 <h5>{{ module_info|safe }}</h5>
             </div>
             <a class='text-center col-12 btn-secondary btn mt-3' href="{{ url_for('information.version_page') }}">Back</a>

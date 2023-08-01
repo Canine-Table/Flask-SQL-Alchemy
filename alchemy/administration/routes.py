@@ -74,7 +74,6 @@ def inspector_page(username):
                 md5_hash = request.form['md5_hash']
                 json_key = request.form['json_key']
                 delete_json_column(file_path,file_data,md5_hash,json_key)
-
                 if os.path.getsize(file_path) != 0:
                     data['selected'] = request.form['inlineRadioOptions']
                     with open(file_path) as f:
@@ -82,6 +81,7 @@ def inspector_page(username):
                             loaded_query_dump = json.load(f)
                         elif data['selected'] == 'query_error_dump':
                             loaded_error_dump = json.load(f)
+                
 
             with engine.connect() as conn:
                 try:

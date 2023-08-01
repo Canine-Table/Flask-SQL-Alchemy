@@ -17,8 +17,8 @@
         {% block stylesheets %}{% endblock %}
         <title>{% block title %}{% endblock %}</title>
     </head>
-    <body>
-        <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <body class="bg-black">
+        <nav id="navigationBar" class="navbar sticky-top navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
             <div class="container-fluid">
                 {% if current_user.is_authenticated %}
                     <a class="navbar-brand" href="{{ url_for('account.settings_page',username=current_user.username) }}"><img id='Profile_picutre' width='24px' hight='24px' src="{{ current_user.profile_picture }}" alt="..." width='64px' hight='64px' class="rounded-circle border border-white">&nbsp;{{current_user.username}}</a>&nbsp;&nbsp;&nbsp;
@@ -69,16 +69,16 @@
                 </div>
             </div>
         </nav>
-        <div id="paddingDiv" class="container-fluid d-flex flex-column pt-3">
-            <div class="d-flex flex-column" id="content">{% block content %}{% endblock %}</div>
+        <div id="paddingDiv" class="bgc container-fluid d-flex flex-column pt-3">
+            <div class="d-flex flex-column bgc" id="content">{% block content %}{% endblock %}{{ spacer(1) }}</div>
         </div>
-        <footer id="footerBar" class="footer fgc py-3 mt-3 text-center text-white-50">
-            </section>
-                <div class="social d-flex justify-content-center">
-                    <a class="mx-2" href="https://github.com/Canine-Table/Flask-SQL-Alchemy"><i class="fab fa-github"></i></a>
-                </div>{{ spacer(1) }}
-            </section>
-            <div class="container px-4 px-lg-5">Copyright &copy; Quality Queries 2023</div>
+        <footer id="footerBar" class="footer fgc py-3 bg-black text-center text-white-50">
+                </section>
+                    <div class="social d-flex justify-content-center">
+                        <a class="mx-2" href="https://github.com/Canine-Table/Flask-SQL-Alchemy"><i class="fab fa-github"></i></a>
+                    </div>{{ spacer(1) }}
+                </section>
+                <div class="container px-4 px-lg-5">Copyright &copy; Quality Queries 2023</div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
