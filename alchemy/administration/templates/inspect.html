@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
     <div class="jumbotron container-fluid rounded mx-auto my-3 text-center jbtron ">
-        <div class="jumbotron fgc p-3 my-2  {{ "mb-4" if get_flashed_messages() }}">
+        <div class="jumbotron rounded fgc p-3 my-2  {{ 'mb-4' if get_flashed_messages() }}">
             <h1>SQL Inspector</h1>
         </div>
         {{ errors() }}

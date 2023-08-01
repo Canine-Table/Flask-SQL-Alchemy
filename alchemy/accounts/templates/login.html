@@ -2,7 +2,7 @@
 {% block title %}Login{% endblock %}
 {% block content %}
     <div class="container-fluid rounded jumbotron text-center jbtron mx-auto my-3">
-        <div class="jumbotron bgc my-2 py-2 {{ "mb-4" if get_flashed_messages() }}">
+        <div class="jumbotron rounded bgc my-2 py-2 {{ 'mb-4' if get_flashed_messages() }}">
             <h1>Login to your Account</h1>
         </div>
         {{ errors() }}

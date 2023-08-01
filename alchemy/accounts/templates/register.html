@@ -2,8 +2,8 @@
 {% block title %}Register{% endblock %}
 {% block content %}
     <div class="container-fluid rounded jumbotron-fluid text-center jbtron mx-auto my-3">
-        <div class="jumbotron bgc my-2 py-2 {{ "mb-4" if get_flashed_messages() }}">
-                <h1>Create your Account</h1>
+        <div class="jumbotron bgc rounded my-2 py-2 {{ 'mb-4' if get_flashed_messages() }}">
+            <h1>Create your Account</h1>
         </div>
         {{ errors() }}
     </div>
