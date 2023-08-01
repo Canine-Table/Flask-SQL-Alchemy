@@ -18,3 +18,10 @@ function deleteQueryEntry(md5_hash,file_path,radio_option){
     }
     $('#submit_query_choice').click()
 }
+
+function loadForm(form){
+    import("../../../static/js/_forms.mjs").then(module => {
+      const loadingForm = module.loadingForm;
+      return loadingForm(form);
+    });
+}

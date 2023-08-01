@@ -6,8 +6,8 @@ from flask_wtf import FlaskForm
 
 class RegistrationForm(FlaskForm):
     username=StringField("Username", validators=[DataRequired(),Length(min=2,max=32)])
-    first_name=StringField("Name", validators=[DataRequired(),Length(min=1,max=32)])
-    last_name=StringField("Last name", validators=[DataRequired(),Length(min=1,max=32)])
+    first_name=StringField("Name", validators=[DataRequired(),Length(min=2,max=32)])
+    last_name=StringField("Last name", validators=[DataRequired(),Length(min=2,max=32)])
     password=PasswordField("Password", validators=[DataRequired(),Length(min=6,max=60)])
     verify_password=PasswordField("Confirm password", validators=[DataRequired(),EqualTo("password"),Length(min=6,max=60)])
     email_address=EmailField("Email address", validators=[DataRequired(),Length(min=16,max=64),Email()])
@@ -28,10 +28,10 @@ class DeleteAccountForm(FlaskForm):
 
 
 class EditAccountForm(FlaskForm):
-    first_name=StringField("First Name", validators=[DataRequired(),Length(min=1,max=32)])
-    last_name=StringField("Last name", validators=[DataRequired(),Length(min=1,max=32)])
-    email_address=EmailField("Email address", validators=[DataRequired(),Length(min=16,max=64)])
-    phone_number=StringField("Phone Number", validators=[DataRequired(),Length(min=12,max=12)])
+    first_name=StringField("First Name", validators=[DataRequired(),Length(min=2,max=32)])
+    last_name=StringField("Last name", validators=[DataRequired(),Length(min=2,max=32)])
+    email_address=EmailField("Email address", validators=[DataRequired(),Length(min=8,max=64)])
+    phone_number=StringField("Phone Number", validators=[DataRequired(),Length(min=10,max=10)])
     submit = SubmitField(label="Save Changes")
 
 

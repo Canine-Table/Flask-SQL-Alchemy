@@ -1,8 +1,13 @@
 #!/usr/bin/node
 
+function loadForm(form){
+    import("../../../static/js/_forms.mjs").then(module => {
+      const loadingForm = module.loadingForm;
+      return loadingForm(form);
+    });
+}
 
 document.getElementById("SaveChanges_id").addEventListener("click", () => {
-//    $('#ShowSavedChanges_id').prop('disabled', false);
     document.getElementById("ShowSavedChanges_id").addEventListener("click", () => {
 
         $("#SavedChanges_id").click();
@@ -18,8 +23,6 @@ document.getElementById("SaveChanges_id").addEventListener("click", () => {
 
         document.getElementById("BackSavedChangesConfirmed_id").addEventListener("click", () => {
             $("#SaveChanges_id").click();
-            // $('#BackSavedChangesConfirmed_id').prop('disabled', true);
-            // $('#ShowSavedChanges_id').prop('disabled', false);
         });
 
         document.getElementById("SavedChangesConfirmed_id").addEventListener("click", () => {
@@ -33,13 +36,7 @@ document.getElementById("SaveChanges_id").addEventListener("click", () => {
             $('#full_name_display').html(` ${full_name}`);
             $('#email_address_display').html(` ${email_address}`);
             $('#phone_number_display').html(` ${phone_number}`);
-            // $('#SavedChangesConfirmed_id').prop('disabled', true);
         });
-
-        // $('#ShowSavedChanges_id').prop('disabled', true);
-        // $('#SavedChangesConfirmed_id').prop('disabled', false);
-        // $('#BackSavedChangesConfirmed_id').prop('disabled', false);
-
     });
 });
 
@@ -52,26 +49,5 @@ document.getElementById('save_image_file').addEventListener("click", () => {
     $('#image_file_path').val(filename);
     if(filename != ''){
         $('#image_form_id').prop('disabled', false);
-        // document.getElementById('image_form_id').addEventListener("click", () => {
-        //     $('#image_form_id').prop('disabled', true);
-        // })
     }
-
-})
-
-
-// document.getElementById('resetYourPassword_id').addEventListener("click", () => {
-//     $('#confirmResetingYourPassword_id').prop('disabled', false);
-//     document.getElementById('confirmResetingYourPassword_id').addEventListener("click", () => {
-//         $('#confirmResetingYourPassword_id').prop('disabled', true);
-//     })
-
-// })
-
-
-// document.getElementById('deletingAccount_id').addEventListener("click", () => {
-//     $('#confirmDeletingAccount_id').prop('disabled', false);
-//     document.getElementById('confirmDeletingAccount_id').addEventListener("click", () => {
-//         $('#confirmDeletingAccount_id').prop('disabled', true);
-//     })
-// })
+});

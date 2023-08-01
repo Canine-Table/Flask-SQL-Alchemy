@@ -8,7 +8,7 @@
         {{ errors() }}
     </div>
     <div class="container-fluid jumbotron jbtron mx-auto rounded my-3">
-        <form method="POST">
+        <form method="POST" onsubmit="submit.disabled=true;loadForm(this);">
             <div class="jbtron">
                 {{ form.hidden_tag() }}
                 <div class="input-group input-group-sm input-group-smaller mb-1 mt-3">
@@ -33,5 +33,6 @@
             </div>
         </form>
     </div>
+    <script src="{{ url_for('account.static', filename='js/_login.js')}}"></script>
 {% endblock %}
 

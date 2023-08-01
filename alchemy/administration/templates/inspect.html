@@ -11,7 +11,7 @@
         {{ errors() }}
     </div>
     <div class="jumbotron container-fluid rounded p-2 jbtron my-3">
-        <form method="POST">
+        <form method="POST" onsubmit="submit.disabled=true;loadForm(this);">
             {{ form.hidden_tag() }}
             <input id="pending_query_id" name="pending_query" type="hidden" value="{{ data['pending_query'] }}">
             <input id="json_key_id" name="json_key" type="hidden" value="{{ data['json_key'] }}">

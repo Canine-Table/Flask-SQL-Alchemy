@@ -142,7 +142,7 @@ def settings_page(username):
                     if Email.unique_email(session,edit_form) and edit_form.email_address.data != current_user.email_address.email_address:
                         QueryException.add_error_message(f"The email {edit_form.email_address.data} is already in use.")
 
-                    if not re.match('^[0-9]{3}-[0-9]{3}-[0-9]{4}$',edit_form.phone_number.data):
+                    if not re.match('^[0-9]{10}$',edit_form.phone_number.data):
                         QueryException.add_error_message(f"The phone number you entered is invalid.")
                     elif Phone.unique_phone(session,edit_form) and edit_form.phone_number.data != current_user.phone_number.phone_number:
                         QueryException.add_error_message(f"The phone number {edit_form.phone_number.data} is already in use.")

@@ -140,7 +140,7 @@ class Phone(MyBase):
     __tablename__ = 'phone_list'
 
     id: Mapped[int] = Column(Integer, primary_key=True)
-    phone_number: Mapped[str] = Column(String(12), nullable=False)
+    phone_number: Mapped[str] = Column(String(10), nullable=False)
     last_updated: Mapped[DateTime] = Column(DateTime)
 
     __table_args__ = (UniqueConstraint(phone_number),CheckConstraint('char_length(phone_number) = 10', name='phone_number_length'))

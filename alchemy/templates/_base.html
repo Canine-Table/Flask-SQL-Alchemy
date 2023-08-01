@@ -36,8 +36,8 @@
                             </li>
                         {% endif %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#navbarDropdown" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
-                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                            <div class="dropdown-menu bg-dark" aria-labelledby="accountDropdown">
                                 {% if current_user.is_authenticated %}
                                     <a class="dropdown-item" href="{{ url_for('account.logout_page') }}">Logout<span class="sr-only">(current)</span></a>
                                 {% else %}
@@ -54,11 +54,18 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url_for('administration.inspector_page',username=current_user.username) }}">Inspector</a>
                                 </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="sandboxDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sandbox</a>
+                                    <div class="dropdown-menu bg-dark" aria-labelledby="sandboxDropdown">
+                                        <a class="dropdown-item" href="{{ url_for('sandbox.form_validation_page',username=current_user.username) }}">Validation Forms<span class="sr-only">(current)</span></a>
+                                    </div>
+                                </li>
+
                             {% endif %}
                             {% if current_user.groups.user_group in ['root_users','privilaged_users'] %}
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Information</a>
-                                    <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="informationDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Information</a>
+                                    <div class="dropdown-menu bg-dark" aria-labelledby="informationDropdown">
                                         <a class="dropdown-item" href="{{ url_for('information.presentation_page') }}">Presentation<span class="sr-only">(current)</span></a>
                                         <a class="dropdown-item" href="{{ url_for('information.version_page') }}">Version Info<span class="sr-only">(current)</span></a>
                                     </div>

@@ -11,6 +11,7 @@ from flask import Flask
 app = Flask(__name__)
 app.config.from_object(Config)
 
+
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_message_category = "info"
@@ -42,6 +43,11 @@ app.register_blueprint(administration)
 Jinja2Env.loaders.append(PackageLoader(package_name='alchemy.information', package_path='templates', encoding='utf-8'))
 from alchemy.information.routes import information
 app.register_blueprint(information)
+
+
+Jinja2Env.loaders.append(PackageLoader(package_name='alchemy.sandbox', package_path='templates', encoding='utf-8'))
+from alchemy.sandbox.routes import sandbox
+app.register_blueprint(sandbox)
 
 
 app.jinja_env = Jinja2Env(loader=ChoiceLoader(Jinja2Env.loaders))

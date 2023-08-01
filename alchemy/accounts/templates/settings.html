@@ -8,7 +8,7 @@
         <div class="rounded jumbotron text-center jbtron mx-auto p-2 py-1 my-2">
             <div class="jumbotron rounded fgc p-3 my-2 {{ 'mb-4' if get_flashed_messages() }}">
                 <h1><a id='profile_picture_anchor' type="button" data-bs-toggle="modal" data-bs-target="#Modal-profile_picture_anchor"><img id='profile_picture' width='64px' hight='64px' src="{{ current_user.profile_picture }}" alt="..." width='24px' hight='24px' class="rounded-circle profile_picture_class"></a>&nbsp;Account Settings</h1>
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" enctype="multipart/form-data" onsubmit="loadForm(this);">
                     {{ image_form.hidden_tag() }}
                     <input id="image_form_name" name="form_name" type="hidden" value="image_form">
                     {% macro profile_picture_anchor_body() %}
@@ -51,7 +51,7 @@
                     <p><b>User Group:</b> {{ current_user.groups.user_group }}</p>
                 </div>
                 <div class="jumbotron fgc rounded p-3 mt-4 mb-2">
-                    <form method="POST">
+                    <form method="POST" onsubmit="loadForm(this);">
                         {{ delete_form.hidden_tag() }}
                         <input id="delete_form_name" name="form_name" type="hidden" value="delete_form">
                         {% macro delete_title() %}
@@ -79,7 +79,7 @@
                             keep_close=False
                         ) }}
                     </form>{{ spacer(1) }}
-                    <form method="POST">
+                    <form method="POST" onsubmit="loadForm(this);">
                         {{ edit_form.hidden_tag() }}
                         <input id="edit_form_name" name="form_name" type="hidden" value="edit_form">
                         {% macro edit_body() %}
@@ -151,7 +151,7 @@
                             in_button=False
                         ) }}
                     </form>{{ spacer(1) }}
-                    <form method="POST">
+                    <form method="POST" onsubmit="loadForm(this);">
                         {{ password_form.hidden_tag() }}
                         <input id="password_form_name" name="form_name" type="hidden" value="password_form">
                         {% macro reset_body() %}

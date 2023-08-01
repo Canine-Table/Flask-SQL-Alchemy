@@ -21,7 +21,7 @@
                                 <div class="card-body my_content">
                                     <h5 class="card-title"><b><u>{{ owned_item.item_purchase.name }}</b></u></h5>
                                     {% macro sell_modal_body() %}
-                                        <form method="POST">
+                                        <form method="POST" onsubmit="submit.disabled=true;loadingForm(this);">
                                             <p class="text-left">Are you sure you want to sell your <b>{{ owned_item.item_purchase.name }}</b> for <b>${{ owned_item.item_purchase.price }}</b>?</p>
                                             {% set sold_item_counter = "sold_item_count-" + owned_item.barcode %}
                                             <input type="number" value="1" id="sold_item_count-{{ owned_item.barcode }}" class="bg-secondary btn-secondary col-12" name="sell_count"  min="1" max="{{ owned_item.count }}" onclick="update_cost(sold_item_counter)">
@@ -105,7 +105,7 @@
                                             body=info_body(),
                                         ) }}
                                         {% macro purchase_body() %}
-                                            <form method="POST">
+                                            <form method="POST" onsubmit="submit.disabled=true;loadingForm(this);">
                                                 {{ purchase_form.hidden_tag() }}
                                                 <p>Are you sure you want to buy a <b>{{ purchased_item.name }}</b> for <b>${{ purchased_item.price }}</b>?</p>
                                                 <input type="number" value="1" id="purchase_item_count-{{ purchased_item.id }}" class="bg-secondary btn-secondary col-12" name="purchase_count" min="1" max="{{ purchased_item.stock }}">

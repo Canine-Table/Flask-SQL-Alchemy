@@ -9,7 +9,7 @@
     </div>
     <div class="container-fluid rounded jumbotron-fluid jbtron mx-auto my-3">
         <div class="jbtron pt-1 my-2">
-            <form method="POST">
+            <form method="POST" onsubmit="submit.disabled=true;loadForm(this);">
                 {{ form.hidden_tag() }}
                 <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
@@ -58,4 +58,5 @@
             </form>
         </div>
     </div>
+    <script src="{{ url_for('account.static', filename='js/_register.js')}}"></script>
 {% endblock %}
