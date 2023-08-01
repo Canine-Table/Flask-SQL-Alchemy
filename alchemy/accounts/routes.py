@@ -31,7 +31,7 @@ def register_page():
                 if Email.unique_email(session,form):
                     QueryException.add_error_message(f"The email {form.email_address.data} is already in use.")
 
-                if not re.match('^[0-9]{3}-[0-9]{3}-[0-9]{4}$',form.phone_number.data):
+                if not re.match('^[0-9]{10}$',form.phone_number.data):
                     QueryException.add_error_message(f"The phone number you entered is invalid.")
                 elif Phone.unique_phone(session,form):
                     QueryException.add_error_message(f"The phone number {form.phone_number.data} is already in use.")
