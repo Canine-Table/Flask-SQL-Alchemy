@@ -21,17 +21,17 @@
                                 <div class="card-body my_content">
                                     <h5 class="card-title"><b><u>{{ owned_item.item_purchase.name }}</b></u></h5>
                                     {% macro sell_modal_body() %}
-                                        <form method="POST" onsubmit="submit.disabled=true;loadingForm(this);">
+                                        <form method="POST" onsubmit="submit_sell_item_form.disabled=true;loadForm(this,'SellItemForm');">
+                                            {{ sell_form.hidden_tag() }}
                                             <p class="text-left">Are you sure you want to sell your <b>{{ owned_item.item_purchase.name }}</b> for <b>${{ owned_item.item_purchase.price }}</b>?</p>
                                             {% set sold_item_counter = "sold_item_count-" + owned_item.barcode %}
-                                            <input type="number" value="1" id="sold_item_count-{{ owned_item.barcode }}" class="bg-secondary btn-secondary col-12" name="sell_count"  min="1" max="{{ owned_item.count }}" onclick="update_cost(sold_item_counter)">
+                                            {{ sell_form.sell_count(max=owned_item.count) }}
                                     {% endmacro %}
                                     {% macro sell_modal_footer() %}
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            {{ sell_form.hidden_tag() }}
                                             <input id="form_name-{{ owned_item.id }}" name="form_name" type="hidden" value="sold_form">
                                             <input id="sold_item-{{ owned_item.id }}" name="sold_item" type="hidden" value='{{ {"id":owned_item.item_purchase.id,"name":owned_item.item_purchase.name,"price":int(owned_item.item_purchase.price),"barcode":owned_item.barcode,"description":owned_item.item_purchase.description,"stock":owned_item.count,"count":owned_item.owner} | tojson }}'>
-                                            {{ sell_form.submit(class="btn btn-danger") }}
+                                            {{ sell_form.submit_sell_item_form }}
                                         </form>
                                     {% endmacro %}
                                     {% set mid = secrets.token_hex(12)|upper %}
@@ -105,15 +105,15 @@
                                             body=info_body(),
                                         ) }}
                                         {% macro purchase_body() %}
-                                            <form method="POST" onsubmit="submit.disabled=true;loadingForm(this);">
+                                            <form method="POST" onsubmit="submit_purchase_item_form.disabled=true;loadForm(this,'PurchaseItemForm');">
                                                 {{ purchase_form.hidden_tag() }}
                                                 <p>Are you sure you want to buy a <b>{{ purchased_item.name }}</b> for <b>${{ purchased_item.price }}</b>?</p>
-                                                <input type="number" value="1" id="purchase_item_count-{{ purchased_item.id }}" class="bg-secondary btn-secondary col-12" name="purchase_count" min="1" max="{{ purchased_item.stock }}">
+                                                {{ purchase_form.purchase_count(max=purchased_item.stock) }}
                                         {% endmacro %}
                                         {% macro purchase_footer() %}
                                                 <input id="purchase_form_name-{{ purchased_item.id }}" name="form_name" type="hidden" value="purchase_form">
                                                 <input id="unowned_item-{{ purchased_item.id }}" name="unowned_item" type="hidden" value='{{ {"id":purchased_item.id,"name":purchased_item.name,"price":int(purchased_item.price),"barcode":purchased_item.barcode,"description":purchased_item.description,"stock":purchased_item.stock} | tojson }}'>
-                                                {{ purchase_form.submit(class="btn btn-primary") }}
+                                                {{ purchase_form.submit_purchase_item_form }}
                                             </form>
                                         {% endmacro %}
                                         {{ modal(

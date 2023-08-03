@@ -9,48 +9,48 @@
     </div>
     <div class="container-fluid rounded jumbotron-fluid jbtron mx-auto my-3">
         <div class="jbtron pt-1 my-2">
-            <form method="POST" onsubmit="submit.disabled=true;loadForm(this);">
+            <form method="POST" onsubmit="submit_registration_form.disabled=true;loadForm(this,'submitRegistrationForm');">
                 {{ form.hidden_tag() }}
                 <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
-                        <span>{{ form.username.label( class="inptbx input-group-text", id="new_users_username_label") }}</span>
+                        <span>{{ form.registration_username.label( class="inptbx formInputPrefix input-group-text", id="new_users_username_label") }}</span>
                     </div>
-                    {{ form.username( class="inptbx rounded-end form-control", placeholder="username", id="new_users_username") }}{{ spacer(2) }}
+                    {{ form.registration_username }}{{ spacer(2) }}
                 </div>
                 <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
-                        <span>{{ form.first_name.label( class="inptbx input-group-text", id="new_users_full_name_label") }}</span>
+                        <span>{{ form.registration_first_name.label( class="inptbx formInputPrefix input-group-text", id="new_users_full_name_label") }}</span>
                     </div>
-                    {{ form.first_name( class="inptbx form-control", placeholder="first name", id="new_users_first_name") }}{{ spacer(2) }}
-                    {{ form.last_name( class="inptbx rounded-end form-control", placeholder="last name", id="new_users_last_name") }}{{ spacer(2) }}
+                    {{ form.registration_first_name }}{{ spacer(2) }}
+                    {{ form.registration_last_name }}{{ spacer(2) }}
                 </div>
                 <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
-                        <span>{{ form.age.label( class="inptbx input-group-text", id="new_users_age_label") }}</span>
+                        <span>{{ form.registration_age.label( class="inptbx formInputPrefix input-group-text", id="new_users_age_label") }}</span>
                     </div>
-                    {{ form.age( class="inptbx datepicker rounded-end form-control", id="new_users_age") }}{{ spacer(2) }}
+                    {{ form.registration_age }}{{ spacer(2) }}
                 </div>
                 <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
-                        <span>{{ form.email_address.label( class="inptbx input-group-text", id="new_users_email_address_label") }}</span>
+                        <span>{{ form.registration_email_address.label( class="inptbx formInputPrefix input-group-text", id="new_users_email_address_label") }}</span>
                     </div>
-                    {{ form.email_address( class="inptbx rounded-end form-control", placeholder="email", id="new_users_email_address") }}{{ spacer(2) }}
+                    {{ form.registration_email_address }}{{ spacer(2) }}
                 </div>
                 <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
-                        <span>{{ form.phone_number.label( class="inptbx input-group-text", id="new_users_phone_number_label") }}</span>
+                        <span>{{ form.registration_phone_number.label( class="inptbx formInputPrefix input-group-text", id="new_users_phone_number_label") }}</span>
                     </div>
-                    {{ form.phone_number( class="inptbx rounded-end form-control", placeholder="phone", id="new_users_phone_number") }}{{ spacer(2) }}
+                    {{ form.registration_phone_number }}{{ spacer(2) }}
                 </div>
                 <div class="input-group input-group-sm input-group-smaller my-1">
                     <div class="input-group-prepend">
-                        <span>{{ form.password.label( class="inptbx input-group-text", id="new_users_password_label") }}</span>
+                        <span>{{ form.registration_password.label( class="inptbx formInputPrefix input-group-text", id="new_users_password_label") }}</span>
                     </div>
-                    {{ form.password( class="inptbx form-control", placeholder="password", id="new_users_password") }}{{ spacer(2) }}
-                    {{ form.verify_password( class="inptbx form-control rounded-end", placeholder="confirm", id="new_users_verify_password") }}{{ spacer(2) }}
+                    {{ form.registration_password }}{{ spacer(2) }}
+                    {{ form.registration_verify_password }}{{ spacer(2) }}
                 </div>
                 <div class="jumbotron bgc p-2 rounded my-2">
-                    {{ form.submit(class="btn btn-primary col-12 col-sm-8 col-md-6 col-lg-4 col-xl-2 col-xxl-2 my-2") }}
+                    {{ form.submit_registration_form }}
                     <div class="container-fluid jumbotron rounded d-flex flex-row fgc my-2 py-3">
                         Already Have an account?&nbsp;&nbsp;<a class="btn btn-sm btn-secondary py-0" href="{{ url_for('account.login_page') }}">Login</a>
                     </div>

@@ -70,6 +70,33 @@ def comments_page(item):
     form=AddCommentForm()
     with Session() as session:
         item = session.query(Item).filter_by(barcode=item).scalar()
+        item_comments = session.query(Comment).filter_by(barcode=item.barcode)
+        stars_count = {}
+        stars_count['one'] = (item_comments.filter_by(rating=1)).count() or 0
+        stars_count['two'] = (item_comments.filter_by(rating=2)).count() or 0
+        stars_count['three'] = (item_comments.filter_by(rating=3)).count() or 0
+        stars_count['four'] = (item_comments.filter_by(rating=4)).count() or 0
+        stars_count['five'] = (item_comments.filter_by(rating=5)).count() or 0
+        stars_count['total'] = stars_count['one'] + stars_count['two']  + stars_count['three']  + stars_count['four'] + stars_count['five']
+
         if form.validate_on_submit():
-            comment = Comment()
-        return render_template('posts.html',form=form,item=item)
+            itemRating = int(request.form['rating']) or 0
+            if itemRating == 0 or form.title.data == None or form.content.data == None:
+                flash('please give us a rating',category='danger')
+            else:
+                if request.method == "POST":
+                    flash(f'{itemRating}',category='danger')
+
+                    comment = Comment(barcode=item.barcode,written_by=current_user.username,title=form.title.data,body=form.content.data,rating=itemRating)
+                    session.add(comment)
+
+                    session.commit()
+                    stars_count['one'] = (item_comments.filter_by(rating=1)).count() or 0
+                    stars_count['two'] = (item_comments.filter_by(rating=2)).count() or 0
+                    stars_count['three'] = (item_comments.filter_by(rating=3)).count() or 0
+                    stars_count['four'] = (item_comments.filter_by(rating=4)).count() or 0
+                    stars_count['five'] = (item_comments.filter_by(rating=5)).count() or 0
+                    stars_count['total'] = stars_count['one'] + stars_count['two']  + stars_count['three']  + stars_count['four'] + stars_count['five']
+
+
+        return render_template('posts.html',form=form,item=item,item_comments=item_comments,stars_count=stars_count)

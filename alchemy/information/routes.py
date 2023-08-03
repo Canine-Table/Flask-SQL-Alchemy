@@ -48,6 +48,7 @@ def presentation_page():
     else:
         return redirect(url_for('main.home_page'))
 
+
 @information.route('/information/modules/<module_name>',methods=['GET'])
 @login_required
 def module_info_page(module_name):
@@ -56,5 +57,14 @@ def module_info_page(module_name):
         module_info = n_to_br(get_module_info)
 
         return render_template('module_information.html',module_name=module_name,module_info=module_info)
+    else:
+        return redirect(url_for('main.home_page'))
+
+
+@information.route('/information/css',methods=['GET'])
+@login_required
+def cascading_style_sheets_info_page():
+    if current_user.groups.user_group == 'root_users':
+        return render_template('cascading_style_sheets.html')
     else:
         return redirect(url_for('main.home_page'))

@@ -1,20 +1,50 @@
 :root {
-    --bk: #000000;
-    --bk1:  #212121;
+    --bk0: #000000;
+    --bk1: #212121;
     --bk2: #161617;
-    --bk3: #343A40;
-    --bk4: #212529;
-    --bk5: #51484f;
-    --bk6: #353839;
+    --bk3: #212529;
+    --bk4: #2B3035;
+
+    --gr0: #808080;
+    --gr1: #51484f;
+    --gr2: #353839;
+    --gr3: #343A40;
+    --gr4: #303443;
+
     --wt1: #FAFAFA;
     --wt2:  #E9ECEF;
     --wt3: #E9EBEC;
-    --nb: #1F51FF;
-    --bu1: #0b498b;
-    --db: #1E90FF;
-    --y1: #FFC107;
-    --y2: #FFE083;
-    --r1: #CF3342
+
+    --blu0: #1F51FF;
+    --blu1: #0b498b;
+    --blu2: #1E90FF;
+
+    --ylw0: #FFC107;
+    --ylw1: #FFE083;
+
+    --rd0: #CF3342;
+}
+
+#DateandTime
+{
+    text-align: center;
+    border: 2px solid var(--gr3);
+    margin-inline: 15px;
+    padding-inline: 15px;
+    border-radius: 50px;
+    background-image: -webkit-linear-gradient(top, var(--gr0), var(--gr4), var(--bk0), var(--gr4));
+    padding-bottom: 4px;
+    margin-top: 2px;
+    position: absolute;
+    top: 24px;
+    right: 0px;
+}
+
+.formInputPrefix {
+    border-radius: 0.25rem 0px 0px 0.25rem;
+    border-width: 2px 1px 2px 1px;
+    border-style: ridge inset ridge ridge;
+    border-color: var(--bk2);
 }
 
 body {
@@ -32,7 +62,6 @@ body {
     color: var(--wt1);
 }
 
-
 .fgc {
     background-color: var(--bk2);
 }
@@ -42,10 +71,10 @@ body {
 }
 
 .obgc {
-    background-color: var(--bk6);
+    background-color: var(--gr2);
 }
 .jbtron {
-    background-color: var(--bk3);
+    background-color: var(--gr3);
     color: var(--wt2);
 }
 
@@ -55,7 +84,7 @@ body {
 }
 
 .dropdown-item:not(:active) {
-    background-color: var(--bk3);
+    background-color: var(--gr3);
 }
 
 .dropdown-item:hover {
@@ -63,31 +92,31 @@ body {
 }
 
 .dropdown-item:active {
-    background-color: var(--nb);
+    background-color: var(--blu0);
 }
 
 span .dropdown-toggle:hover {
-    background-color: var(--y1);
-    border-color: var(--y2);
-    color: var(--bk);
+    background-color: var(--ylw0);
+    border-color: var(--ylw1);
+    color: var(--bk0);
 
 }
 
 .dropdown-toggle:focus {
-    background-color: var(--bk3);
+    background-color: var(--gr3);
     color: var(--wt3);
 }
 
 .btn-outline-dark:not(:focus) {
-    background-color: var(--bk3);
+    background-color: var(--gr3);
     color: var(--wt1);
     border-color: var(--wt1);
 }
 
 .btn-outline-dark:focus {
-    background-color: var(--bk3);
-    border-color: var(--y1);
-    color: var(--y1);
+    background-color: var(--gr3);
+    border-color: var(--ylw0);
+    color: var(--ylw0);
 }
 
 span .dropdown-menu {
@@ -98,7 +127,7 @@ span .dropdown-menu {
 }
 
 .bkg {
-    background-color: var(--bk4);
+    background-color: var(--bk3);
     color: var(--wt1);
     border: 3px solid var(--wt1);
     border-radius: 25px;
@@ -106,12 +135,23 @@ span .dropdown-menu {
 }
 
 #navigationBar {
-    width: 100vw;
+    /* width: 100vw; */
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
+
+
+/*
+#paddingDiv {
+    width: 100vw;
+} */
+
+/*
+#footerBar {
+    width: 100vw;
+} */
 
 @keyframes slide {
     from {
@@ -123,6 +163,9 @@ span .dropdown-menu {
 }
 
 .input-group-smaller .form-control {
-    height: 38px;
-    font-size: 14px;
+    height: 40px;
+    font-size: 12px;
+    border-style: ridge ridge ridge outset;
+    border-width: 2px 2px 2px 1px;
+    border-color: var(--bk2);
 }

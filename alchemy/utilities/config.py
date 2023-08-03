@@ -5,6 +5,7 @@ import os
 
 class Config:
     FLASK_DEBUG = True
+    FLASK_APP = 'run.py'
     WTF_CSRF_TIME_LIMIT = 1800
     SECRET_KEY = secrets.token_hex(32)
     WTF_CSRF_FIELD_NAME = 'flask_csrf_token'

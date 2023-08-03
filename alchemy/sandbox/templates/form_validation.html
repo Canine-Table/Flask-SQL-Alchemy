@@ -1,15 +1,13 @@
 {% extends '_base.html' %}
 {% block title %}Comments{% endblock %}
 {% block content %}
-    <div class="container-xxl jumbotron rounded p-2 ml-4 mr-4 text-center jbtron">
+    <div class="container-fluid jumbotron rounded p-2 ml-4 mr-4 text-center jbtron">
         <div class="jumbotron rounded fgc p-3 mt-3 {{ 'mb-4' if get_flashed_messages() }}">
-            <form method="POST" onsubmit="checkForm(this);">
+            <form method="POST" onsubmit="loadForm(this,'FormValidationFormId','form_validation');">
                 {{ form.hidden_tag() }}
                 {{ form.inputbox }}
-                {{ form.submit }}
-                <button class="btn btn-primary visually-hidden" type="button" disabled>
-                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    <span role="status">Loading...</span>
+                <button id='form_validation_btn' class="btn btn-lg btn-outline-info position-relative">
+                    submit{{ form.submit }}
                 </button>
             </form>
         </div>
@@ -17,8 +15,3 @@
     </div>
     <script src="{{ url_for('sandbox.static', filename='js/_form_validation.js')}}"></script>
 {% endblock %}
-
-<!-- <div class="spinner-border text-primary" role="status">
-    <span class="visually-hidden">Loading...</span>
-</div> -->
-

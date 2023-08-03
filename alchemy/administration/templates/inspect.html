@@ -11,16 +11,16 @@
         {{ errors() }}
     </div>
     <div class="jumbotron container-fluid rounded p-2 jbtron my-3">
-        <form method="POST" onsubmit="submit.disabled=true;loadForm(this);">
+        <form method="POST" onsubmit="submit_inspect_query_form.disabled=true;loadForm(this,'submit_query_choice');">
             {{ form.hidden_tag() }}
             <input id="pending_query_id" name="pending_query" type="hidden" value="{{ data['pending_query'] }}">
             <input id="json_key_id" name="json_key" type="hidden" value="{{ data['json_key'] }}">
             <input id="md5_hash_id" name="md5_hash" type="hidden" value="{{ data['md5_hash'] }}">
             <input id="file_path_id" name="file_path" type="hidden" value="{{ data['file_path'] }}">
-            {{ form.text_body(class="mt-1 rounded bg-dark fg-white text-white p-2 col-12", placeholder='Query Database') }}
+            {{ form.text_body }}
             <div class="jumbotron bgc rounded pb-4 pt-1 py-2 my-2 ps-3 pe-3">
                 <div class="jumbotron rounded fgc my-3 p-2">
-                    {% for radio in form.example %}
+                    {% for radio in form.radios %}
                         <div class="form-check form-check-inline">
                             {% set radio_value = radio.data %}
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="{{ radio_value }}_id" value="{{ radio_value }}" {{ "checked" if radio_value == 'query_database' }}>
@@ -28,7 +28,7 @@
                         </div>
                     {% endfor %}
                 </div>
-                {{ form.submit(class="btn btn-primary col-12",id='submit_query_choice') }}
+                {{ form.submit_inspect_query_form }}
                 <p class="jumbotron rounded fgc mt-3 mb-0 p-2">{{ form.commit }} Commit
                     <span class="ps-5 pe-5-5">{{ form.rollback }} Rollback<span>
                 </p>

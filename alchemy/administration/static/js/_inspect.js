@@ -19,9 +19,9 @@ function deleteQueryEntry(md5_hash,file_path,radio_option){
     $('#submit_query_choice').click()
 }
 
-function loadForm(form){
+function loadForm(form,submit){
     import("../../../static/js/_forms.mjs").then(module => {
-      const loadingForm = module.loadingForm;
-      return loadingForm(form);
+        const loadingForm = module.loadingForm;
+        return loadingForm(form,submit);
     });
 }

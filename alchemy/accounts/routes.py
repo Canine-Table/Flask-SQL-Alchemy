@@ -23,20 +23,20 @@ def register_page():
         with Session() as session:
             try:
                 QueryException.clear_errors()
-                year_entered = int(str(form.age.data).split('-')[0])
+                year_entered = int(str(form.registration_age.data).split('-')[0])
                 current_year = int(get_date_string(date_format='get_year'))
-                if Account.unique_username(session,form):
-                    QueryException.add_error_message(f"The username {form.username.data} is already in use.")
+                if Account.unique_username(session,form.registration_username.data):
+                    QueryException.add_error_message(f"The username {form.registration_username.data} is already in use.")
 
-                if Email.unique_email(session,form):
-                    QueryException.add_error_message(f"The email {form.email_address.data} is already in use.")
+                if Email.unique_email(session,form.registration_email_address.data):
+                    QueryException.add_error_message(f"The email {form.registration_email_address.data} is already in use.")
 
-                if not re.match('^[0-9]{10}$',form.phone_number.data):
+                if not re.match('^[0-9]{10}$',form.registration_phone_number.data):
                     QueryException.add_error_message(f"The phone number you entered is invalid.")
-                elif Phone.unique_phone(session,form):
-                    QueryException.add_error_message(f"The phone number {form.phone_number.data} is already in use.")
+                elif Phone.unique_phone(session,form.registration_phone_number.data):
+                    QueryException.add_error_message(f"The phone number {form.registration_phone_number.data} is already in use.")
 
-                if Account.password_match(form):
+                if Account.password_match(form.registration_password.data,form.registration_verify_password.data):
                     QueryException.add_error_message(f"The passwords do not match.")
 
                 if current_year - year_entered < 0:
@@ -52,7 +52,7 @@ def register_page():
             except QueryException:
                 pass
             except Exception as e:
-                if form.age.data == None:
+                if form.registration_age.data == None:
                     flash(f"The date you entered is invalid.",category="danger")
                 else:
                     flash(f"{type(e).__name__}: {error_string(error=e)}",category="danger")
@@ -60,18 +60,18 @@ def register_page():
             else:
 
                 new_user = {
-                    'username':form.username.data,
-                    'password':form.password.data,
-                    'first_name':(form.first_name.data).title(),
-                    'last_name':(form.last_name.data).title(),
-                    'email_address':form.email_address.data,
-                    'phone_number':form.phone_number.data,
-                    'age':form.age.data,
+                    'username':form.registration_username.data,
+                    'password':form.registration_verify_password.data,
+                    'first_name':(form.registration_first_name.data).title(),
+                    'last_name':(form.registration_last_name.data).title(),
+                    'email_address':form.registration_email_address.data,
+                    'phone_number':form.registration_phone_number.data,
+                    'age':form.registration_age.data,
                     'login':True
                 }
 
-                login_user(Signin.get_session(session).load_user(Account.create_account(**new_user)),remember=True)
-                flash(f"{form.username.data} was successfully created.",category='success')
+                login_user(Signin.get_session(session).load_user(Account.create_account(**new_user)),remember=False)
+                flash(f"{form.registration_username.data} was successfully created.",category='success')
                 return redirect(url_for('market.market_page', username=current_user.username))
 
     return render_template('register.html',form=form)
@@ -84,11 +84,11 @@ def login_page():
         with Session() as session:
             try:
                 QueryException.clear_errors()
-                attempted_user = session.query(Account).filter_by(username=form.username.data).first()
-                if attempted_user and attempted_user.check_password_correction(form.password.data):
-                    flash(f'Welcome back {(" ".join([attempted_user.name.first_name,attempted_user.name.last_name])).title()} (\'{form.username.data}\')', category='success')
+                attempted_user = session.query(Account).filter_by(username=form.login_username.data).first()
+                if attempted_user and attempted_user.check_password_correction(form.login_password.data):
+                    flash(f'Welcome back {(" ".join([attempted_user.name.first_name,attempted_user.name.last_name])).title()} (\'{form.login_username.data}\')', category='success')
                     get_user = Signin.get_session(session).load_user(attempted_user.id)
-                    login_user(get_user,remember=form.remember_me.data)
+                    login_user(get_user,remember=form.login_remember_me.data)
 
                     return redirect(url_for('market.market_page', username=attempted_user.username))
                 else:
@@ -119,33 +119,33 @@ def settings_page(username):
     password_form=ResetPasswordForm()
     image_form=ProfilePictureForm()
 
-    edit_form.first_name.data = edit_form.first_name.data or current_user.name.first_name
-    edit_form.last_name.data = edit_form.last_name.data or current_user.name.last_name
-    edit_form.email_address.data = edit_form.email_address.data or current_user.email_address.email_address
-    edit_form.phone_number.data = edit_form.phone_number.data or current_user.phone_number.phone_number
+    edit_form.edit_first_name.data = edit_form.edit_first_name.data or current_user.name.first_name
+    edit_form.edit_last_name.data = edit_form.edit_last_name.data or current_user.name.last_name
+    edit_form.edit_email_address.data = edit_form.edit_email_address.data or current_user.email_address.email_address
+    edit_form.edit_phone_number.data = edit_form.edit_phone_number.data or current_user.phone_number.phone_number
 
     if request.method == 'POST':
         with Session() as session:
             user = session.query(Account).get(current_user.id)
-            if delete_form.submit.data and request.form['form_name'] =='delete_form':
-                if (delete_form.username.data).strip() == current_user.username:
+            if delete_form.submit_delete_account_form.data and request.form['form_name'] =='delete_form':
+                if (delete_form.delete_username.data).strip() == current_user.username:
                     session.delete(session.query(Account).get(current_user.id))
                     session.commit()
                     return redirect(url_for('account.logout_page'))
                 else:
                     flash(f"input box did not match your username, account was not deleted", category='warning')
 
-            if edit_form.submit.data and request.form['form_name'] == 'edit_form':
+            if edit_form.submit_edit_account_form.data and request.form['form_name'] == 'edit_form':
                 try:
                     QueryException.clear_errors()
 
-                    if Email.unique_email(session,edit_form) and edit_form.email_address.data != current_user.email_address.email_address:
-                        QueryException.add_error_message(f"The email {edit_form.email_address.data} is already in use.")
+                    if Email.unique_email(session,edit_form.edit_email_address.data) and edit_form.edit_email_address.data != current_user.email_address.email_address:
+                        QueryException.add_error_message(f"The email {edit_form.edit_email_address.data} is already in use.")
 
-                    if not re.match('^[0-9]{10}$',edit_form.phone_number.data):
+                    if not re.match('^[0-9]{10}$',edit_form.edit_phone_number.data):
                         QueryException.add_error_message(f"The phone number you entered is invalid.")
-                    elif Phone.unique_phone(session,edit_form) and edit_form.phone_number.data != current_user.phone_number.phone_number:
-                        QueryException.add_error_message(f"The phone number {edit_form.phone_number.data} is already in use.")
+                    elif Phone.unique_phone(session,edit_form.edit_phone_number.data) and edit_form.edit_phone_number.data != current_user.phone_number.phone_number:
+                        QueryException.add_error_message(f"The phone number {edit_form.edit_phone_number.data} is already in use.")
 
                     if QueryException.error_count():
                         QueryException.show_error_messages()
@@ -158,39 +158,39 @@ def settings_page(username):
                 else:
                     message_template = "You have successfully updated your {} from {} to {}!"
                     name = session.query(Name).get(current_user.id)
-                    if edit_form.first_name.data != current_user.name.first_name:
-                        name.first_name = (edit_form.first_name.data).title()
-                        flash(message_template.format('first name',current_user.name.first_name,edit_form.first_name.data), category='success')
-                        current_user.name.first_name = edit_form.first_name.data
+                    if edit_form.edit_first_name.data != current_user.name.first_name:
+                        name.first_name = (edit_form.edit_first_name.data).title()
+                        flash(message_template.format('first name',current_user.name.first_name,edit_form.edit_first_name.data), category='success')
+                        current_user.name.first_name = edit_form.edit_first_name.data
 
-                    if edit_form.last_name.data != current_user.name.last_name:
-                        name.last_name = (edit_form.last_name.data).title()
-                        flash(message_template.format('last name',current_user.name.last_name,edit_form.last_name.data), category='success')
-                        current_user.name.last_name = edit_form.last_name.data
+                    if edit_form.edit_last_name.data != current_user.name.last_name:
+                        name.last_name = (edit_form.edit_last_name.data).title()
+                        flash(message_template.format('last name',current_user.name.last_name,edit_form.edit_last_name.data), category='success')
+                        current_user.name.last_name = edit_form.edit_last_name.data
 
-                    if edit_form.email_address.data != current_user.email_address.email_address:
+                    if edit_form.edit_email_address.data != current_user.email_address.email_address:
                         email = session.query(Email).get(current_user.id)
-                        email.email_address = edit_form.email_address.data
-                        flash(message_template.format('email address',current_user.email_address.email_address,edit_form.email_address.data), category='success')
-                        current_user.email_address.email_address = edit_form.email_address.data
+                        email.email_address = edit_form.edit_email_address.data
+                        flash(message_template.format('email address',current_user.email_address.email_address,edit_form.edit_email_address.data), category='success')
+                        current_user.email_address.email_address = edit_form.edit_email_address.data
 
-                    if edit_form.phone_number.data != current_user.phone_number.phone_number:
+                    if edit_form.edit_phone_number.data != current_user.phone_number.phone_number:
                         phone = session.query(Phone).get(current_user.id)
-                        phone.phone_number = edit_form.phone_number.data
-                        flash(message_template.format('phone number',current_user.phone_number.phone_number,edit_form.phone_number.data), category='success')
-                        current_user.phone_number.phone_number = edit_form.phone_number.data
+                        phone.phone_number = edit_form.edit_phone_number.data
+                        flash(message_template.format('phone number',current_user.phone_number.phone_number,edit_form.edit_phone_number.data), category='success')
+                        current_user.phone_number.phone_number = edit_form.edit_phone_number.data
                     session.commit()
 
-            if password_form.submit.data and request.form['form_name'] == 'password_form':
+            if password_form.submit_reset_password_form.data and request.form['form_name'] == 'password_form':
                 try:
                     QueryException.clear_errors()
-                    if not current_user.check_password_correction(password_form.old_password.data):
+                    if not current_user.check_password_correction(password_form.reset_old_password.data):
                         QueryException.add_error_message(f"the password you entered is incorrect")
 
-                    if password_form.new_password.data != password_form.confirm_new_password.data:
+                    if password_form.reset_new_password.data != password_form.reset_confirm_new_password.data:
                         QueryException.add_error_message("the new passwords do not match")
 
-                    if password_form.old_password.data == password_form.new_password.data or password_form.old_password.data == password_form.confirm_new_password.data:
+                    if password_form.reset_old_password.data == password_form.reset_new_password.data or password_form.reset_old_password.data == password_form.reset_confirm_new_password.data:
                         QueryException.add_error_message("the new password must be different from the old password")
 
                     if QueryException.error_count():
@@ -202,12 +202,12 @@ def settings_page(username):
                     flash(f"{type(e).__name__}: {error_string(error=e)}",category="danger")
                     error_log(error=e)
                 else:
-                    current_user.password = password_form.new_password.data
+                    current_user.password = password_form.reset_new_password.data
                     user.password_hash = current_user.password_hash
                     session.commit()
                     flash(f"Your password has been updated", category='success')
 
-            if image_form.submit.data and request.form['form_name'] == 'image_form':
+            if image_form.submit_profile_picture_form.data and request.form['form_name'] == 'image_form':
                 try:
                     ctype = image_form.selected_image.data.content_type
                     if ctype not in ['image/jpeg','image/pjpeg','image/png','image/tiff','image/x-tiff','image/jpg','image/svg+xml','image/webp','image/bmp']:

@@ -1,3 +1,38 @@
+from wtforms.validators import ValidationError,StopValidation
+from typing_extensions import (
+    Concatenate,
+    Literal,
+    LiteralString,
+    ParamSpec,
+    Self,
+    SupportsIndex,
+    TypeAlias,
+    TypeGuard,
+    TypeVarTuple,
+    final,
+)
+
+from typing import (
+    IO,
+    Any,
+    BinaryIO,
+    ClassVar,
+    Generic,
+    Mapping,
+    MutableMapping,
+    MutableSequence,
+    NoReturn,
+    Protocol,
+    Sequence,
+    SupportsAbs,
+    SupportsBytes,
+    SupportsComplex,
+    SupportsFloat,
+    SupportsInt,
+    TypeVar,
+    overload
+)
+
 from flask import flash
 
 
@@ -21,3 +56,35 @@ class QueryException(Exception):
     @classmethod
     def clear_errors(cls):
         cls.error_messages = []
+
+
+# class FormValidationError(QueryException,ValueError,):
+#     def __init__(self, message="", *args, **kwargs):
+#         ValueError.__init__(self, message, *args, **kwargs)
+
+
+
+
+
+
+
+
+
+
+
+    # "DataRequired",
+    # "Email",
+    # "EqualTo",
+    # "IPAddress",
+    # "InputRequired",
+    # "Length",
+    # "NumberRange",
+    # "Optional",
+    # "Regexp",
+    # "URL",
+    # "AnyOf",
+    # "NoneOf",
+    # "MacAddress",
+    # "UUID",
+    # "ValidationError",
+    # "StopValidation",

@@ -1,0 +1,10 @@
+{% extends '_base.html' %}
+{% block title %}CSS{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('information.static', filename='css/_cascading_style_sheets.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="container-fluid jumbotron rounded p-2 ml-4 mr-4 text-center jbtron">
+    </div>
+    <script src="{{ url_for('information.static', filename='js/_cascading_style_sheets.js')}}"></script>
+{% endblock %}

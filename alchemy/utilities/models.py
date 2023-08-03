@@ -62,11 +62,11 @@ class Account(Signin,MyBase):
         return bcrypt.check_password_hash(self.password_hash,attempted_password)
 
     @classmethod
-    def unique_username(cls,session,form):
-        return bool(session.query(cls.username).filter_by(username = form.username.data).scalar() != None)
+    def unique_username(cls,session,username) -> bool:
+        return bool(session.query(cls.username).filter_by(username = username).scalar() != None)
 
-    def password_match(form):
-        return bool(form.password.data != form.verify_password.data)
+    def password_match(password_one,password_two) -> bool:
+        return bool(password_one != password_two)
 
     def create_account(**kwargs):
         with Session() as session:
@@ -129,8 +129,8 @@ class Email(MyBase):
     __table_args__ = (UniqueConstraint(email_address),)
 
     @classmethod
-    def unique_email(cls,session,form):
-        return bool(session.query(Email.email_address).filter_by(email_address = form.email_address.data).scalar() != None)
+    def unique_email(cls,session,email) -> bool:
+        return bool(session.query(Email.email_address).filter_by(email_address = email).scalar() != None)
 
     def __repr__(self) -> str:
         return f"Email(id={self.id}, email_address={self.email_address})"
@@ -146,8 +146,8 @@ class Phone(MyBase):
     __table_args__ = (UniqueConstraint(phone_number),CheckConstraint('char_length(phone_number) = 10', name='phone_number_length'))
 
     @classmethod
-    def unique_phone(cls,session,form):
-        return bool(session.query(Phone.phone_number).filter_by(phone_number = form.phone_number.data).scalar() != None)
+    def unique_phone(cls,session,phone) -> bool:
+        return bool(session.query(Phone.phone_number).filter_by(phone_number = phone).scalar() != None)
 
     def __repr__(self) -> str:
         return f"Phone(id={self.id}, phone_number={self.phone_number})"
@@ -199,10 +199,10 @@ class Comment(MyBase):
     __tablename__ = 'item_comments_list'
     id: Mapped[int] = Column(Integer, primary_key=True)
     barcode: Mapped[str] = Column(String(length=128), nullable=False)
-    written_by: Mapped['int'] = Column(Integer, nullable=False)
+    written_by: Mapped[str] = Column(String(32), nullable=False)
     title: Mapped[str] =  Column(String(length=128), nullable=False)
-    body: Mapped[str] =  Column(String(length=4096), nullable=False)
-    rating: Mapped[float] = Column(Integer, nullable=False)
+    body: Mapped[str] =  Column(String(length=8192), nullable=False)
+    rating: Mapped[int] = Column(Integer, nullable=False)
     last_updated: Mapped[DateTime] = Column(DateTime)
     creation_date: Mapped[DateTime] = Column(DateTime, nullable=False, default=func.now())
 

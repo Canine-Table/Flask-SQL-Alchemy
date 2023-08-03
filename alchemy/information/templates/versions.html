@@ -13,9 +13,9 @@
                     {{ form.hidden_tag() }}
                     <div class="input-group input-group-sm input-group-smaller">
                         <div class="input-group-prepend">
-                            <span>{{ form.submit(class="btn btn-primary btn-block mb-4", id="regex_n_redirect")}}</span>
+                            <span>{{ form.submit(class="btn formInputPrefix btn-primary btn-block mb-4", id="regex_n_redirect")}}</span>
                         </div>
-                        {{ form.search(class="inptbx form-control", placeholder="search for or filter through modules", id="module_regex_searching") }}
+                        {{ form.search(class="inptbx rounded-end form-control", placeholder="search for or filter through modules", id="module_regex_searching") }}
                         <input id="get_more_info_id" name="get_more_info" type="hidden" value="{{ pip3_modules['load'] }}">
                     </div>
                 </form>

@@ -8,25 +8,25 @@
         {{ errors() }}
     </div>
     <div class="container-fluid jumbotron jbtron mx-auto rounded my-3">
-        <form method="POST" onsubmit="submit.disabled=true;loadForm(this);">
+        <form method="POST" onsubmit="submit_login_form.disabled=true;loadForm(this,'submitLoginForm');">
             <div class="jbtron">
                 {{ form.hidden_tag() }}
                 <div class="input-group input-group-sm input-group-smaller mb-1 mt-3">
                     <div class="input-group-prepend">
-                        <span>{{ form.username.label( class="inptbx input-group-text", id="get_user_username_label") }}</span>
+                        <span data-bs-theme='dark'>{{ form.login_username.label(class="formInputPrefix input-group-text", id="get_user_username_label") }}</span>
                     </div>
-                    {{ form.username( class="inptbx rounded-end form-control", placeholder="username", id="get_user_username") }}<br><br>
+                    {{ form.login_username }}{{ spacer(2) }}
                 </div>
                 <div class="input-group input-group-sm input-group-smaller mb-2 mt-1">
                     <div class="input-group-prepend ">
-                        <span>{{ form.password.label( class="inptbx input-group-text", id="get_user_password_label") }}</span>
+                        <span data-bs-theme='dark'>{{ form.login_password.label( class="formInputPrefix input-group-text", id="get_user_password_label") }}</span>
                     </div>
-                    {{ form.password( class="inptbx form-control rounded-end", placeholder="password", id="get_user_password") }}<br><br>
+                    {{ form.login_password }}{{ spacer(2) }}
                 </div>
             </div>
             <div class="jumbotron rounded bgc p-2 my-2">
-                {{ form.submit(class="btn btn-primary col-12 col-sm-8 col-md-6 col-lg-4 col-xl-2 col-xxl-1 my-2")}}
-                {{ form.remember_me(class="my-3 ms-2") }} {{ form.remember_me.label }}
+                {{ form.submit_login_form }}
+                {{ form.login_remember_me }} {{ form.login_remember_me.label }}
                 <div class="container-fluid rounded jumbotron d-flex flex-row fgc my-2 py-3">
                     Don't Have an account?&nbsp;&nbsp;<a class="btn btn-sm btn-secondary py-0" href="{{ url_for('account.register_page') }}">Register</a>
                 </div>

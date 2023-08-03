@@ -1,24 +1,94 @@
 {% extends '_base.html' %}
 {% block title %}Comments{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('market.static', filename='css/_posts.css') }}">
+
+{% endblock %}
 {% block content %}
-    <div class="container-xxl jumbotron rounded p-2 ml-4 mr-4 text-center jbtron">
+    <div class="container-fluid jumbotron rounded p-2 text-center jbtron">
         <div class="jumbotron rounded fgc p-3 mt-3">
             <h1>{{ item.name }} Reviews</h1>{{ spacer(1) }}
-            <form method="POST">
+            {{ errors() }}
+
+            <div class="row my-3">
+                <div class="side">
+                    <div>5 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                    <div class="bar-5"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div>{{ stars_count['five'] }}</div>
+                </div>
+                <div class="side">
+                    <div>4 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                    <div class="bar-4"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div>{{ stars_count['four'] }}</div>
+                </div>
+                <div class="side">
+                    <div>3 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                    <div class="bar-3"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div>{{ stars_count['three'] }}</div>
+                </div>
+                <div class="side">
+                    <div>2 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                    <div class="bar-2"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div>{{ stars_count['two'] }}</div>
+                </div>
+                <div class="side">
+                    <div>1 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                    <div class="bar-1"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div>{{ stars_count['one'] }}</div>
+                </div>
+            </div>
+            <form method="POST" onsubmit="submit.disabled=true;loadForm(this);">
                 {{ form.hidden_tag() }}
 
                 {% macro post_body() %}
-                    {{ form.title(class="btn-block", placeholder='comment title') }}
-                    {{ form.content(class="btn-block", placeholder='comment body') }}
+                    <div id="starRating">
+                        <span id="1" class="fa fa-star"></span>
+                        <span id="2" class="fa fa-star"></span>
+                        <span id="3" class="fa fa-star"></span>
+                        <span id="4" class="fa fa-star"></span>
+                        <span id="5" class="fa fa-star"></span>
+                    </div>
+                    {{ form.title(class="col-12 jbtron my-2", placeholder='comment title') }}
+                    {{ form.content(class="col-12 p-2 jbtron my-2", placeholder='comment body') }}
                 {% endmacro %}
 
                 {% macro post_footer() %}
-                    {{ form.submit(class="btn btn-primary") }}
+                    {{ form.submit }}
                 {% endmacro %}
 
                 {{ modal(
                     modal_id=secrets.token_hex(12)|upper,
-                    button_classes='btn-block btn-outline-info',
+                    button_classes='col-12 my-3 btn-outline-info',
                     button_text='New Comment',
                     modal_title='Add Comment',
                     button_id=secrets.token_hex(12)|upper,
@@ -28,19 +98,41 @@
                     body=post_body(),
                     footer=post_footer(),
                 ) }}
-
             </form>
         </div>
-        {{ errors() }}
-    </div>
-</form>
-{{ spacer(1) }}<div class="card">
-    <div class="card-header text-white fgc">
-        Featured
-    </div>
-    <div class="card-body bg-dark text-white">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    </div>
-</div>{{ spacer(2) }}
+
+    </div>{{ spacer(1) }}
+    {% if item_comments.count() > 0 %}
+        {% for item_comment in item_comments %}
+            <div class="card" data-bs-theme='dark'>
+                {% set mid = secrets.token_hex(32) %}
+                <div class="card-header text-white fgc">{{ item_comment.title }}</div>
+                <div class="card-body bg-dark text-white"><p class="card-text">{{ item_comment.body }}</p></div>
+                <div class="card-footer p-0 m-0 mb-1 accordion accordion-flush" id="{{ mid }}">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="fgc text-white accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ mid }}" aria-expanded="false" aria-controls="flush-collapse-{{ mid }}">@ {{ item_comment.written_by }}</button>
+                        </h2>
+                        <div id="flush-collapse-{{ mid }}" class="accordion-collapse collapse" data-bs-parent="#{{ mid }}">
+                            <div class="bg-dark accordion-body">
+                                <p><b><i>Creation Date:</i></b>&nbsp;{{ item_comment.creation_date }}</p>
+                                {% if  item_comment.last_updated %}
+                                    <p><b><i>Last Updated::</i></b>&nbsp;{{ item_comment.last_updated }}</p>
+                                {% endif %}
+                                <button class='btn my-3 btn-outline-info'>Comment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>{{ spacer(2) }}
+        {% endfor %}
+    {% else %}
+        <div class="container-fluid jumbotron rounded p-2 text-center jbtron">
+            <div class="jumbotron fgc p-3 mb-2 rounded">
+                <h5 class="text-center"><b>This item has no comments.</b></h5>
+            </div>
+        </div>
+    {% endif %}
+    <script src="{{ url_for('market.static', filename='js/_posts.js')}}"></script>
 {% endblock %}
+

@@ -81,7 +81,7 @@ def inspector_page(username):
                             loaded_query_dump = json.load(f)
                         elif data['selected'] == 'query_error_dump':
                             loaded_error_dump = json.load(f)
-                
+
 
             with engine.connect() as conn:
                 try:

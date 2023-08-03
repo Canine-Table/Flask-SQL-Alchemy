@@ -1,13 +1,13 @@
 #!/usr/bin/node
 
-export function loadingForm(form){
+export function loadingForm(form,submit){
 
     new Map([
         ["disabled","true"],
         ["value",""],
         ["aria-hidden","true"],
     ]).forEach((value, key) => {
-        form.submit.setAttribute(key,value)
+        form[submit].setAttribute(key,value)
     })
     new Map([
         ["height", "32px"],
@@ -17,10 +17,10 @@ export function loadingForm(form){
         ["borderRadius", "50px"],
         ["borderStyle","dotted dashed groove double"],
     ]).forEach((value, key) => {
-        form.submit.style[key] = value;
+        form[submit].style[key] = value;
     })
 
-    form.submit.classList.add("spinner-border");
+    form[submit].classList.add("spinner-border");
     return true;
 }
 

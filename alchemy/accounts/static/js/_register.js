@@ -1,10 +1,11 @@
 #!/usr/bin/node
 
 
-function loadForm(form){
+
+function loadForm(form,submit){
     import("../../../static/js/_forms.mjs").then(module => {
-      const loadingForm = module.loadingForm;
-      return loadingForm(form);
+        const loadingForm = module.loadingForm;
+        return loadingForm(form,submit);
     });
 }
 
