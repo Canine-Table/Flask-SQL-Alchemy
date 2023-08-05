@@ -1,7 +1,8 @@
+{% from "_macros.html" import add_margin  %}
+{% from "_macros.html" import add_icon  %}
 {% from "_macros.html" import errors  %}
 {% from "_macros.html" import spacer  %}
 {% from "_macros.html" import modal  %}
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +16,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/_base.css') }}">
         {% block stylesheets %}{% endblock %}
         <title>{% block title %}{% endblock %}</title>
@@ -23,9 +25,9 @@
         <nav id="navigationBar" class="navbar sticky-top navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
             <div class="container-fluid">
                 {% if current_user.is_authenticated %}
-                    <a class="navbar-brand" href="{{ url_for('account.settings_page',username=current_user.username) }}"><img id='Profile_picutre' width='24px' hight='24px' src="{{ current_user.profile_picture }}" alt="..." width='64px' hight='64px' class="rounded-circle border border-white">&nbsp;{{current_user.username}}</a>&nbsp;&nbsp;&nbsp;
+                    <a class="navbar-brand" href="{{ url_for('account.settings_page',username=current_user.username) }}"><img id='Profile_picutre' width='24px' hight='24px' src="{{ current_user.profile_picture }}" alt="..." width='64px' hight='64px' class="rounded-circle border border-white">{{ add_margin(1) }}{{current_user.username}}</a>{{ add_margin(3) }}
                 {% else %}
-                    <a class="navbar-brand" href="{{ url_for('main.home_page') }}">Home</a>
+                    <a class="navbar-brand" href="{{ url_for('main.home_page') }}">{{ add_icon(classes='fa-house-chimney') }}Home</a>
                 {% endif %}
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,43 +36,44 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         {% if current_user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('main.home_page') }}">Home</a>
+                                <a class="nav-link" href="{{ url_for('main.home_page') }}">{{ add_icon(classes='fa-house-chimney') }}Home</a>
                             </li>
                         {% endif %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ add_icon(classes=' fa-user') }}Account</a>
                             <div class="dropdown-menu bg-dark" aria-labelledby="accountDropdown">
                                 {% if current_user.is_authenticated %}
-                                    <a class="dropdown-item" href="{{ url_for('account.logout_page') }}">Logout<span class="sr-only">(current)</span></a>
+                                    <a class="dropdown-item" href="{{ url_for('account.logout_page') }}">{{ add_icon(classes='fa-right-to-bracket fa-rotate-180') }}Logout<span class="sr-only">(current)</span></a>
                                 {% else %}
-                                    <a class="dropdown-item" href="{{ url_for('account.login_page') }}">Login<span class="sr-only">(current)</span></a>
-                                    <a class="dropdown-item" href="{{ url_for('account.register_page') }}">Register<span class="sr-only">(current)</span></a>
+                                    <a class="dropdown-item" href="{{ url_for('account.login_page') }}">{{ add_icon(classes='fa-right-to-bracket') }}Login<span class="sr-only">(current)</span></a>
+                                    <a class="dropdown-item" href="{{ url_for('account.register_page') }}">{{ add_icon(classes='fa-address-card') }}Register<span class="sr-only">(current)</span></a>
                                 {% endif %}
                             </div>
                         </li>
                         {% if current_user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('market.market_page',username=current_user.username) }}">Market</a>
+                                <a class="nav-link" href="{{ url_for('market.market_page',username=current_user.username) }}">{{ add_icon(classes='fa-store') }}Market</a>
                             </li>
                             {% if current_user.groups.user_group == 'root_users' %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url_for('administration.inspector_page',username=current_user.username) }}">Inspector</a>
+                                    <a class="nav-link" href="{{ url_for('administration.inspector_page',username=current_user.username) }}">{{ add_icon(classes='fa-sliders') }}Inspector</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="sandboxDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sandbox</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="sandboxDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ add_icon(classes='fa-folder-open') }}Sandbox</a>
                                     <div class="dropdown-menu bg-dark" aria-labelledby="sandboxDropdown">
-                                        <a class="dropdown-item" href="{{ url_for('sandbox.form_validation_page',username=current_user.username) }}">Validation Forms<span class="sr-only">(current)</span></a>
+                                        <a class="dropdown-item" href="{{ url_for('sandbox.form_validation_page',username=current_user.username) }}">{{ add_icon(classes='fa-check') }}Validation Forms<span class="sr-only">(current)</span></a>
                                     </div>
                                 </li>
                             {% endif %}
                             {% if current_user.groups.user_group in ['root_users','privilaged_users'] %}
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="informationDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Information</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="informationDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ add_icon(classes='fa-circle-info') }}Information</a>
                                     <div class="dropdown-menu bg-dark" aria-labelledby="informationDropdown">
-                                        <a class="dropdown-item" href="{{ url_for('information.presentation_page') }}">Presentation<span class="sr-only">(current)</span></a>
-                                        <a class="dropdown-item" href="{{ url_for('information.version_page') }}">Version Info<span class="sr-only">(current)</span></a>
+                                        <a class="dropdown-item" href="{{ url_for('information.presentation_page') }}">{{ add_icon(classes='fa-person-chalkboard') }}Presentation<span class="sr-only">(current)</span></a>
+                                        <a class="dropdown-item" href="{{ url_for('information.version_page') }}">{{ add_icon(classes='fa-code-branch') }}Version Info<span class="sr-only">(current)</span></a>
                                         {% if current_user.groups.user_group == 'root_users' %}
-                                            <a class="dropdown-item" href="{{ url_for('information.cascading_style_sheets_info_page') }}">Cascading Style Sheets<span class="sr-only">(current)</span></a>
+                                            <a class="dropdown-item" href="{{ url_for('information.cascading_style_sheets_info_page') }}">{{ add_icon(classes='fa-brands fa-css3') }}Cascading Style Sheets<span class="sr-only">(current)</span></a>
+                                            <a class="dropdown-item" href="{{ url_for('information.sql_setup_page') }}">{{ add_icon(classes='fa-brands fa-python') }}SQL Setup with Python<span class="sr-only">(current)</span></a>
                                         {% endif %}
                                     </div>
                                 </li>
@@ -86,7 +89,7 @@
         <footer id="footerBar" class="footer fgc py-3 bg-black text-center text-white-50">
                 </section>
                     <div class="social d-flex justify-content-center pt-3">
-                        <a href="https://github.com/Canine-Table/Flask-SQL-Alchemy"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/Canine-Table/Flask-SQL-Alchemy"><i class="fa fa-brands fa-github"></i></a>
                     </div>{{ spacer(1) }}
                 </section>
                 <div class="container px-4 px-lg-5">Copyright &copy; Quality Queries 2023</div>

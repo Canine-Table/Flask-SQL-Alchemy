@@ -10,26 +10,16 @@
                 <h1><a id='profile_picture_anchor' type="button" data-bs-toggle="modal" data-bs-target="#Modal-profile_picture_anchor"><img id='profile_picture' width='64px' hight='64px' src="{{ current_user.profile_picture }}" alt="..." width='24px' hight='24px' class="rounded-circle profile_picture_class"></a>&nbsp;Account Settings</h1>
                 <form method="POST" enctype="multipart/form-data" onsubmit="loadForm(this,'image_form_id');">
                     {{ image_form.hidden_tag() }}
-                    <input id="image_form_name" name="form_name" type="hidden" value="image_form">
-                    {% macro profile_picture_anchor_body() %}
-                        {{ image_form.selected_image }}{{ spacer(2) }}
-                        {{ image_form.selected_image_file_path }}
-                    {% endmacro %}
-                    {% macro profile_picture_anchor_footer() %}
-                    <button type="button" class="btn btn-secondary" id='save_image_file'>Update</button>
-                    {{ image_form.submit_profile_picture_form }}
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    {% endmacro %}
                     {{ modal(
                         modal_id='profile_picture_anchor',
                         button_id='profile_picture_anchor',
-                        modal_title='Profile Picture',
+                        modal_title=add_icon('fa-file-image',num=2,words_end='Change profile picture'),
                         modal_header=True,
                         modal_body=True,
                         modal_footer=True,
-                        body=profile_picture_anchor_body(),
+                        body=image_form.selected_image+spacer(2)+image_form.selected_image_file_path,
                         body_classes='text-left',
-                        footer=profile_picture_anchor_footer(),
+                        footer='<button type="button" class="btn btn-secondary" id="save_image_file">Update</button>'|safe+image_form.submit_profile_picture_form+'<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>'|safe,
                         in_button=False,
                         keep_close=False
                     ) }}
@@ -53,13 +43,6 @@
                 <div class="jumbotron fgc rounded p-3 mt-4 mb-2">
                     <form method="POST" onsubmit="loadForm(this,'confirmDeletingAccount_id');">
                         {{ delete_form.hidden_tag() }}
-                        <input id="delete_form_name" name="form_name" type="hidden" value="delete_form">
-                        {% macro delete_title() %}
-                            Delete {{ current_user.username }}
-                        {% endmacro %}
-                        {% macro delete_body() %}
-                            Are you sure you want to delete {{ current_user.username }}? This action can not be undone. Insert <b>{{ current_user.username }}</b> below to confirm the deletion of this account.
-                        {% endmacro %}
                         {% macro delete_footer() %}
                             {{ delete_form.delete_username }}
                             {{ delete_form.submit_delete_account_form }}
@@ -68,20 +51,19 @@
                         {{ modal(
                             modal_id=secrets.token_hex(12)|upper,
                             button_classes='btn text-center btn-outline-danger col-12',
-                            button_text=delete_title(),
+                            button_text=add_icon('fa-user-xmark',num=2,words_end='Delete Account'),
                             button_id='deletingAccount_id',
-                            modal_title='Delete Account',
+                            modal_title=add_icon('fa-user-xmark',num=2,words_end='Delete account for '+current_user.username),
                             modal_header=True,
                             modal_body=True,
                             modal_footer=True,
-                            body=delete_body(),
+                            body="Are you sure you want to delete "+current_user.username+"? This action can not be undone. Insert <b>"|safe+current_user.username+"</b> below to confirm the deletion of your account."|safe,
                             footer=delete_footer(),
                             keep_close=False
                         ) }}
                     </form>{{ spacer(1) }}
                     <form method="POST" onsubmit="loadForm(this,'SavedChangesConfirmed_id');">
                         {{ edit_form.hidden_tag() }}
-                        <input id="edit_form_name" name="form_name" type="hidden" value="edit_form">
                         {% macro edit_body() %}
                             <div class="input-group input-group-sm input-group-smaller mb-1 mt-2">
                                 <div class="input-group-prepend">
@@ -103,20 +85,16 @@
                                 {{ edit_form.edit_phone_number }}{{ spacer(2) }}
                             </div>
                         {% endmacro %}
-                        {% macro edit_footer() %}
-                            <button type="button" class="btn btn-info" id='ShowSavedChanges_id' data-bs-toggle="modal" data-bs-target="#Modal-ShowSavedChanges_id" data-bs-dismiss="modal" aria-label="Close">Preview</button>
-                            {{ edit_form.submit_edit_account_form }}
-                        {% endmacro %}
                         {{ modal(
                             modal_id=secrets.token_hex(12)|upper,
                             button_classes='btn text-center btn-outline-primary col-12',
-                            button_text='Edit Profile',
-                            modal_title=delete_title(),
+                            button_text=add_icon('fa-user-pen',num=2,words_end='Edit Profile'),
+                            modal_title=add_icon('fa-user-pen',num=2,words_end='Edit account for '+current_user.username),
                             modal_header=True,
                             modal_body=True,
                             modal_footer=True,
                             body=edit_body(),
-                            footer=edit_footer(),
+                            footer='<button type="button" class="btn btn-info" id="ShowSavedChanges_id" data-bs-toggle="modal" data-bs-target="#Modal-ShowSavedChanges_id" data-bs-dismiss="modal" aria-label="Close">Preview</button>'|safe+edit_form.submit_edit_account_form,
                             button_id='SaveChanges_id'
                         ) }}
                         {% macro confirm_body() %}
@@ -137,23 +115,19 @@
                             <p><b>Old: </b>{{ current_user.phone_number.phone_number }}{{ spacer(1) }}<b>New: </b><span id='phone_number'></span></p>
                         </div>
                         {% endmacro %}
-                        {% macro confirm_footer() %}
-                            <button type="button" class="btn btn-primary" id="BackSavedChangesConfirmed_id" data-bs-dismiss="modal" aria-label="Close">Back</button>
-                        {% endmacro %}
                         {{ modal(
                             modal_id='ShowSavedChanges_id',
-                            modal_title='Save Changes',
+                            modal_title=add_icon('fa-magnifying-glass',num=2,words_end='Preview pending changes'),
                             modal_header=True,
                             modal_body=True,
                             modal_footer=True,
                             body=confirm_body(),
-                            footer=confirm_footer(),
+                            footer='<button type="button" class="btn btn-primary" id="BackSavedChangesConfirmed_id" data-bs-dismiss="modal" aria-label="Close">Back</button>'|safe,
                             in_button=False
                         ) }}
                     </form>{{ spacer(1) }}
                     <form method="POST" onsubmit="loadForm(this,'confirmResetingYourPassword_id');">
                         {{ password_form.hidden_tag() }}
-                        <input id="password_form_name" name="form_name" type="hidden" value="password_form">
                         {% macro reset_body() %}
                             <div class="input-group input-group-sm input-group-smaller mb-1 mt-2">
                                 <div class="input-group-prepend">
@@ -174,20 +148,17 @@
                                 {{ password_form.reset_confirm_new_password }}{{ spacer(2) }}
                             </div>
                         {% endmacro %}
-                        {% macro reset_footer() %}
-                            {{ password_form.submit_reset_password_form }}
-                        {% endmacro %}
                         {{ modal(
                             modal_id=secrets.token_hex(12)|upper,
                             button_classes='btn text-center btn-outline-warning col-12',
-                            button_text='Reset Password',
-                            modal_title='Reset Password',
+                            button_text=add_icon('fa-key',num=2,words_end='Reset Password'),
+                            modal_title=add_icon('fa-key',num=2,words_end='Reset password for '+current_user.username),
                             button_id='resetYourPassword_id',
                             modal_header=True,
                             modal_body=True,
                             modal_footer=True,
                             body=reset_body(),
-                            footer=reset_footer(),
+                            footer=password_form.submit_reset_password_form,
                         ) }}
                     </form>
                 </div>

@@ -6,6 +6,7 @@ from alchemy.utils import error_log,error_string,get_date_string
 from alchemy.utilities.exceptions import QueryException
 from alchemy.accounts.utils import crop_to_square
 from alchemy.utilities.database import Session
+from alchemy import app
 from flask import Blueprint
 from io import BytesIO
 from PIL import Image

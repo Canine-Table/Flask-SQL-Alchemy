@@ -41,7 +41,7 @@
                                     {{ modal(
                                         modal_id=mid,
                                         button_id=mid,
-                                        modal_title=owned_item.item_purchase.name,
+                                        modal_title=add_icon('fa-money-bill',words_end=owned_item.item_purchase.name),
                                         modal_header=True,
                                         modal_body=True,
                                         modal_footer=True,
@@ -101,7 +101,7 @@
                                             modal_header=True,
                                             modal_body=True,
                                             modal_footer=True,
-                                            modal_title=purchased_item.name,
+                                            modal_title=add_icon(classes='fa-circle-info',words_end=purchased_item.name),
                                             body=info_body(),
                                         ) }}
                                         {% macro purchase_body() %}
@@ -123,7 +123,7 @@
                                             modal_header=True,
                                             modal_body=True,
                                             modal_footer=True,
-                                            modal_title=purchased_item.name,
+                                            modal_title=add_icon('fa-cart-shopping',words_end=purchased_item.name),
                                             body=purchase_body(),
                                             footer=purchase_footer()
                                         ) }}

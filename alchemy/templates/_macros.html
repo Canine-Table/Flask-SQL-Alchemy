@@ -3,12 +3,46 @@
     {% if messages %}
         {% for catagory, message in messages %}
             <div class="alert alert-{{ catagory }} alert-dismissible" role="alert">
-                <div>{{ message }}</div>
+                <div>
+                    <i class="fa fa-solid fa-beat
+                        {{ 'fa-triangle-exclamation' if catagory == 'danger' }}
+                        {{ 'fa-circle-exclamation fa-beat-fade' if catagory == 'warning'  }}
+                        {{ 'fa-circle-info' if catagory == 'info'}}
+                        {{ 'fa-bell fa-shake' if catagory == 'secondary'}}
+                        {{ 'fa-circle-check fa-beat' if catagory == 'success'}}
+                        {{ 'fa-message' if catagory == 'primary'}}
+                        {{ 'fa-sun fa-spin' if catagory == 'light'}}
+                        {{ 'fa-moon' if catagory == 'dark'}}">
+                    </i>&nbsp;&nbsp;{{ message }}</div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
     {% endif %}
 {% endwith %}
+{% endmacro %}
+
+{% macro add_margin(num) %}
+    {% for i in range(1,num) %}&nbsp;{% endfor %}
+{% endmacro %}
+
+{% macro add_icon(classes,icon_margin,num,words,words_start,words_end) %}
+    {% if icon_margin is not defined %}
+        {% set icon_margin = 'end' %}
+    {% endif %}
+
+    {% if num is not defined %}
+        {% set num = 1 %}
+    {% endif %}
+
+    {% if icon_margin == 'start' or icon_margin == 'both' %}
+    {{ words_start if words_start is defined }}{{ add_margin(num) }}
+    {% endif %}
+
+    <i class="fa fa-solid {{ classes }}"></i>
+
+    {% if icon_margin == 'end' or icon_margin == 'both'  %}
+        {{ add_margin(num) }}{{ words_end if words_end is defined }}
+    {% endif %}
 {% endmacro %}
 
 {% macro modal(in_button,button_text,button_id,button_classes,modal_id,modal_header,modal_title,header,header_classes,modal_body,body_classes,body,modal_footer,footer_classes,footer,content_classes,keep_close) %}
@@ -100,39 +134,38 @@
     {% endif %}
 
 
-{% if in_button %}
-    <button type="button" class="btn {{ button_classes }}" id="{{ button_id }}" data-bs-toggle="modal" data-bs-target="#Modal-{{ modal_id }}">{{ button_text }}</button>
-{% endif %}
+    {% if in_button %}
+        <button type="button" class="btn {{ button_classes }}" id="{{ button_id }}" data-bs-toggle="modal" data-bs-target="#Modal-{{ modal_id }}">{{ button_text }}</button>
+    {% endif %}
 
-<div class="modal fade" id="Modal-{{ modal_id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel-{{ modal_id }}" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content bg-dark border {{ content_classes }}">
-            {% if modal_header %}
-                <div class="modal-header {{ header_classes }}">
-                    <h5 class="modal-title" id="ModalLabel-{{ modal_id }}">{{ modal_title }}</h5>
-                    {{ header }}
-                    <button type="button" class="close-modal" id="close-{{ button_id }}" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">✖</span>
-                    </button>
-                </div>
-            {% endif %}
-            {% if modal_body %}
-                <div class="modal-body text-wrap {{ body_classes }}">
-                    {{ body }}
-                </div>
-            {% endif %}
-            {% if modal_footer %}
-                <div class="modal-footer {{ footer_classes }}">
-                    {% if keep_close %}
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    {% endif %}
-                    {{ footer }}
-                </div>
-            {% endif %}
+    <div class="modal fade" id="Modal-{{ modal_id }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel-{{ modal_id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content bg-dark border {{ content_classes }}">
+                {% if modal_header %}
+                    <div class="modal-header {{ header_classes }}">
+                        <h5 class="modal-title" id="ModalLabel-{{ modal_id }}">{{ modal_title }}</h5>
+                        {{ header }}
+                        <button type="button" class="close-modal" id="close-{{ button_id }}" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">✖</span>
+                        </button>
+                    </div>
+                {% endif %}
+                {% if modal_body %}
+                    <div class="modal-body text-wrap {{ body_classes }}">
+                        {{ body }}
+                    </div>
+                {% endif %}
+                {% if modal_footer %}
+                    <div class="modal-footer {{ footer_classes }}">
+                        {% if keep_close %}
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        {% endif %}
+                        {{ footer }}
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
-</div>
-
 {% endmacro %}
 
 {% macro spacer(num) %}

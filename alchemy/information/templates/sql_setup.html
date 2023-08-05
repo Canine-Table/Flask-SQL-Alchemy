@@ -1,0 +1,87 @@
+{% extends '_base.html' %}
+{% block title %}{{ module_info }} Info{% endblock %}
+{% block content %}
+    <div class="container-fluid rounded jumbotron p-2 my-3 jbtron">
+        <div class="jumbotron bgc rounded p-3 my-2">
+            <div class="jumbotron fgc text-center rounded px-4 pb-4 pt-4 mt-1 mb-0">
+                <h3><b><i>SQL Setup by Step Guide with Python3</i></b></h3>
+            </div>
+            <div class="jumbotron rounded fgc mt-4 px-4 pb-4 pt-5 my-1 mb-2">
+                <div data-bs-theme="dark" class="accordion" id="accordionSqlSetupPython">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <b><i>Step 1:</i></b>{{ add_margin(2) }}Downloading Python
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionSqlSetupPython">
+                            <div class="accordion-body">
+                                <h4><b><i>For Windows Systems</i></b></h4>
+                                <h5>The link is at <b><code>https://www.python.org/downloads/</code></b></h5>
+                                <b><code>Windows:</code></b>{{ add_margin(1) }}Download Python:{{ add_margin(1) }}<a href="https://www.python.org/downloads/">here</a>{{ spacer(2) }}<hr>
+
+                                <h4><b><i>For Linux/Unix Systems</i></b></h4>
+                                <h5>Open your terminal and enter the command for your system.</h5><hr>
+
+                                <b><code>MacOS:</code></b>{{ add_margin(1) }}For MacOS you have 2 options.{{ spacer(1) }}
+                                <b><code>Option 1:</code></b>{{ add_margin(1) }}brew install python{{ spacer(1) }}
+                                <b><code>Option 2:</code></b>{{ add_margin(1) }}sudo port install python3{{ spacer(2) }}<hr>
+
+                                <b><code>Ubuntu:</code></b>{{ add_margin(1) }}For Ubuntu users you have 2 options.{{ spacer(1) }}
+                                <b><code>Option 1:</code></b>{{ add_margin(1) }}sudo apt install python3{{ spacer(1) }}
+                                <b><code>Option 2:</code></b>{{ add_margin(1) }}sudo apt-get install python3{{ spacer(2) }}<hr>
+
+                                <b><code>Redhat:</code></b>{{ add_margin(1) }}For Redhat, Fedora and Oracle users you have 2 options.{{ spacer(1) }}
+                                <b><code>Option 1:</code></b>{{ add_margin(1) }}sudo yum install python3{{ spacer(1) }}
+                                <b><code>Option 2:</code></b>{{ add_margin(1) }}sudo dnf install python3{{ spacer(2) }}<hr>
+
+                                <b><code>Alpine:</code></b>{{ add_margin(1) }}For Alpine users enter the following command{{ spacer(1) }}
+                                <b><code>Option 1:</code></b>{{ add_margin(1) }}apk add --no-cache python3{{ spacer(2) }}<hr>
+
+                                <b><code>Debian:</code></b>{{ add_margin(1) }}For Debian users enter the following command{{ spacer(1) }}
+                                <b><code>Option 1:</code></b>{{ add_margin(1) }}sudo dnf module install python3{{ spacer(2) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <b><i>Step 2:</i></b>{{ add_margin(2) }}Verify Python is Downloaded
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionSqlSetupPython">
+                            <div class="accordion-body">
+                                <h4><b><i>For Windows Systems</i></b></h4>
+                                <div class="row">
+                                    <img src="{{ url_for('information.static', filename='img/8673687D53D9979A6FFCF167E3C90F6A9870F0F9F9F5958B4E7E7038A0D3A551.jpg')}}" class="col-6" alt="...">
+                                    <span class="col-6"><b><code>Windows:</code></b>{{ add_margin(1) }}Download Python:{{ add_margin(1) }}<a href="https://www.python.org/downloads/">here</a>{{ spacer(2) }}</span>
+                                </div><hr>
+                                <div class="row">
+                                    <span class="col-6">
+                                        <img src="{{ url_for('information.static', filename='img/5876089BE3083D072A22413E7FBFED6D3D870122A158A54768F1332FBA6CFA08.png')}}" class="col-12" alt="...">
+                                    </span>
+                                    <span class="col-6">
+                                        <h4><b><i>For Linux/Unix Systems</i></b></h4>
+                                        <h5>Open your terminal and enter <code><b>python3 --version</b></code>.</h5>
+                                    </span><hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Accordion Item #3
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionSqlSetupPython">
+                            <div class="accordion-body">
+                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

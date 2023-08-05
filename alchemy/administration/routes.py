@@ -23,13 +23,14 @@ def inspector_page(username):
         query_dump = os.path.join(static_folder,'json','_query_logs.json')
 
         data = {}
-        form=InspectQueryForm()
         data['pending_query'] = False
         data['frozen_not_set'] = True
         data['file_path'] = None
         data['selected'] = None
         data['md5_hash'] = None
         data['json_key'] = None
+
+        form=InspectQueryForm()
 
         if not os.path.exists(query_dump):
             with open(query_dump, 'w'):
@@ -54,26 +55,29 @@ def inspector_page(username):
 
         if request.method == "POST":
 
-            if request.form['md5_hash'] != None:
-                data['md5_hash'] = request.form['md5_hash']
+            if form.md5_hash.data != None:
+                data['md5_hash'] = form.md5_hash.data
             else:
                 data['md5_hash'] = None
 
 
-            if request.form['pending_query'] == 'fetchQueryLog':
+            if form.pending_query.data == 'fetchQueryLog':
                 data['pending_query'] = True
             else:
                 data['pending_query'] = False
 
-            if request.form['pending_query'] == 'deleteQueryEntry':
-                file_path = request.form['file_path']
+            if form.pending_query.data == 'deleteQueryEntry':
+                file_path = form.file_path.data
                 if file_path == error_dump:
                     file_data = loaded_error_dump
                 elif file_path == query_dump:
                     file_data = loaded_query_dump
-                md5_hash = request.form['md5_hash']
-                json_key = request.form['json_key']
+                md5_hash = form.md5_hash.data
+                json_key = form.json_key.data
+
                 delete_json_column(file_path,file_data,md5_hash,json_key)
+
+
                 if os.path.getsize(file_path) != 0:
                     data['selected'] = request.form['inlineRadioOptions']
                     with open(file_path) as f:

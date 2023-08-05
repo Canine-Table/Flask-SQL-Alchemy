@@ -68,3 +68,11 @@ def cascading_style_sheets_info_page():
         return render_template('cascading_style_sheets.html')
     else:
         return redirect(url_for('main.home_page'))
+
+@information.route('/information/sql/setup',methods=['GET'])
+@login_required
+def sql_setup_page():
+    if current_user.groups.user_group == 'root_users':
+        return render_template('sql_setup.html')
+    else:
+        return redirect(url_for('main.home_page'))
