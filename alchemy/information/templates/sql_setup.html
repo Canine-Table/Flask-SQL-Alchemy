@@ -1,6 +1,10 @@
 {% extends '_base.html' %}
-{% block title %}{{ module_info }} Info{% endblock %}
+{% block title %}SQL Setup{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('information.static', filename='css/_sql_setup.css') }}">
+{% endblock %}
 {% block content %}
+
     <div class="container-fluid rounded jumbotron p-2 my-3 jbtron">
         <div class="jumbotron bgc rounded p-3 my-2">
             <div class="jumbotron fgc text-center rounded px-4 pb-4 pt-4 mt-1 mb-0">
@@ -8,6 +12,9 @@
             </div>
             <div class="jumbotron rounded fgc mt-4 px-4 pb-4 pt-5 my-1 mb-2">
                 <div data-bs-theme="dark" class="accordion" id="accordionSqlSetupPython">
+                    <div class='p-3 setup_title m-0 rounded-top bg-black text-white'>
+                        <h5>These slides will be avalible at <code>https://enl8720-group-7-mysql-database.onrender.com/information/sql/setup</code></h5><hr>
+                    </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -16,30 +23,55 @@
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionSqlSetupPython">
                             <div class="accordion-body">
-                                <h4><b><i>For Windows Systems</i></b></h4>
-                                <h5>The link is at <b><code>https://www.python.org/downloads/</code></b></h5>
-                                <b><code>Windows:</code></b>{{ add_margin(1) }}Download Python:{{ add_margin(1) }}<a href="https://www.python.org/downloads/">here</a>{{ spacer(2) }}<hr>
+                                <div class="row">
+                                <span class="col-6">
+                                    <div class='p-3 rounded bg-black text-white'>
+                                        <h4><b><i>For Windows Systems</i></b></h4>
+                                        <h5>The link is at <b><code>https://www.python.org/downloads/</code></b></h5>
+                                        <b><code>Windows:</code></b>{{ add_margin(1) }}Download Python:{{ add_margin(1) }}<a href="https://www.python.org/downloads/">here</a>{{ spacer(2) }}<hr>
+                                    </div>
+                                    <img src="{{ url_for('information.static', filename='img/2A82B563AD8774354BD4B592A1C7408960B95A42302EF870C5350DBD63EFCD04.png')}}" class="col-12" alt="...">
+                                    <img src="{{ url_for('information.static', filename='img/1385AA643447B1ED82C4A040FAE552542F249DCA8D93E20507013A8B475F7F4D.png')}}" class="col-12" alt="...">
+                                    <div class='p-3 m-0 rounded bg-black text-white'>
+                                        <h5>Enter <code>explorer.exe</code> in the search bar and click Downloads located on the left.</h5>
+                                    </div><hr>
+                                </span>
+                                <span class="col-6">
+                                    <img src="{{ url_for('information.static', filename='img/A695BC8DC633A6289358B21840DA9FBD985D4F9D7F23FD1982FEFE4EAC07F788.png')}}" class="col-12" alt="...">
+                                    <div class='p-3 m-0 rounded bg-black text-white'>
+                                        <h5>Make sure to use <code>admin privilages</code> when installing <code>py.exe</code> or you will have limited functionality.</h5>
+                                        <h5>Make sure to add <code>python.exe</code> to <code>PATH</code> or windows will not be able to load the python.exe without the path to the file.</h5><hr>
+                                    </div>
+                                    <img src="{{ url_for('information.static', filename='img/4C1AB9630C36CBFBDEFBAB7D00FFE9228E0F31B14A2EC5057A96D5EAE2605990.png')}}" class="col-12"alt="...">
+                                </span>
+                                </div><hr>
+                                <div class='p-3 rounded bg-black text-white'>
+                                    <h4><b><i>For Linux/Unix Systems</i></b></h4>
+                                    <h5>Open your terminal and enter the command for your system.</h5><hr>
+                                </div><hr>
+                                <div class='row'>
+                                    <span class="col-6">
+                                        <b><code>MacOS:</code></b>{{ add_margin(1) }}For MacOS you have 2 options.{{ spacer(1) }}
+                                        <b><code>Option 1:</code></b>{{ add_margin(1) }}brew install python{{ spacer(1) }}
+                                        <b><code>Option 2:</code></b>{{ add_margin(1) }}sudo port install python3{{ spacer(2) }}<hr>
 
-                                <h4><b><i>For Linux/Unix Systems</i></b></h4>
-                                <h5>Open your terminal and enter the command for your system.</h5><hr>
+                                        <b><code>Ubuntu:</code></b>{{ add_margin(1) }}For Ubuntu users you have 2 options.{{ spacer(1) }}
+                                        <b><code>Option 1:</code></b>{{ add_margin(1) }}sudo apt install python3{{ spacer(1) }}
+                                        <b><code>Option 2:</code></b>{{ add_margin(1) }}sudo apt-get install python3{{ spacer(2) }}<hr>
+                                        <img src="{{ url_for('information.static', filename='img/65F535E145B9E20863393BEAC375CDE6F5D52E6F811739460B7474D4F6B2A129.png')}}" class="col-12" alt="...">
+                                    </span>
+                                    <span class="col-6">
+                                        <b><code>Redhat:</code></b>{{ add_margin(1) }}For Redhat, Fedora and Oracle users you have 2 options.{{ spacer(1) }}
+                                        <b><code>Option 1:</code></b>{{ add_margin(1) }}sudo yum install python3{{ spacer(1) }}
+                                        <b><code>Option 2:</code></b>{{ add_margin(1) }}sudo dnf install python3{{ spacer(2) }}<hr>
 
-                                <b><code>MacOS:</code></b>{{ add_margin(1) }}For MacOS you have 2 options.{{ spacer(1) }}
-                                <b><code>Option 1:</code></b>{{ add_margin(1) }}brew install python{{ spacer(1) }}
-                                <b><code>Option 2:</code></b>{{ add_margin(1) }}sudo port install python3{{ spacer(2) }}<hr>
+                                        <b><code>Alpine:</code></b>{{ add_margin(1) }}For Alpine users enter the following command{{ spacer(1) }}
+                                        <b><code>Option 1:</code></b>{{ add_margin(1) }}apk add --no-cache python3{{ spacer(3) }}<hr>
 
-                                <b><code>Ubuntu:</code></b>{{ add_margin(1) }}For Ubuntu users you have 2 options.{{ spacer(1) }}
-                                <b><code>Option 1:</code></b>{{ add_margin(1) }}sudo apt install python3{{ spacer(1) }}
-                                <b><code>Option 2:</code></b>{{ add_margin(1) }}sudo apt-get install python3{{ spacer(2) }}<hr>
-
-                                <b><code>Redhat:</code></b>{{ add_margin(1) }}For Redhat, Fedora and Oracle users you have 2 options.{{ spacer(1) }}
-                                <b><code>Option 1:</code></b>{{ add_margin(1) }}sudo yum install python3{{ spacer(1) }}
-                                <b><code>Option 2:</code></b>{{ add_margin(1) }}sudo dnf install python3{{ spacer(2) }}<hr>
-
-                                <b><code>Alpine:</code></b>{{ add_margin(1) }}For Alpine users enter the following command{{ spacer(1) }}
-                                <b><code>Option 1:</code></b>{{ add_margin(1) }}apk add --no-cache python3{{ spacer(2) }}<hr>
-
-                                <b><code>Debian:</code></b>{{ add_margin(1) }}For Debian users enter the following command{{ spacer(1) }}
-                                <b><code>Option 1:</code></b>{{ add_margin(1) }}sudo dnf module install python3{{ spacer(2) }}
+                                        <b><code>Debian:</code></b>{{ add_margin(1) }}For Debian users enter the following command{{ spacer(1) }}
+                                        <b><code>Option 1:</code></b>{{ add_margin(1) }}sudo dnf module install python3{{ spacer(2) }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -51,18 +83,43 @@
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionSqlSetupPython">
                             <div class="accordion-body">
-                                <h4><b><i>For Windows Systems</i></b></h4>
-                                <div class="row">
-                                    <img src="{{ url_for('information.static', filename='img/8673687D53D9979A6FFCF167E3C90F6A9870F0F9F9F5958B4E7E7038A0D3A551.jpg')}}" class="col-6" alt="...">
-                                    <span class="col-6"><b><code>Windows:</code></b>{{ add_margin(1) }}Download Python:{{ add_margin(1) }}<a href="https://www.python.org/downloads/">here</a>{{ spacer(2) }}</span>
+                                <div class='p-3 rounded bg-black text-white'>
+                                    <h4><b><i>For Windows Systems</i></b></h4><hr>
                                 </div><hr>
                                 <div class="row">
                                     <span class="col-6">
-                                        <img src="{{ url_for('information.static', filename='img/5876089BE3083D072A22413E7FBFED6D3D870122A158A54768F1332FBA6CFA08.png')}}" class="col-12" alt="...">
+                                        <img src="{{ url_for('information.static', filename='img/8673687D53D9979A6FFCF167E3C90F6A9870F0F9F9F5958B4E7E7038A0D3A551.jpg')}}" class="col-12" alt="...">
+                                        <div class='p-3 rounded bg-black text-white'>
+                                            <h5>in the search bar as demonstrated on the left, enter <code>powershell.exe</code>.</h5><hr>
+                                        </div>
                                     </span>
                                     <span class="col-6">
+                                        <img src="{{ url_for('information.static', filename='img/989C5B34DC26069CD508B89FDC6743BD447B9C802598BCB7836E6C7E3DF699F7.png')}}" class="col-12" alt="...">
+                                        <div class='p-3 rounded bg-black text-white'>
+                                            <h5>If you see something similar to the output above, congratulations you successfully donwloaded Python!</h5><hr>
+                                        </div>
+                                        <img src="{{ url_for('information.static', filename='img/C01804B2312F2005DA06ACC1F8355921F286265770E43062E7FFF8E6AC2D2203.png')}}" class="col-12" alt="...">
+                                        <div class='p-3 rounded bg-black text-white'>
+                                            <h5>If you see something other than the version of python like  output above, go back to step one and try installing python again.</h5><hr>
+                                        </div><hr>
+                                    </span>
+                                </div><hr>
+                                <div class="row">
+                                    <div class='p-3 rounded bg-black text-white'>
                                         <h4><b><i>For Linux/Unix Systems</i></b></h4>
                                         <h5>Open your terminal and enter <code><b>python3 --version</b></code>.</h5>
+                                    </div><hr>
+                                    <span class="col-6">
+                                        <img src="{{ url_for('information.static', filename='img/5876089BE3083D072A22413E7FBFED6D3D870122A158A54768F1332FBA6CFA08.png')}}" class="col-12" alt="...">
+                                        <div class='p-3 rounded bg-black text-white'>
+                                            <h5>If you see something similar to the output above, congratulations you successfully donwloaded Python!</h5><hr>
+                                        </div>
+                                    </span>
+                                    <span class="col-6">
+                                        <img src="{{ url_for('information.static', filename='img/60331732EF633E5AD8D18FB145C8CA94DFDBA07583620FC309AB64DC680D9FFE.png')}}" class="col-12" alt="...">
+                                        <div class='p-3 rounded bg-black text-white'>
+                                            <h5>If you see something other than the version of python like  output above, go back to step one and try installing python again.</h5><hr>
+                                        </div><hr>
                                     </span><hr>
                                 </div>
                             </div>
@@ -70,13 +127,63 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Accordion Item #3
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+                                <b><i>Step 3:</i></b>{{ add_margin(2) }}Installing the MySQL Driver and an ORM
                             </button>
                         </h2>
                         <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionSqlSetupPython">
                             <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                <div class='p-3 rounded bg-black text-white'>
+                                    <h4><b><i>For Windows Systems</i></b></h4><hr>
+                                </div><hr>
+                                <div class="row">
+                                    <span class="col-6">
+                                        <img src="{{ url_for('information.static', filename='img/F92FBF44FFBA9B7D2D1E32861ECC1E5BA80BF088FF3C86912855BF3B8405EBC5.png')}}" class="col-12" alt="...">
+                                        <div class='p-3 rounded bg-black text-white'>
+                                            <h5>The enter the highlighted commands above, before pip installing anything make sure you see <code>(venv)</code> in the corner or above.</h5><hr>
+                                        </div>
+                                    </span>
+                                    <span class="col-6">
+                                        <img src="{{ url_for('information.static', filename='img/7C22798B1CD23C9BF0D7F576DF0FA27E2A2A8D2A1439974485D3F41C2AEF55B1.png')}}" class="col-12" alt="...">
+                                        <div class='p-3 rounded bg-black text-white'>
+                                            <h5>Enter the highlighted commands above after typing <code>python.exe</code> in the console. Confirm the modules have been install by checking the version information.</h5><hr>
+                                        </div>
+                                    </span>
+                                </div><hr>
+                                <div class="row">
+                                    <div class='p-3 rounded bg-black text-white'>
+                                        <h4><b><i>For Linux/Unix Systems</i></b></h4>
+                                    </div><hr>
+                                    <span class="col-6">
+                                        <img src="{{ url_for('information.static', filename='img/9B434E27AD6BE6D1368CE6B8E236524D603BF0282E92C71AAF9EEA4619AD8F8B.png')}}" class="col-12" alt="...">
+                                        <div class='p-3 rounded bg-black text-white'>
+                                            <h5>Pip installing the Python modules you see above.</h5><hr>
+                                        </div>
+                                    </span>
+                                    <span class="col-6">
+                                        <img src="{{ url_for('information.static', filename='img/A70A8B59248755D5D29137D5D24157CFDA370D11DC1C3F40F2420BDA135B2466.png')}}" class="col-12" alt="...">
+                                        <div class='p-3 rounded bg-black text-white'>
+                                            <h5>Confirm the modules have been install by checking the version information.</h5><hr>
+                                        </div><hr>
+                                    </span><hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    <b><i>Step 4:</i></b>{{ add_margin(2) }}Connecting Python with MySQL
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionSqlSetupPython">
+                                <div class="accordion-body">
+                                    <div class='p-3 rounded bg-black text-white'>
+                                        <h4><b><i>For the parameters for create_engine</i></b></h4>
+                                        <h5>Go to <code><b>https://planetscale.com/</b></code> and create an account.</h5>
+                                    </div><hr>
+                                    <img src="{{ url_for('information.static', filename='img/35E8C4D5F0FEDFCB3F386310A9DCC98C2BEA03539098CBB4CA6F11E1698287FF.png')}}" class="col-12" alt="...">
+                                    <img src="{{ url_for('information.static', filename='img/0D80CFC82F995FCAAB335F556F33DF965A7F1212A2BA5E0A948978B58B0263BD.png')}}" class="col-12" alt="...">
+                                </div>
                             </div>
                         </div>
                     </div>

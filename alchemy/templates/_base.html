@@ -65,19 +65,20 @@
                                     </div>
                                 </li>
                             {% endif %}
-                            {% if current_user.groups.user_group in ['root_users','privilaged_users'] %}
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="informationDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ add_icon(classes='fa-circle-info') }}Information</a>
                                     <div class="dropdown-menu bg-dark" aria-labelledby="informationDropdown">
-                                        <a class="dropdown-item" href="{{ url_for('information.presentation_page') }}">{{ add_icon(classes='fa-person-chalkboard') }}Presentation<span class="sr-only">(current)</span></a>
-                                        <a class="dropdown-item" href="{{ url_for('information.version_page') }}">{{ add_icon(classes='fa-code-branch') }}Version Info<span class="sr-only">(current)</span></a>
-                                        {% if current_user.groups.user_group == 'root_users' %}
-                                            <a class="dropdown-item" href="{{ url_for('information.cascading_style_sheets_info_page') }}">{{ add_icon(classes='fa-brands fa-css3') }}Cascading Style Sheets<span class="sr-only">(current)</span></a>
-                                            <a class="dropdown-item" href="{{ url_for('information.sql_setup_page') }}">{{ add_icon(classes='fa-brands fa-python') }}SQL Setup with Python<span class="sr-only">(current)</span></a>
+                                        {% if current_user.groups.user_group in ['root_users','privilaged_users'] %}
+                                            <a class="dropdown-item" href="{{ url_for('information.presentation_page') }}">{{ add_icon(classes='fa-person-chalkboard') }}Presentation<span class="sr-only">(current)</span></a>
+                                            <a class="dropdown-item" href="{{ url_for('information.version_page') }}">{{ add_icon(classes='fa-code-branch') }}Version Info<span class="sr-only">(current)</span></a>
+                                            {% if current_user.groups.user_group == 'root_users' %}
+                                                <a class="dropdown-item" href="{{ url_for('information.cascading_style_sheets_info_page') }}">{{ add_icon(classes='fa-brands fa-css3') }}Cascading Style Sheets<span class="sr-only">(current)</span></a>
+                                            {% endif %}
                                         {% endif %}
+                                        <a class="dropdown-item" href="{{ url_for('information.sql_setup_page') }}">{{ add_icon(classes='fa-brands fa-python') }}SQL Setup with Python<span class="sr-only">(current)</span></a>
                                     </div>
                                 </li>
-                            {% endif %}
+
                         {% endif %}
                     </ul>
                 </div>

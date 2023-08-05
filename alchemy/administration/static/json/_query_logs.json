@@ -3,5 +3,195 @@
         "date_queried",
         "raw_query"
     ],
-    "query_history": []
+    "query_history": [
+        {
+            "add5da63c2ee47f850e8d4c04f219cfe25ec256101c2fc29309ad2e7ef72502412487699118dc28cfa6416cbc50f5961f373488af40c3cb064f694369497e66b0f76b872664e45b9dea835dac87314e4e9b64594805e9adce4f2a2f383f3ef48dd0130cad9fd111bf1ce4eb038eae9a4bdcf322c48962461aa62086526af049c": {
+                "query_string": [
+                    "2023-08-05 18:43:01",
+                    "SHOW TABLES"
+                ],
+                "table_data": [
+                    "Tables_in_enl8720_group_7_mysql_database"
+                ],
+                "table_body": [
+                    {
+                        "0": [
+                            "Accounts"
+                        ],
+                        "1": [
+                            "account_list"
+                        ],
+                        "2": [
+                            "customers"
+                        ],
+                        "3": [
+                            "email_list"
+                        ],
+                        "4": [
+                            "email_scale"
+                        ],
+                        "5": [
+                            "employee_full_names"
+                        ],
+                        "6": [
+                            "group_list"
+                        ],
+                        "7": [
+                            "item_comments"
+                        ],
+                        "8": [
+                            "item_comments_list"
+                        ],
+                        "9": [
+                            "item_list"
+                        ],
+                        "10": [
+                            "name_list"
+                        ],
+                        "11": [
+                            "parent"
+                        ],
+                        "12": [
+                            "payments"
+                        ],
+                        "13": [
+                            "phone_list"
+                        ],
+                        "14": [
+                            "purchase_list"
+                        ],
+                        "15": [
+                            "staff"
+                        ],
+                        "16": [
+                            "transactions"
+                        ],
+                        "17": [
+                            "user_scale"
+                        ],
+                        "18": [
+                            "users"
+                        ],
+                        "19": [
+                            "wallet_list"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "77a40e6d289b52498aa1aa6e77798d3394224382f0950c32e6796db4a11fd79da5084fc2dc30ddad72686e635b5c8f053af8d58a315ce9d358ffbe95ae584cc9cf21bbaa68b49269ab70d23a6bd9c0346b87d59dc4992fe58565f8c6aae48997b6bd2aaf4dcc2495ddd3fe49c4d781968dbbcd7b443f2674c58dd49b22ce908b": {
+                "query_string": [
+                    "2023-08-05 18:43:17",
+                    "SELECT * FROM customers"
+                ],
+                "table_data": [
+                    "customer_id",
+                    "first_name",
+                    "last_name"
+                ],
+                "table_body": [
+                    {
+                        "0": [
+                            "1",
+                            "Squidward",
+                            "Tentacles"
+                        ],
+                        "1": [
+                            "2",
+                            "Spongebob",
+                            "Squarepants"
+                        ],
+                        "2": [
+                            "3",
+                            "Patrick",
+                            "Star"
+                        ],
+                        "3": [
+                            "4",
+                            "Sandy",
+                            "Cheecks"
+                        ],
+                        "4": [
+                            "5",
+                            "Larry",
+                            "Lobster"
+                        ],
+                        "5": [
+                            "6",
+                            "Bubble",
+                            "Bass"
+                        ],
+                        "6": [
+                            "7",
+                            "Poppy",
+                            "Puff"
+                        ],
+                        "7": [
+                            "8",
+                            "Fred",
+                            "Fish"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "c6a0320d8984a866bfaa9c6da65a0382e1e8c4c9e7b1b6162de9e6f4dc6ece39d6eda65d6baa42c341dc16cffaa473005cfb898de6088a3794f005fac2dfbb956d91e6880e1510b12b59ecc64663d72f8200dc2aad1fbcb084de56f55a8d62d0ff4a1d1dec1d0b7453afe58586c6dac8f3984c434f0957dd6f559a698d50f72c": {
+                "query_string": [
+                    "2023-08-05 18:45:04",
+                    "SELECT * FROM customers"
+                ],
+                "table_data": [
+                    "customer_id",
+                    "first_name",
+                    "last_name"
+                ],
+                "table_body": [
+                    {
+                        "0": [
+                            "1",
+                            "Squidward",
+                            "Tentacles"
+                        ],
+                        "1": [
+                            "2",
+                            "Spongebob",
+                            "Squarepants"
+                        ],
+                        "2": [
+                            "3",
+                            "Patrick",
+                            "Star"
+                        ],
+                        "3": [
+                            "4",
+                            "Sandy",
+                            "Cheecks"
+                        ],
+                        "4": [
+                            "5",
+                            "Larry",
+                            "Lobster"
+                        ],
+                        "5": [
+                            "6",
+                            "Bubble",
+                            "Bass"
+                        ],
+                        "6": [
+                            "7",
+                            "Poppy",
+                            "Puff"
+                        ],
+                        "7": [
+                            "8",
+                            "Fred",
+                            "Fish"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
 }
