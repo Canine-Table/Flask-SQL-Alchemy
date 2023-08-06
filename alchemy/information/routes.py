@@ -40,13 +40,10 @@ def version_page():
         return redirect(url_for('main.home_page'))
 
 
-@information.route('/information/presentation')
+@information.route('/information/presentation',methods=['GET'])
 @login_required
 def presentation_page():
-    if current_user.groups.user_group in ['root_users','privilaged_users']:
-        return render_template('presentation.html')
-    else:
-        return redirect(url_for('main.home_page'))
+    return render_template('presentation.html')
 
 
 @information.route('/information/modules/<module_name>',methods=['GET'])

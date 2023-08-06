@@ -293,6 +293,14 @@
                 "EditAccountForm",
                 "'EditAccountForm' object has no attribute 'email_address'"
             ]
+        },
+        {
+            "0954a8ce0e31585549c5a948c8865bda8498cf9a01f08ef9246a52afa140b0a5d762489f8f5e9b331b4cfb6628f64e239d27029ddee3354fd839c9046f997eeb7402d929ea06f122c154f08510904a2d23c7e032e34a8c537a2f68d9862c09667f7c2e436946931d8c97028fd0b14ea1a0f4888e77b90ca8d8cd181b31ebc21d": [
+                "2023-08-06 03:26:06",
+                "AttributeError",
+                "NoneType",
+                "'NoneType' object has no attribute 'count'"
+            ]
         }
     ]
 }

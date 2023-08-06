@@ -10,85 +10,167 @@
             <h3>Christopher Asante, Yunhai Yang, Pablo Bazaes, Benjamin Wilson</h3>
         </div>
     </div>
-    <div id="qualityQueriesCarouselContainer" class="my-3">
-        <div id="qualityQueriesCarousel" class="carousel carousel-dark slide carousel-fade">
+    <div id="qualityQueriesCarouselContainer" class="jbtron rounded d-flex ">
+        <div id="qualityQueriesCarousel" class="carousel carousel-dark slide carousel-fade row justify-content-center align-content-center align-items-center">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#qualityQueriesCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#qualityQueriesCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#qualityQueriesCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 <button type="button" data-bs-target="#qualityQueriesCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                <button type="button" data-bs-target="#qualityQueriesCarousel" data-bs-slide-to="4" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#qualityQueriesCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active qualityQueriesCarouselItem">
-                    <img src="{{ url_for('information.static', filename='img/F12EBB76B5C0C26F467EC95A23CA1AB888292FF08A72A206D1B10EB009E856A6.webp')}}" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <div class="text-center jbtron p-1 jumbotron rounded" style="background: rgba(0, 0, 0, 0.7);">
-                        <h1>Python with Flask and SQLAlchemy</h1>
-                        <p>Your SQL journey begins here.</p>
+                <div class="carousel-item active qualityQueriesCarouselItem d-flex row g-0 d-grid">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-3">
+                        <div class="text-center p-2 jumbotron" style="background: rgba(0, 0, 0, 0.7);">
+                            <h1>Python with Flask and SQLAlchemy</h1>
                         </div>
+                        <p class='p-2 py-3 bgc'>
+                            Your SQL journey begins here.
+                        </p>
+                    </div>
+                    <div class='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-9'>
+                        <img src="{{ url_for('information.static', filename='img/F12EBB76B5C0C26F467EC95A23CA1AB888292FF08A72A206D1B10EB009E856A6.webp')}}" class="d-block w-100" alt="...">
                     </div>
                 </div>
-                <div class="carousel-item qualityQueriesCarouselItem">
-                    <img src="{{ url_for('information.static', filename='img/46F55F71F019B6D3DA7AC3CD413627002FA3324E3417DB4DD449790DFBA52DB0.webp')}}" class="d-block w-100" alt="...">
-                    <div class="carousel-caption start-0 top-0 col-7 d-none d-md-block">
-                        <div class="jbtron text-start ps-2 rounded-end py-2 mx-auto jumbotron" style="background: rgba(0, 0, 0, 0.7);">
-                            <p>
-                                - SQL is a language for working with data in databases.{{ spacer(1) }}
-                                - Tells the database what data you want, not how to get it.{{ spacer(1) }}
-                                - Uses tables to store data. Tables have rows and columns, like a spreadsheet.{{ spacer(1) }}
-                                - Has many versions, but they all follow a standard.{{ spacer(1) }}
-                                - The language is used in various industries for handling vast amounts of data.{{ spacer(1) }}
-                                - Helps people store and retrieve important information.{{ spacer(1) }}
-                                - Ensures that your data is well-organized and easily accessible.{{ spacer(1) }}
-                            </p>
+                <div class="carousel-item qualityQueriesCarouselItem d-flex row g-0 d-grid">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-3">
+                        <div class="text-center p-2 jumbotron" style="background: rgba(0, 0, 0, 0.7);">
+                            <h1>Why Should You Care?</h1>
                         </div>
+                        <p class='p-2 py-3 bgc'>
+                            - SQL is a language for working with data in databases.{{ spacer(1) }}
+                            - Tells the database what data you want, not how to get it.{{ spacer(1) }}
+                            - Uses tables to store data. Tables have rows and columns, like a spreadsheet.{{ spacer(1) }}
+                            - Has many versions, but they all follow a standard.{{ spacer(1) }}
+                            - The language is used in various industries for handling vast amounts of data.{{ spacer(1) }}
+                            - Helps people store and retrieve important information.{{ spacer(1) }}
+                            - Ensures that your data is well-organized and easily accessible.{{ spacer(1) }}
+                        </p>
+                    </div>
+                    <div class='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-9'>
+                        <img src="{{ url_for('information.static', filename='img/46F55F71F019B6D3DA7AC3CD413627002FA3324E3417DB4DD449790DFBA52DB0.webp')}}" class="d-block w-100" alt="...">
                     </div>
                 </div>
-                <div class="carousel-item qualityQueriesCarouselItem">
-                    <img src="{{ url_for('information.static', filename='img/50C44B7E641BFC56C7FC9A48A5A9480AF39AC94133E0120B853693EEC3436626.webp')}}" class="d-block w-100" alt="...">
-                    <div class="carousel-caption  start-0  col-5 text-white d-none d-md-block">
-                        <div class="jbtron text-start ps-2 rounded-start py-2 mx-auto jumbotron" style="background: rgba(0, 0, 0, 0.7);">
-                            <p class="text-start">
-                                - SQL is the language of data.{{ spacer(1) }}
-                                - SQL is everywhere and essential for many aspects of our lives.{{ spacer(1) }}
-                                - SQL empowers us to discover insights and knowledge from data.{{ spacer(1) }}
-                                - SQL is a universal and transferable skill.{{ spacer(1) }}
-                                - SQL can be applied to various domains and industries.{{ spacer(1) }}
-                            </p>
+                <div class="carousel-item qualityQueriesCarouselItem d-flex row g-0 d-grid">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-3">
+                        <div class="text-center p-2 rounded-startmx-auto jumbotron" style="background: rgba(0, 0, 0, 0.7);">
+                            <h1>Why Bother with SQL?</h1>
                         </div>
+                        <p class='p-2 py-3 bgc'>
+                            - SQL is the language of data.{{ spacer(1) }}
+                            - SQL is everywhere and essential for many aspects of our lives.{{ spacer(1) }}
+                            - SQL empowers us to discover insights and knowledge from data.{{ spacer(1) }}
+                            - SQL is a universal and transferable skill.{{ spacer(1) }}
+                            - SQL can be applied to various domains and industries.{{ spacer(1) }}
+                        </p>
+                    </div>
+                    <div class='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-9'>
+                        <img src="{{ url_for('information.static', filename='img/50C44B7E641BFC56C7FC9A48A5A9480AF39AC94133E0120B853693EEC3436626.webp')}}" class="d-block w-100" alt="...">
                     </div>
                 </div>
-                <div class="carousel-item qualityQueriesCarouselItem">
-                    <img src="{{ url_for('information.static', filename='img/B1C24B8980EB583C02AD3DEF9CE0FBDB8533CE961890DA39A09AA49DBB160A33.webp')}}" class="d-block w-100" alt="...">
-                    <div class="carousel-caption top-0 col-12 d-md-block text-white">
-                        <div class="jbtron text-start rounded-bottom py-2 ps-2 mx-auto jumbotron" style="background: rgba(0, 0, 0, 0.7);">
-                            <p class="text-start">
-                                - <i><b>Marketing:</b></i> Helps analyze customer behavior, segment customers, track campaigns, and optimize conversions.{{ spacer(1) }}
-                                - <i><b>Backend Development:</b></i> Helps manipulate data for web applications.{{ spacer(1) }}
-                                - <i><b>Accounting:</b></i> Helps store, retrieve, and analyze financial data, as well as generate reports and invoices.{{ spacer(1) }}
-                                - <i><b>Data Engineering:</b></i> Helps design, build, and maintain data pipelines.{{ spacer(1) }}
-                                - <i><b>Data Science:</b></i> Helps accessing, cleaning, and exploring data, as well as perform statistical analysis and machine learning.{{ spacer(1) }}
-                                - <i><b>Data Analysis:</b></i> Help query, transform, and visualize data, as well as generate insights and recommendations.{{ spacer(1) }}
-                                - <i><b>Customer Relationship Management:</b></i> Helps store and manage customer information, such as contact details, preferences and feedback.{{ spacer(1) }}
-                                - <i><b>Social Media Platforms:</b></i> Helps platforms store and manage user profiles, posts, comments, likes, shares, and other activities.{{ spacer(1) }}
-                            </p>
+                <div class="carousel-item qualityQueriesCarouselItem d-flex row g-0 d-grid">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-3">
+                        <div class="text-center p-2 jumbotron" style="background: rgba(0, 0, 0, 0.7);">
+                            <h1>Who uses SQL?</h1>
+                        </div>
+                        <div class="text-start rounded-bottom p-2 mx-auto jumbotron">
+                            <div data-bs-theme='dark' class="accordion" id="accordionSQLExampleUses">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseaccordionSQLExampleUsesOne" aria-expanded="true" aria-controls="collapseaccordionSQLExampleUsesOne">
+                                            <i><b>Marketing</b></i>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseaccordionSQLExampleUsesOne" class="accordion-collapse collapse show" data-bs-parent="#accordionSQLExampleUses">
+                                        <div class="accordion-body">
+                                            Helps analyze customer behavior, segment customers, track campaigns, and optimize conversions.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseaccordionSQLExampleUsesTwo" aria-expanded="false" aria-controls="collapseaccordionSQLExampleUsesTwo">
+                                            <i><b>Backend Development</b></i>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseaccordionSQLExampleUsesTwo" class="accordion-collapse collapse" data-bs-parent="#accordionSQLExampleUses">
+                                        <div class="accordion-body">
+                                            Helps manipulate data for web applications.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseaccordionSQLExampleUsesThree" aria-expanded="false" aria-controls="collapseaccordionSQLExampleUsesThree">
+                                            <i><b>Accounting</b></i>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseaccordionSQLExampleUsesThree" class="accordion-collapse collapse" data-bs-parent="#accordionSQLExampleUses">
+                                        <div class="accordion-body">
+                                            Helps store, retrieve, and analyze financial data, as well as generate reports and invoices.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseaccordionSQLExampleUsesFour" aria-expanded="false" aria-controls="collapseaccordionSQLExampleUsesFour">
+                                            <i><b>Data Science</b></i>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseaccordionSQLExampleUsesFour" class="accordion-collapse collapse" data-bs-parent="#accordionSQLExampleUses">
+                                        <div class="accordion-body">
+                                            Helps accessing, cleaning, and exploring data, as well as perform statistical analysis and machine learning.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseaccordionSQLExampleUsesFive" aria-expanded="false" aria-controls="collapseaccordionSQLExampleUsesFive">
+                                            <i><b>Data Analysis</b></i>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseaccordionSQLExampleUsesFive" class="accordion-collapse collapse" data-bs-parent="#accordionSQLExampleUses">
+                                        <div class="accordion-body">
+                                            Help query, transform, and visualize data, as well as generate insights and recommendations.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-9'>
+                        <img src="{{ url_for('information.static', filename='img/B1C24B8980EB583C02AD3DEF9CE0FBDB8533CE961890DA39A09AA49DBB160A33.webp')}}" class="d-block w-100" alt="...">
+                    </div>
                 </div>
-                <div class="carousel-item qualityQueriesCarouselItem">
-                    <img src="{{ url_for('information.static', filename='img/908CDBD7049C947441F99DD19D55A0A6FC3D68155FC579D00F223F56B0E19752.webp')}}" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h1><i><b>Conclusion</b></i></h1>
+                <div class="carousel-item qualityQueriesCarouselItem d-flex row g-0 d-grid">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-3">
+                        <div class="text-center p-2 jumbotron" style="background: rgba(0, 0, 0, 0.7);">
+                            <h1>Conclusion</h1>
+                        </div>
+                        <p class='p-2 py-3 bgc'>
+                            - MySQL stands as a cornerstone in the world of relational databases.{{ spacer(1) }}
+                            - SQL offers a lot of very good job opportunities.{{ spacer(1) }}
+                            - SQL is an integral part of web development For Backend developers.{{ spacer(1) }}
+                            - SQL is partly responsible for determining the speed of an application.{{ spacer(1) }}
+                            - SQL opens doors to other job opportunities like Data Analysts, Data Administrators.{{ spacer(2) }}
+
+                            Thank you for joining for our introduction for MySQL.
+                            We hope we made Our introduction Very Simple and consise
+                            And We hope our video gave you a brief introduction to MYSQL
+                        </p>
+                    </div>
+                    <div class='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-7 col-xxl-9'>
+                        <img src="{{ url_for('information.static', filename='img/908CDBD7049C947441F99DD19D55A0A6FC3D68155FC579D00F223F56B0E19752.webp')}}" class="d-block w-100" alt="...">
                     </div>
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#qualityQueriesCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#qualityQueriesCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span  aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
